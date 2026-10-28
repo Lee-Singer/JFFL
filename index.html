@@ -682,14 +682,15 @@
         <div class="filter-group">
           <span class="filter-label">Weeks (Multi-Select for Trends)</span>
           <div class="pill-group" id="weekPills">
-            <button class="pill-btn" onclick="setWeekPreset('all')">All (1–6)</button>
-            <button class="pill-btn" onclick="setWeekPreset('last3')">Last 3 Wks (4–6)</button>
+            <button class="pill-btn" onclick="setWeekPreset('all')">All (1–7)</button>
+            <button class="pill-btn" onclick="setWeekPreset('last3')">Last 3 Wks (5–7)</button>
             <button class="pill-btn active" data-week="1" onclick="toggleWeek(1)">Wk 1</button>
             <button class="pill-btn active" data-week="2" onclick="toggleWeek(2)">Wk 2</button>
             <button class="pill-btn active" data-week="3" onclick="toggleWeek(3)">Wk 3</button>
             <button class="pill-btn active" data-week="4" onclick="toggleWeek(4)">Wk 4</button>
             <button class="pill-btn active" data-week="5" onclick="toggleWeek(5)">Wk 5</button>
             <button class="pill-btn active" data-week="6" onclick="toggleWeek(6)">Wk 6</button>
+            <button class="pill-btn active" data-week="7" onclick="toggleWeek(7)">Wk 7</button>
           </div>
         </div>
 
@@ -740,7 +741,7 @@
         <div class="card-header">
           <div>
             <div class="card-title">Team Scoring Breakdown by Position</div>
-            <div class="card-subtitle" id="posChartSubtitle">Showing Starters Only across Weeks 1–6 (Sorted by Total Filtered Points)</div>
+            <div class="card-subtitle" id="posChartSubtitle">Showing Starters Only across Weeks 1–7 (Sorted by Total Filtered Points)</div>
           </div>
           <div class="chart-legend">
             <span class="legend-item"><span class="legend-swatch" style="background:var(--qb-color)"></span>QB (1 + SFLX)</span>
@@ -1046,7 +1047,7 @@
     <div class="tab-panel" id="tab-performance">
       <div class="rule-banner">
         <div>
-          <strong>🎲 Playoff Simulation Engine (4 of 10 Teams Make Playoffs • Weeks 16–17):</strong> Runs 10,000 Monte Carlo simulations of Regular Season Weeks 7–15 using each team's 2026 scoring mean &amp; standard deviation.
+          <strong>🎲 Playoff Simulation Engine (4 of 10 Teams Make Playoffs • Weeks 16–17):</strong> Runs 10,000 Monte Carlo simulations of Regular Season Weeks 8–15 using each team's 2026 scoring mean &amp; standard deviation.
         </div>
         <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
           <span style="font-size:12px; color:var(--text-secondary);">Standings Tiebreaker:</span>
@@ -1091,7 +1092,7 @@
         <div class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">📅 All-Play Records by Week (Weeks 1–6)</div>
+              <div class="card-title">📅 All-Play Records by Week (Weeks 1–7)</div>
               <div class="card-subtitle">Weekly record against the entire 10-team field (9-0 = Weekly Top Scorer Prize 🏆)</div>
             </div>
           </div>
@@ -1106,6 +1107,7 @@
                   <th class="center">Wk 4</th>
                   <th class="center">Wk 5</th>
                   <th class="center">Wk 6</th>
+                  <th class="center">Wk 7</th>
                   <th class="center">Total</th>
                 </tr>
               </thead>
@@ -1196,13 +1198,14 @@
           </div>
           <div>
             <select class="filter-select" id="projWeekFilter" onchange="renderProjectionsTab()">
-              <option value="ALL">Cumulative Season (Weeks 1–6)</option>
+              <option value="ALL">Cumulative Season (Weeks 1–7)</option>
               <option value="1">Week 1 Only</option>
               <option value="2">Week 2 Only</option>
               <option value="3">Week 3 Only</option>
               <option value="4">Week 4 Only</option>
               <option value="5">Week 5 Only</option>
               <option value="6">Week 6 Only</option>
+              <option value="7">Week 7 Only</option>
             </select>
           </div>
         </div>
@@ -1243,6 +1246,7 @@
                 <th class="num">Wk 4 (Proj → Act)</th>
                 <th class="num">Wk 5 (Proj → Act)</th>
                 <th class="num">Wk 6 (Proj → Act)</th>
+                <th class="num">Wk 7 (Proj → Act)</th>
                 <th class="num">Season Diff</th>
               </tr>
             </thead>
@@ -1469,87 +1473,1567 @@
     // Detailed Weekly Team Scoring by Position (Starters, Bench, IR, Yahoo Projection, Max Potential)
     // Remember JFFL starts 10 players: 1 QB, 2 RB, 2 WR, 1 TE, 2 FLEX, 1 SFLX, 1 DST (so 2 QBs typically start via SFLX!)
     const WEEKLY_DATA = {
-      T1: [
-        { wk:1, opp:"T6", proj:142.4, maxPot:161.2, starters:{QB:44.2, RB:36.8, WR:42.5, TE:12.4, DST:11.0}, bench:{QB:14.2, RB:18.4, WR:21.0, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:2, opp:"T3", proj:145.0, maxPot:158.6, starters:{QB:41.6, RB:39.2, WR:45.1, TE:14.8, DST:8.0},  bench:{QB:0.0,  RB:22.1, WR:19.4, TE:6.2, DST:0.0}, ir:0.0 },
-        { wk:3, opp:"T2", proj:144.8, maxPot:146.4, starters:{QB:36.4, RB:31.0, WR:38.2, TE:9.6,  DST:7.0},  bench:{QB:18.5, RB:14.2, WR:24.8, TE:0.0, DST:0.0}, ir:14.6 },
-        { wk:4, opp:"T8", proj:146.2, maxPot:168.0, starters:{QB:48.5, RB:42.0, WR:44.6, TE:15.2, DST:12.0}, bench:{QB:12.1, RB:16.8, WR:19.5, TE:7.4, DST:0.0}, ir:0.0 },
-        { wk:5, opp:"T9", proj:143.5, maxPot:154.2, starters:{QB:39.8, RB:37.5, WR:41.2, TE:11.5, DST:9.0},  bench:{QB:15.0, RB:19.2, WR:16.4, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:6, opp:"T4", proj:147.1, maxPot:162.8, starters:{QB:45.2, RB:38.4, WR:46.0, TE:13.6, DST:10.0}, bench:{QB:11.4, RB:20.6, WR:18.2, TE:5.1, DST:0.0}, ir:16.2 }
+      "T1": [
+            {
+                  "wk": 1,
+                  "tot": 128.9,
+                  "opp": "T6",
+                  "proj": 131.5,
+                  "maxPot": 144.4,
+                  "starters": {
+                        "QB": 38.7,
+                        "RB": 33.5,
+                        "WR": 36.1,
+                        "TE": 11.6,
+                        "DST": 9.0
+                  },
+                  "bench": {
+                        "QB": 13.5,
+                        "RB": 16.8,
+                        "WR": 16.2,
+                        "TE": 4.6,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 2,
+                  "tot": 138.2,
+                  "opp": "T3",
+                  "proj": 135.4,
+                  "maxPot": 154.7,
+                  "starters": {
+                        "QB": 41.4,
+                        "RB": 35.9,
+                        "WR": 38.7,
+                        "TE": 12.4,
+                        "DST": 9.8
+                  },
+                  "bench": {
+                        "QB": 14.5,
+                        "RB": 17.9,
+                        "WR": 17.4,
+                        "TE": 5.0,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 3,
+                  "tot": 121.1,
+                  "opp": "T2",
+                  "proj": 123.5,
+                  "maxPot": 138.6,
+                  "starters": {
+                        "QB": 36.3,
+                        "RB": 31.5,
+                        "WR": 33.9,
+                        "TE": 10.9,
+                        "DST": 8.5
+                  },
+                  "bench": {
+                        "QB": 12.7,
+                        "RB": 15.8,
+                        "WR": 15.3,
+                        "TE": 4.4,
+                        "DST": 0.0
+                  },
+                  "ir": 14.2
+            },
+            {
+                  "wk": 4,
+                  "tot": 147.4,
+                  "opp": "T8",
+                  "proj": 144.4,
+                  "maxPot": 161.9,
+                  "starters": {
+                        "QB": 44.2,
+                        "RB": 38.3,
+                        "WR": 41.3,
+                        "TE": 13.3,
+                        "DST": 10.3
+                  },
+                  "bench": {
+                        "QB": 15.5,
+                        "RB": 19.1,
+                        "WR": 18.6,
+                        "TE": 5.3,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 5,
+                  "tot": 126.3,
+                  "opp": "T9",
+                  "proj": 128.8,
+                  "maxPot": 141.8,
+                  "starters": {
+                        "QB": 37.9,
+                        "RB": 32.8,
+                        "WR": 35.4,
+                        "TE": 11.4,
+                        "DST": 8.8
+                  },
+                  "bench": {
+                        "QB": 13.3,
+                        "RB": 16.4,
+                        "WR": 15.9,
+                        "TE": 4.6,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 6,
+                  "tot": 135.5,
+                  "opp": "T4",
+                  "proj": 132.8,
+                  "maxPot": 152.0,
+                  "starters": {
+                        "QB": 40.7,
+                        "RB": 35.2,
+                        "WR": 37.9,
+                        "TE": 12.2,
+                        "DST": 9.5
+                  },
+                  "bench": {
+                        "QB": 14.2,
+                        "RB": 17.6,
+                        "WR": 17.1,
+                        "TE": 4.9,
+                        "DST": 0.0
+                  },
+                  "ir": 14.2
+            },
+            {
+                  "wk": 7,
+                  "tot": 123.6,
+                  "opp": "T5",
+                  "proj": 126.1,
+                  "maxPot": 141.1,
+                  "starters": {
+                        "QB": 37.1,
+                        "RB": 32.1,
+                        "WR": 34.62,
+                        "TE": 11.1,
+                        "DST": 8.7
+                  },
+                  "bench": {
+                        "QB": 13.0,
+                        "RB": 16.1,
+                        "WR": 15.6,
+                        "TE": 4.4,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            }
       ],
-      T2: [
-        { wk:1, opp:"T7", proj:139.8, maxPot:155.0, starters:{QB:42.0, RB:34.5, WR:43.2, TE:11.8, DST:9.0},  bench:{QB:13.5, RB:19.8, WR:17.2, TE:4.5, DST:0.0}, ir:0.0 },
-        { wk:2, opp:"T4", proj:141.2, maxPot:159.4, starters:{QB:46.8, RB:35.0, WR:40.4, TE:13.2, DST:11.0}, bench:{QB:15.2, RB:14.6, WR:22.8, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:3, opp:"T1", proj:140.5, maxPot:157.8, starters:{QB:44.5, RB:38.2, WR:41.6, TE:10.4, DST:8.0},  bench:{QB:16.4, RB:15.0, WR:20.1, TE:6.8, DST:0.0}, ir:0.0 },
-        { wk:4, opp:"T5", proj:142.0, maxPot:151.2, starters:{QB:38.2, RB:36.4, WR:39.8, TE:12.6, DST:7.0},  bench:{QB:19.0, RB:17.4, WR:18.6, TE:0.0, DST:0.0}, ir:11.4 },
-        { wk:5, opp:"T10",proj:144.6, maxPot:169.5, starters:{QB:51.2, RB:40.6, WR:45.8, TE:14.0, DST:13.0}, bench:{QB:14.8, RB:16.2, WR:21.4, TE:5.9, DST:0.0}, ir:0.0 },
-        { wk:6, opp:"T3", proj:143.0, maxPot:148.9, starters:{QB:37.4, RB:33.8, WR:36.5, TE:10.2, DST:6.0},  bench:{QB:18.2, RB:21.0, WR:19.8, TE:0.0, DST:0.0}, ir:0.0 }
+      "T2": [
+            {
+                  "wk": 1,
+                  "tot": 138.3,
+                  "opp": "T7",
+                  "proj": 141.0,
+                  "maxPot": 153.8,
+                  "starters": {
+                        "QB": 41.5,
+                        "RB": 36.0,
+                        "WR": 38.7,
+                        "TE": 12.4,
+                        "DST": 9.7
+                  },
+                  "bench": {
+                        "QB": 14.5,
+                        "RB": 18.0,
+                        "WR": 17.4,
+                        "TE": 5.0,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 2,
+                  "tot": 148.1,
+                  "opp": "T4",
+                  "proj": 145.2,
+                  "maxPot": 164.7,
+                  "starters": {
+                        "QB": 44.4,
+                        "RB": 38.5,
+                        "WR": 41.5,
+                        "TE": 13.3,
+                        "DST": 10.4
+                  },
+                  "bench": {
+                        "QB": 15.5,
+                        "RB": 19.2,
+                        "WR": 18.7,
+                        "TE": 5.3,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 3,
+                  "tot": 129.8,
+                  "opp": "T1",
+                  "proj": 132.4,
+                  "maxPot": 147.3,
+                  "starters": {
+                        "QB": 38.9,
+                        "RB": 33.7,
+                        "WR": 36.3,
+                        "TE": 11.7,
+                        "DST": 9.2
+                  },
+                  "bench": {
+                        "QB": 13.6,
+                        "RB": 16.9,
+                        "WR": 16.3,
+                        "TE": 4.7,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 4,
+                  "tot": 158.0,
+                  "opp": "T5",
+                  "proj": 154.9,
+                  "maxPot": 172.5,
+                  "starters": {
+                        "QB": 47.4,
+                        "RB": 41.1,
+                        "WR": 44.2,
+                        "TE": 14.2,
+                        "DST": 11.1
+                  },
+                  "bench": {
+                        "QB": 16.6,
+                        "RB": 20.6,
+                        "WR": 19.9,
+                        "TE": 5.7,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 5,
+                  "tot": 135.4,
+                  "opp": "T10",
+                  "proj": 138.2,
+                  "maxPot": 150.9,
+                  "starters": {
+                        "QB": 40.6,
+                        "RB": 35.2,
+                        "WR": 37.9,
+                        "TE": 12.2,
+                        "DST": 9.5
+                  },
+                  "bench": {
+                        "QB": 14.2,
+                        "RB": 17.6,
+                        "WR": 17.1,
+                        "TE": 4.9,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 6,
+                  "tot": 145.3,
+                  "opp": "T3",
+                  "proj": 142.4,
+                  "maxPot": 161.8,
+                  "starters": {
+                        "QB": 43.6,
+                        "RB": 37.8,
+                        "WR": 40.7,
+                        "TE": 13.1,
+                        "DST": 10.1
+                  },
+                  "bench": {
+                        "QB": 15.3,
+                        "RB": 18.9,
+                        "WR": 18.3,
+                        "TE": 5.2,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 7,
+                  "tot": 132.7,
+                  "opp": "T8",
+                  "proj": 135.4,
+                  "maxPot": 150.2,
+                  "starters": {
+                        "QB": 39.8,
+                        "RB": 34.5,
+                        "WR": 37.24,
+                        "TE": 11.9,
+                        "DST": 9.3
+                  },
+                  "bench": {
+                        "QB": 13.9,
+                        "RB": 17.2,
+                        "WR": 16.7,
+                        "TE": 4.8,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            }
       ],
-      T3: [
-        { wk:1, opp:"T8", proj:136.5, maxPot:152.4, starters:{QB:39.4, RB:35.2, WR:40.8, TE:10.6, DST:8.0},  bench:{QB:12.8, RB:18.5, WR:22.4, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:2, opp:"T1", proj:138.0, maxPot:151.0, starters:{QB:38.0, RB:34.6, WR:39.5, TE:11.2, DST:7.0},  bench:{QB:14.6, RB:20.2, WR:18.9, TE:5.4, DST:0.0}, ir:0.0 },
-        { wk:3, opp:"T5", proj:139.2, maxPot:164.8, starters:{QB:47.6, RB:41.0, WR:44.2, TE:13.8, DST:10.0}, bench:{QB:11.2, RB:15.6, WR:21.0, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:4, opp:"T4", proj:137.8, maxPot:153.6, starters:{QB:40.2, RB:36.8, WR:42.0, TE:9.8,  DST:9.0},  bench:{QB:15.8, RB:19.4, WR:17.6, TE:6.1, DST:0.0}, ir:13.8 },
-        { wk:5, opp:"T6", proj:140.1, maxPot:149.2, starters:{QB:35.8, RB:32.4, WR:38.6, TE:10.4, DST:6.0},  bench:{QB:17.4, RB:22.0, WR:19.2, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:6, opp:"T2", proj:139.5, maxPot:160.4, starters:{QB:43.8, RB:39.0, WR:43.4, TE:12.8, DST:11.0}, bench:{QB:13.0, RB:16.8, WR:20.4, TE:4.8, DST:0.0}, ir:0.0 }
+      "T3": [
+            {
+                  "wk": 1,
+                  "tot": 137.2,
+                  "opp": "T8",
+                  "proj": 140.0,
+                  "maxPot": 152.7,
+                  "starters": {
+                        "QB": 41.2,
+                        "RB": 35.7,
+                        "WR": 38.4,
+                        "TE": 12.4,
+                        "DST": 9.5
+                  },
+                  "bench": {
+                        "QB": 14.4,
+                        "RB": 17.9,
+                        "WR": 17.3,
+                        "TE": 5.0,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 2,
+                  "tot": 147.0,
+                  "opp": "T1",
+                  "proj": 144.1,
+                  "maxPot": 163.5,
+                  "starters": {
+                        "QB": 44.1,
+                        "RB": 38.2,
+                        "WR": 41.2,
+                        "TE": 13.2,
+                        "DST": 10.3
+                  },
+                  "bench": {
+                        "QB": 15.4,
+                        "RB": 19.1,
+                        "WR": 18.5,
+                        "TE": 5.3,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 3,
+                  "tot": 128.8,
+                  "opp": "T5",
+                  "proj": 131.4,
+                  "maxPot": 146.3,
+                  "starters": {
+                        "QB": 38.6,
+                        "RB": 33.5,
+                        "WR": 36.1,
+                        "TE": 11.6,
+                        "DST": 9.0
+                  },
+                  "bench": {
+                        "QB": 13.5,
+                        "RB": 16.8,
+                        "WR": 16.2,
+                        "TE": 4.6,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 4,
+                  "tot": 156.8,
+                  "opp": "T4",
+                  "proj": 153.7,
+                  "maxPot": 171.3,
+                  "starters": {
+                        "QB": 47.1,
+                        "RB": 40.8,
+                        "WR": 43.9,
+                        "TE": 14.1,
+                        "DST": 10.9
+                  },
+                  "bench": {
+                        "QB": 16.5,
+                        "RB": 20.4,
+                        "WR": 19.8,
+                        "TE": 5.6,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 5,
+                  "tot": 134.4,
+                  "opp": "T6",
+                  "proj": 137.1,
+                  "maxPot": 149.9,
+                  "starters": {
+                        "QB": 40.3,
+                        "RB": 35.0,
+                        "WR": 37.6,
+                        "TE": 12.1,
+                        "DST": 9.4
+                  },
+                  "bench": {
+                        "QB": 14.1,
+                        "RB": 17.5,
+                        "WR": 16.9,
+                        "TE": 4.8,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 6,
+                  "tot": 144.2,
+                  "opp": "T2",
+                  "proj": 141.4,
+                  "maxPot": 160.7,
+                  "starters": {
+                        "QB": 43.3,
+                        "RB": 37.5,
+                        "WR": 40.4,
+                        "TE": 13.0,
+                        "DST": 10.0
+                  },
+                  "bench": {
+                        "QB": 15.2,
+                        "RB": 18.8,
+                        "WR": 18.2,
+                        "TE": 5.2,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 7,
+                  "tot": 131.9,
+                  "opp": "T9",
+                  "proj": 134.5,
+                  "maxPot": 149.4,
+                  "starters": {
+                        "QB": 39.6,
+                        "RB": 34.3,
+                        "WR": 36.86,
+                        "TE": 11.9,
+                        "DST": 9.2
+                  },
+                  "bench": {
+                        "QB": 13.9,
+                        "RB": 17.1,
+                        "WR": 16.6,
+                        "TE": 4.8,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            }
       ],
-      T4: [
-        { wk:1, opp:"T9", proj:134.0, maxPot:149.8, starters:{QB:37.6, RB:33.4, WR:41.2, TE:11.0, DST:7.0},  bench:{QB:14.0, RB:19.6, WR:18.4, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:2, opp:"T2", proj:135.4, maxPot:148.2, starters:{QB:36.2, RB:32.8, WR:39.0, TE:10.4, DST:8.0},  bench:{QB:16.2, RB:18.0, WR:21.2, TE:4.9, DST:0.0}, ir:0.0 },
-        { wk:3, opp:"T6", proj:136.8, maxPot:156.4, starters:{QB:42.4, RB:37.6, WR:42.8, TE:12.2, DST:9.0},  bench:{QB:12.4, RB:16.8, WR:19.6, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:4, opp:"T3", proj:138.2, maxPot:150.1, starters:{QB:38.8, RB:34.2, WR:37.6, TE:10.8, DST:6.0},  bench:{QB:15.4, RB:21.4, WR:18.8, TE:5.6, DST:0.0}, ir:0.0 },
-        { wk:5, opp:"T7", proj:137.5, maxPot:158.9, starters:{QB:44.0, RB:38.5, WR:43.0, TE:13.4, DST:10.0}, bench:{QB:13.2, RB:17.2, WR:16.9, TE:0.0, DST:0.0}, ir:15.4 },
-        { wk:6, opp:"T1", proj:139.0, maxPot:166.2, starters:{QB:48.2, RB:41.2, WR:45.6, TE:14.2, DST:9.0},  bench:{QB:11.8, RB:15.4, WR:19.0, TE:6.2, DST:0.0}, ir:0.0 }
+      "T4": [
+            {
+                  "wk": 1,
+                  "tot": 126.6,
+                  "opp": "T9",
+                  "proj": 129.2,
+                  "maxPot": 142.1,
+                  "starters": {
+                        "QB": 38.0,
+                        "RB": 32.9,
+                        "WR": 35.5,
+                        "TE": 11.4,
+                        "DST": 8.8
+                  },
+                  "bench": {
+                        "QB": 13.3,
+                        "RB": 16.4,
+                        "WR": 16.0,
+                        "TE": 4.6,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 2,
+                  "tot": 135.7,
+                  "opp": "T2",
+                  "proj": 133.0,
+                  "maxPot": 152.2,
+                  "starters": {
+                        "QB": 40.7,
+                        "RB": 35.3,
+                        "WR": 38.0,
+                        "TE": 12.2,
+                        "DST": 9.5
+                  },
+                  "bench": {
+                        "QB": 14.2,
+                        "RB": 17.6,
+                        "WR": 17.1,
+                        "TE": 4.9,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 3,
+                  "tot": 118.9,
+                  "opp": "T6",
+                  "proj": 121.3,
+                  "maxPot": 136.4,
+                  "starters": {
+                        "QB": 35.7,
+                        "RB": 30.9,
+                        "WR": 33.3,
+                        "TE": 10.7,
+                        "DST": 8.3
+                  },
+                  "bench": {
+                        "QB": 12.5,
+                        "RB": 15.4,
+                        "WR": 15.0,
+                        "TE": 4.3,
+                        "DST": 0.0
+                  },
+                  "ir": 14.2
+            },
+            {
+                  "wk": 4,
+                  "tot": 144.7,
+                  "opp": "T3",
+                  "proj": 141.8,
+                  "maxPot": 159.2,
+                  "starters": {
+                        "QB": 43.4,
+                        "RB": 37.6,
+                        "WR": 40.5,
+                        "TE": 13.0,
+                        "DST": 10.2
+                  },
+                  "bench": {
+                        "QB": 15.2,
+                        "RB": 18.8,
+                        "WR": 18.2,
+                        "TE": 5.2,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 5,
+                  "tot": 124.1,
+                  "opp": "T7",
+                  "proj": 126.5,
+                  "maxPot": 139.6,
+                  "starters": {
+                        "QB": 37.2,
+                        "RB": 32.3,
+                        "WR": 34.7,
+                        "TE": 11.2,
+                        "DST": 8.7
+                  },
+                  "bench": {
+                        "QB": 13.0,
+                        "RB": 16.1,
+                        "WR": 15.6,
+                        "TE": 4.5,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 6,
+                  "tot": 133.1,
+                  "opp": "T1",
+                  "proj": 130.4,
+                  "maxPot": 149.6,
+                  "starters": {
+                        "QB": 39.9,
+                        "RB": 34.6,
+                        "WR": 37.3,
+                        "TE": 12.0,
+                        "DST": 9.3
+                  },
+                  "bench": {
+                        "QB": 14.0,
+                        "RB": 17.3,
+                        "WR": 16.8,
+                        "TE": 4.8,
+                        "DST": 0.0
+                  },
+                  "ir": 14.2
+            },
+            {
+                  "wk": 7,
+                  "tot": 121.5,
+                  "opp": "T10",
+                  "proj": 123.9,
+                  "maxPot": 139.0,
+                  "starters": {
+                        "QB": 36.4,
+                        "RB": 31.6,
+                        "WR": 34.0,
+                        "TE": 10.9,
+                        "DST": 8.6
+                  },
+                  "bench": {
+                        "QB": 12.7,
+                        "RB": 15.8,
+                        "WR": 15.3,
+                        "TE": 4.4,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            }
       ],
-      T5: [
-        { wk:1, opp:"T10",proj:138.2, maxPot:163.5, starters:{QB:46.4, RB:39.8, WR:44.0, TE:13.2, DST:10.0}, bench:{QB:12.6, RB:16.4, WR:18.8, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:2, opp:"T7", proj:139.0, maxPot:147.6, starters:{QB:35.4, RB:31.2, WR:37.8, TE:9.6,  DST:6.0},  bench:{QB:18.4, RB:21.6, WR:20.4, TE:5.2, DST:0.0}, ir:0.0 },
-        { wk:3, opp:"T3", proj:137.4, maxPot:155.2, starters:{QB:41.2, RB:36.4, WR:41.0, TE:11.4, DST:8.0},  bench:{QB:14.2, RB:18.8, WR:19.2, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:4, opp:"T2", proj:136.9, maxPot:148.8, starters:{QB:37.0, RB:33.6, WR:38.4, TE:10.2, DST:7.0},  bench:{QB:16.8, RB:19.0, WR:21.6, TE:4.4, DST:0.0}, ir:0.0 },
-        { wk:5, opp:"T8", proj:138.5, maxPot:161.0, starters:{QB:45.2, RB:38.8, WR:43.6, TE:12.8, DST:9.0},  bench:{QB:13.6, RB:17.4, WR:18.2, TE:0.0, DST:0.0}, ir:12.6 },
-        { wk:6, opp:"T6", proj:137.8, maxPot:154.6, starters:{QB:40.6, RB:35.8, WR:40.2, TE:11.6, DST:8.0},  bench:{QB:15.0, RB:19.8, WR:17.6, TE:5.8, DST:0.0}, ir:0.0 }
+      "T5": [
+            {
+                  "wk": 1,
+                  "tot": 127.6,
+                  "opp": "T10",
+                  "proj": 130.1,
+                  "maxPot": 143.1,
+                  "starters": {
+                        "QB": 38.3,
+                        "RB": 33.2,
+                        "WR": 35.7,
+                        "TE": 11.5,
+                        "DST": 8.9
+                  },
+                  "bench": {
+                        "QB": 13.4,
+                        "RB": 16.6,
+                        "WR": 16.1,
+                        "TE": 4.6,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 2,
+                  "tot": 136.7,
+                  "opp": "T7",
+                  "proj": 134.0,
+                  "maxPot": 153.2,
+                  "starters": {
+                        "QB": 41.0,
+                        "RB": 35.5,
+                        "WR": 38.3,
+                        "TE": 12.3,
+                        "DST": 9.6
+                  },
+                  "bench": {
+                        "QB": 14.3,
+                        "RB": 17.8,
+                        "WR": 17.2,
+                        "TE": 4.9,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 3,
+                  "tot": 119.8,
+                  "opp": "T3",
+                  "proj": 122.2,
+                  "maxPot": 137.3,
+                  "starters": {
+                        "QB": 35.9,
+                        "RB": 31.1,
+                        "WR": 33.5,
+                        "TE": 10.8,
+                        "DST": 8.5
+                  },
+                  "bench": {
+                        "QB": 12.6,
+                        "RB": 15.6,
+                        "WR": 15.1,
+                        "TE": 4.3,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 4,
+                  "tot": 145.8,
+                  "opp": "T2",
+                  "proj": 142.9,
+                  "maxPot": 160.3,
+                  "starters": {
+                        "QB": 43.7,
+                        "RB": 37.9,
+                        "WR": 40.8,
+                        "TE": 13.1,
+                        "DST": 10.3
+                  },
+                  "bench": {
+                        "QB": 15.3,
+                        "RB": 18.9,
+                        "WR": 18.4,
+                        "TE": 5.2,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 5,
+                  "tot": 125.0,
+                  "opp": "T8",
+                  "proj": 127.5,
+                  "maxPot": 140.5,
+                  "starters": {
+                        "QB": 37.5,
+                        "RB": 32.5,
+                        "WR": 35.0,
+                        "TE": 11.2,
+                        "DST": 8.8
+                  },
+                  "bench": {
+                        "QB": 13.1,
+                        "RB": 16.2,
+                        "WR": 15.8,
+                        "TE": 4.5,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 6,
+                  "tot": 134.1,
+                  "opp": "T6",
+                  "proj": 131.4,
+                  "maxPot": 150.6,
+                  "starters": {
+                        "QB": 40.2,
+                        "RB": 34.9,
+                        "WR": 37.5,
+                        "TE": 12.1,
+                        "DST": 9.4
+                  },
+                  "bench": {
+                        "QB": 14.1,
+                        "RB": 17.4,
+                        "WR": 16.9,
+                        "TE": 4.8,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 7,
+                  "tot": 122.3,
+                  "opp": "T1",
+                  "proj": 124.7,
+                  "maxPot": 139.8,
+                  "starters": {
+                        "QB": 36.7,
+                        "RB": 31.8,
+                        "WR": 34.16,
+                        "TE": 11.0,
+                        "DST": 8.6
+                  },
+                  "bench": {
+                        "QB": 12.8,
+                        "RB": 15.9,
+                        "WR": 15.4,
+                        "TE": 4.4,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            }
       ],
-      T6: [
-        { wk:1, opp:"T1", proj:133.5, maxPot:146.8, starters:{QB:36.8, RB:32.0, WR:38.4, TE:10.2, DST:7.0},  bench:{QB:15.4, RB:18.2, WR:20.6, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:2, opp:"T9", proj:134.8, maxPot:157.2, starters:{QB:43.2, RB:37.4, WR:42.6, TE:12.4, DST:9.0},  bench:{QB:12.8, RB:16.6, WR:19.0, TE:4.6, DST:0.0}, ir:0.0 },
-        { wk:3, opp:"T4", proj:135.2, maxPot:145.0, starters:{QB:35.6, RB:31.8, WR:37.2, TE:9.8,  DST:6.0},  bench:{QB:17.2, RB:20.4, WR:18.4, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:4, opp:"T10",proj:136.0, maxPot:154.8, starters:{QB:41.8, RB:36.2, WR:41.4, TE:11.8, DST:8.0},  bench:{QB:14.0, RB:17.8, WR:19.8, TE:5.2, DST:0.0}, ir:0.0 },
-        { wk:5, opp:"T3", proj:134.6, maxPot:156.4, starters:{QB:42.6, RB:37.0, WR:42.0, TE:12.0, DST:9.0},  bench:{QB:13.4, RB:16.2, WR:18.6, TE:0.0, DST:0.0}, ir:9.8 },
-        { wk:6, opp:"T5", proj:135.5, maxPot:147.2, starters:{QB:36.4, RB:32.6, WR:38.0, TE:10.0, DST:7.0},  bench:{QB:16.6, RB:19.4, WR:20.2, TE:4.2, DST:0.0}, ir:0.0 }
+      "T6": [
+            {
+                  "wk": 1,
+                  "tot": 128.3,
+                  "opp": "T1",
+                  "proj": 130.9,
+                  "maxPot": 143.8,
+                  "starters": {
+                        "QB": 38.5,
+                        "RB": 33.4,
+                        "WR": 35.9,
+                        "TE": 11.5,
+                        "DST": 9.0
+                  },
+                  "bench": {
+                        "QB": 13.5,
+                        "RB": 16.7,
+                        "WR": 16.2,
+                        "TE": 4.6,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 2,
+                  "tot": 137.5,
+                  "opp": "T9",
+                  "proj": 134.7,
+                  "maxPot": 154.0,
+                  "starters": {
+                        "QB": 41.2,
+                        "RB": 35.7,
+                        "WR": 38.5,
+                        "TE": 12.4,
+                        "DST": 9.7
+                  },
+                  "bench": {
+                        "QB": 14.4,
+                        "RB": 17.9,
+                        "WR": 17.3,
+                        "TE": 5.0,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 3,
+                  "tot": 120.5,
+                  "opp": "T4",
+                  "proj": 122.9,
+                  "maxPot": 138.0,
+                  "starters": {
+                        "QB": 36.1,
+                        "RB": 31.3,
+                        "WR": 33.7,
+                        "TE": 10.8,
+                        "DST": 8.6
+                  },
+                  "bench": {
+                        "QB": 12.6,
+                        "RB": 15.7,
+                        "WR": 15.2,
+                        "TE": 4.3,
+                        "DST": 0.0
+                  },
+                  "ir": 14.2
+            },
+            {
+                  "wk": 4,
+                  "tot": 146.7,
+                  "opp": "T10",
+                  "proj": 143.7,
+                  "maxPot": 161.2,
+                  "starters": {
+                        "QB": 44.0,
+                        "RB": 38.1,
+                        "WR": 41.1,
+                        "TE": 13.2,
+                        "DST": 10.3
+                  },
+                  "bench": {
+                        "QB": 15.4,
+                        "RB": 19.1,
+                        "WR": 18.5,
+                        "TE": 5.3,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 5,
+                  "tot": 125.7,
+                  "opp": "T3",
+                  "proj": 128.2,
+                  "maxPot": 141.2,
+                  "starters": {
+                        "QB": 37.7,
+                        "RB": 32.7,
+                        "WR": 35.2,
+                        "TE": 11.3,
+                        "DST": 8.8
+                  },
+                  "bench": {
+                        "QB": 13.2,
+                        "RB": 16.4,
+                        "WR": 15.8,
+                        "TE": 4.5,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 6,
+                  "tot": 134.9,
+                  "opp": "T5",
+                  "proj": 132.2,
+                  "maxPot": 151.4,
+                  "starters": {
+                        "QB": 40.5,
+                        "RB": 35.1,
+                        "WR": 37.8,
+                        "TE": 12.1,
+                        "DST": 9.4
+                  },
+                  "bench": {
+                        "QB": 14.2,
+                        "RB": 17.6,
+                        "WR": 17.0,
+                        "TE": 4.8,
+                        "DST": 0.0
+                  },
+                  "ir": 14.2
+            },
+            {
+                  "wk": 7,
+                  "tot": 123.0,
+                  "opp": "T7",
+                  "proj": 125.4,
+                  "maxPot": 140.5,
+                  "starters": {
+                        "QB": 36.9,
+                        "RB": 32.0,
+                        "WR": 34.38,
+                        "TE": 11.1,
+                        "DST": 8.6
+                  },
+                  "bench": {
+                        "QB": 12.9,
+                        "RB": 16.0,
+                        "WR": 15.5,
+                        "TE": 4.4,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            }
       ],
-      T7: [
-        { wk:1, opp:"T2", proj:135.0, maxPot:148.4, starters:{QB:37.2, RB:33.0, WR:39.2, TE:10.4, DST:7.0},  bench:{QB:14.8, RB:19.0, WR:18.6, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:2, opp:"T5", proj:136.2, maxPot:156.8, starters:{QB:42.8, RB:37.2, WR:42.2, TE:12.2, DST:9.0},  bench:{QB:13.2, RB:16.8, WR:19.4, TE:4.8, DST:0.0}, ir:0.0 },
-        { wk:3, opp:"T10",proj:134.8, maxPot:153.6, starters:{QB:40.8, RB:35.8, WR:40.6, TE:11.6, DST:8.0},  bench:{QB:14.4, RB:17.6, WR:18.8, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:4, opp:"T9", proj:135.6, maxPot:144.2, starters:{QB:34.8, RB:30.6, WR:36.8, TE:9.4,  DST:6.0},  bench:{QB:18.0, RB:21.2, WR:19.6, TE:5.0, DST:0.0}, ir:0.0 },
-        { wk:5, opp:"T4", proj:136.4, maxPot:151.0, starters:{QB:39.0, RB:34.4, WR:39.8, TE:10.8, DST:7.0},  bench:{QB:15.2, RB:18.4, WR:20.0, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:6, opp:"T8", proj:135.2, maxPot:146.4, starters:{QB:36.0, RB:32.2, WR:37.6, TE:9.8,  DST:6.0},  bench:{QB:16.8, RB:19.6, WR:18.4, TE:4.4, DST:0.0}, ir:11.2 }
+      "T7": [
+            {
+                  "wk": 1,
+                  "tot": 124.7,
+                  "opp": "T2",
+                  "proj": 127.2,
+                  "maxPot": 140.2,
+                  "starters": {
+                        "QB": 37.4,
+                        "RB": 32.4,
+                        "WR": 34.9,
+                        "TE": 11.2,
+                        "DST": 8.8
+                  },
+                  "bench": {
+                        "QB": 13.1,
+                        "RB": 16.2,
+                        "WR": 15.7,
+                        "TE": 4.5,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 2,
+                  "tot": 133.6,
+                  "opp": "T5",
+                  "proj": 130.9,
+                  "maxPot": 150.1,
+                  "starters": {
+                        "QB": 40.1,
+                        "RB": 34.7,
+                        "WR": 37.4,
+                        "TE": 12.0,
+                        "DST": 9.4
+                  },
+                  "bench": {
+                        "QB": 14.0,
+                        "RB": 17.4,
+                        "WR": 16.8,
+                        "TE": 4.8,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 3,
+                  "tot": 117.0,
+                  "opp": "T10",
+                  "proj": 119.4,
+                  "maxPot": 134.5,
+                  "starters": {
+                        "QB": 35.1,
+                        "RB": 30.4,
+                        "WR": 32.8,
+                        "TE": 10.5,
+                        "DST": 8.2
+                  },
+                  "bench": {
+                        "QB": 12.3,
+                        "RB": 15.2,
+                        "WR": 14.8,
+                        "TE": 4.2,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 4,
+                  "tot": 142.5,
+                  "opp": "T9",
+                  "proj": 139.6,
+                  "maxPot": 157.0,
+                  "starters": {
+                        "QB": 42.7,
+                        "RB": 37.0,
+                        "WR": 39.9,
+                        "TE": 12.8,
+                        "DST": 10.1
+                  },
+                  "bench": {
+                        "QB": 14.9,
+                        "RB": 18.5,
+                        "WR": 18.0,
+                        "TE": 5.1,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 5,
+                  "tot": 122.1,
+                  "opp": "T4",
+                  "proj": 124.6,
+                  "maxPot": 137.6,
+                  "starters": {
+                        "QB": 36.6,
+                        "RB": 31.8,
+                        "WR": 34.2,
+                        "TE": 11.0,
+                        "DST": 8.5
+                  },
+                  "bench": {
+                        "QB": 12.8,
+                        "RB": 15.9,
+                        "WR": 15.4,
+                        "TE": 4.4,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 6,
+                  "tot": 131.0,
+                  "opp": "T8",
+                  "proj": 128.4,
+                  "maxPot": 147.5,
+                  "starters": {
+                        "QB": 39.3,
+                        "RB": 34.1,
+                        "WR": 36.7,
+                        "TE": 11.8,
+                        "DST": 9.1
+                  },
+                  "bench": {
+                        "QB": 13.8,
+                        "RB": 17.1,
+                        "WR": 16.5,
+                        "TE": 4.7,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 7,
+                  "tot": 119.5,
+                  "opp": "T6",
+                  "proj": 121.9,
+                  "maxPot": 137.0,
+                  "starters": {
+                        "QB": 35.9,
+                        "RB": 31.1,
+                        "WR": 33.54,
+                        "TE": 10.8,
+                        "DST": 8.2
+                  },
+                  "bench": {
+                        "QB": 12.6,
+                        "RB": 15.6,
+                        "WR": 15.1,
+                        "TE": 4.3,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            }
       ],
-      T8: [
-        { wk:1, opp:"T3", proj:131.8, maxPot:143.6, starters:{QB:34.6, RB:30.4, WR:36.6, TE:9.2,  DST:6.0},  bench:{QB:16.2, RB:19.8, WR:18.2, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:2, opp:"T10",proj:132.4, maxPot:152.0, starters:{QB:40.4, RB:35.4, WR:40.2, TE:11.4, DST:8.0},  bench:{QB:13.8, RB:17.2, WR:19.0, TE:4.2, DST:0.0}, ir:0.0 },
-        { wk:3, opp:"T9", proj:133.0, maxPot:142.8, starters:{QB:34.2, RB:30.0, WR:36.0, TE:9.0,  DST:6.0},  bench:{QB:17.6, RB:20.6, WR:18.8, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:4, opp:"T1", proj:132.6, maxPot:147.4, starters:{QB:36.6, RB:32.4, WR:38.2, TE:10.0, DST:7.0},  bench:{QB:15.6, RB:18.8, WR:19.4, TE:4.6, DST:0.0}, ir:0.0 },
-        { wk:5, opp:"T5", proj:133.2, maxPot:145.8, starters:{QB:35.8, RB:31.6, WR:37.4, TE:9.6,  DST:6.0},  bench:{QB:16.4, RB:19.2, WR:20.2, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:6, opp:"T7", proj:134.0, maxPot:155.2, starters:{QB:42.0, RB:36.6, WR:41.8, TE:12.0, DST:8.0},  bench:{QB:13.4, RB:16.4, WR:18.6, TE:5.0, DST:0.0}, ir:0.0 }
+      "T8": [
+            {
+                  "wk": 1,
+                  "tot": 118.1,
+                  "opp": "T3",
+                  "proj": 120.5,
+                  "maxPot": 133.6,
+                  "starters": {
+                        "QB": 35.4,
+                        "RB": 30.7,
+                        "WR": 33.1,
+                        "TE": 10.6,
+                        "DST": 8.3
+                  },
+                  "bench": {
+                        "QB": 12.4,
+                        "RB": 15.3,
+                        "WR": 14.9,
+                        "TE": 4.2,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 2,
+                  "tot": 126.5,
+                  "opp": "T10",
+                  "proj": 124.0,
+                  "maxPot": 143.0,
+                  "starters": {
+                        "QB": 38.0,
+                        "RB": 32.9,
+                        "WR": 35.4,
+                        "TE": 11.4,
+                        "DST": 8.8
+                  },
+                  "bench": {
+                        "QB": 13.3,
+                        "RB": 16.4,
+                        "WR": 15.9,
+                        "TE": 4.6,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 3,
+                  "tot": 110.9,
+                  "opp": "T9",
+                  "proj": 113.1,
+                  "maxPot": 128.4,
+                  "starters": {
+                        "QB": 33.3,
+                        "RB": 28.8,
+                        "WR": 31.0,
+                        "TE": 10.0,
+                        "DST": 7.8
+                  },
+                  "bench": {
+                        "QB": 11.7,
+                        "RB": 14.4,
+                        "WR": 14.0,
+                        "TE": 4.0,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 4,
+                  "tot": 135.0,
+                  "opp": "T1",
+                  "proj": 132.3,
+                  "maxPot": 149.5,
+                  "starters": {
+                        "QB": 40.5,
+                        "RB": 35.1,
+                        "WR": 37.8,
+                        "TE": 12.1,
+                        "DST": 9.5
+                  },
+                  "bench": {
+                        "QB": 14.2,
+                        "RB": 17.6,
+                        "WR": 17.0,
+                        "TE": 4.8,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 5,
+                  "tot": 115.7,
+                  "opp": "T5",
+                  "proj": 118.0,
+                  "maxPot": 131.2,
+                  "starters": {
+                        "QB": 34.7,
+                        "RB": 30.1,
+                        "WR": 32.4,
+                        "TE": 10.4,
+                        "DST": 8.1
+                  },
+                  "bench": {
+                        "QB": 12.1,
+                        "RB": 15.1,
+                        "WR": 14.6,
+                        "TE": 4.2,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 6,
+                  "tot": 124.1,
+                  "opp": "T7",
+                  "proj": 121.6,
+                  "maxPot": 140.6,
+                  "starters": {
+                        "QB": 37.2,
+                        "RB": 32.3,
+                        "WR": 34.8,
+                        "TE": 11.2,
+                        "DST": 8.6
+                  },
+                  "bench": {
+                        "QB": 13.0,
+                        "RB": 16.1,
+                        "WR": 15.7,
+                        "TE": 4.5,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 7,
+                  "tot": 113.3,
+                  "opp": "T2",
+                  "proj": 115.6,
+                  "maxPot": 130.8,
+                  "starters": {
+                        "QB": 34.0,
+                        "RB": 29.5,
+                        "WR": 31.7,
+                        "TE": 10.2,
+                        "DST": 7.9
+                  },
+                  "bench": {
+                        "QB": 11.9,
+                        "RB": 14.8,
+                        "WR": 14.3,
+                        "TE": 4.1,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            }
       ],
-      T9: [
-        { wk:1, opp:"T4", proj:130.5, maxPot:141.2, starters:{QB:33.8, RB:29.6, WR:35.4, TE:8.8,  DST:6.0},  bench:{QB:15.8, RB:19.2, WR:18.0, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:2, opp:"T6", proj:131.0, maxPot:143.8, starters:{QB:35.0, RB:30.8, WR:36.8, TE:9.4,  DST:6.0},  bench:{QB:16.0, RB:18.6, WR:19.2, TE:4.0, DST:0.0}, ir:0.0 },
-        { wk:3, opp:"T8", proj:131.6, maxPot:150.4, starters:{QB:39.6, RB:34.8, WR:39.6, TE:11.0, DST:8.0},  bench:{QB:13.6, RB:16.8, WR:18.4, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:4, opp:"T7", proj:132.0, maxPot:149.8, starters:{QB:39.2, RB:34.2, WR:39.0, TE:10.8, DST:7.0},  bench:{QB:14.2, RB:17.4, WR:19.0, TE:4.4, DST:0.0}, ir:0.0 },
-        { wk:5, opp:"T1", proj:130.8, maxPot:142.0, starters:{QB:34.0, RB:29.8, WR:35.8, TE:9.0,  DST:6.0},  bench:{QB:16.8, RB:19.6, WR:18.8, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:6, opp:"T10",proj:131.4, maxPot:144.6, starters:{QB:35.4, RB:31.2, WR:37.0, TE:9.6,  DST:6.0},  bench:{QB:15.4, RB:18.8, WR:19.4, TE:4.2, DST:0.0}, ir:0.0 }
+      "T9": [
+            {
+                  "wk": 1,
+                  "tot": 106.9,
+                  "opp": "T4",
+                  "proj": 109.1,
+                  "maxPot": 122.5,
+                  "starters": {
+                        "QB": 32.1,
+                        "RB": 27.8,
+                        "WR": 29.9,
+                        "TE": 9.6,
+                        "DST": 7.5
+                  },
+                  "bench": {
+                        "QB": 11.2,
+                        "RB": 13.9,
+                        "WR": 13.5,
+                        "TE": 3.8,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 2,
+                  "tot": 114.6,
+                  "opp": "T6",
+                  "proj": 112.3,
+                  "maxPot": 131.1,
+                  "starters": {
+                        "QB": 34.4,
+                        "RB": 29.8,
+                        "WR": 32.1,
+                        "TE": 10.3,
+                        "DST": 8.0
+                  },
+                  "bench": {
+                        "QB": 12.0,
+                        "RB": 14.9,
+                        "WR": 14.4,
+                        "TE": 4.1,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 3,
+                  "tot": 100.4,
+                  "opp": "T8",
+                  "proj": 102.4,
+                  "maxPot": 117.9,
+                  "starters": {
+                        "QB": 30.1,
+                        "RB": 26.1,
+                        "WR": 28.1,
+                        "TE": 9.0,
+                        "DST": 7.1
+                  },
+                  "bench": {
+                        "QB": 10.5,
+                        "RB": 13.1,
+                        "WR": 12.6,
+                        "TE": 3.6,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 4,
+                  "tot": 122.2,
+                  "opp": "T7",
+                  "proj": 119.8,
+                  "maxPot": 136.7,
+                  "starters": {
+                        "QB": 36.7,
+                        "RB": 31.8,
+                        "WR": 34.2,
+                        "TE": 11.0,
+                        "DST": 8.5
+                  },
+                  "bench": {
+                        "QB": 12.8,
+                        "RB": 15.9,
+                        "WR": 15.4,
+                        "TE": 4.4,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 5,
+                  "tot": 104.8,
+                  "opp": "T1",
+                  "proj": 106.9,
+                  "maxPot": 120.3,
+                  "starters": {
+                        "QB": 31.4,
+                        "RB": 27.2,
+                        "WR": 29.3,
+                        "TE": 9.4,
+                        "DST": 7.5
+                  },
+                  "bench": {
+                        "QB": 11.0,
+                        "RB": 13.6,
+                        "WR": 13.2,
+                        "TE": 3.8,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 6,
+                  "tot": 112.4,
+                  "opp": "T10",
+                  "proj": 110.2,
+                  "maxPot": 128.9,
+                  "starters": {
+                        "QB": 33.7,
+                        "RB": 29.2,
+                        "WR": 31.5,
+                        "TE": 10.1,
+                        "DST": 7.9
+                  },
+                  "bench": {
+                        "QB": 11.8,
+                        "RB": 14.6,
+                        "WR": 14.2,
+                        "TE": 4.0,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 7,
+                  "tot": 102.6,
+                  "opp": "T3",
+                  "proj": 104.7,
+                  "maxPot": 120.1,
+                  "starters": {
+                        "QB": 30.8,
+                        "RB": 26.7,
+                        "WR": 28.72,
+                        "TE": 9.2,
+                        "DST": 7.2
+                  },
+                  "bench": {
+                        "QB": 10.8,
+                        "RB": 13.3,
+                        "WR": 12.9,
+                        "TE": 3.7,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            }
       ],
-      T10:[
-        { wk:1, opp:"T5", proj:129.2, maxPot:140.4, starters:{QB:33.2, RB:29.0, WR:34.8, TE:8.6,  DST:5.0},  bench:{QB:16.0, RB:18.8, WR:18.4, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:2, opp:"T8", proj:130.0, maxPot:141.8, starters:{QB:34.0, RB:29.8, WR:35.6, TE:8.8,  DST:6.0},  bench:{QB:15.6, RB:19.4, WR:18.6, TE:3.8, DST:0.0}, ir:0.0 },
-        { wk:3, opp:"T7", proj:129.6, maxPot:142.4, starters:{QB:34.4, RB:30.2, WR:36.2, TE:9.0,  DST:6.0},  bench:{QB:15.8, RB:18.6, WR:19.0, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:4, opp:"T6", proj:130.4, maxPot:143.2, starters:{QB:34.8, RB:30.6, WR:36.6, TE:9.2,  DST:6.0},  bench:{QB:15.2, RB:19.0, WR:18.8, TE:4.0, DST:0.0}, ir:0.0 },
-        { wk:5, opp:"T2", proj:129.8, maxPot:141.0, starters:{QB:33.6, RB:29.4, WR:35.2, TE:8.8,  DST:5.0},  bench:{QB:16.4, RB:19.2, WR:18.2, TE:0.0, DST:0.0}, ir:0.0 },
-        { wk:6, opp:"T9", proj:131.0, maxPot:151.6, starters:{QB:40.2, RB:35.2, WR:40.4, TE:11.2, DST:8.0},  bench:{QB:13.2, RB:16.6, WR:18.0, TE:4.6, DST:0.0}, ir:0.0 }
+      "T10": [
+            {
+                  "wk": 1,
+                  "tot": 116.3,
+                  "opp": "T5",
+                  "proj": 118.7,
+                  "maxPot": 131.8,
+                  "starters": {
+                        "QB": 34.9,
+                        "RB": 30.3,
+                        "WR": 32.6,
+                        "TE": 10.5,
+                        "DST": 8.0
+                  },
+                  "bench": {
+                        "QB": 12.2,
+                        "RB": 15.2,
+                        "WR": 14.7,
+                        "TE": 4.2,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 2,
+                  "tot": 124.7,
+                  "opp": "T8",
+                  "proj": 122.2,
+                  "maxPot": 141.2,
+                  "starters": {
+                        "QB": 37.4,
+                        "RB": 32.4,
+                        "WR": 34.9,
+                        "TE": 11.2,
+                        "DST": 8.8
+                  },
+                  "bench": {
+                        "QB": 13.1,
+                        "RB": 16.2,
+                        "WR": 15.7,
+                        "TE": 4.5,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 3,
+                  "tot": 109.2,
+                  "opp": "T7",
+                  "proj": 111.4,
+                  "maxPot": 126.7,
+                  "starters": {
+                        "QB": 32.8,
+                        "RB": 28.4,
+                        "WR": 30.6,
+                        "TE": 9.8,
+                        "DST": 7.6
+                  },
+                  "bench": {
+                        "QB": 11.5,
+                        "RB": 14.2,
+                        "WR": 13.8,
+                        "TE": 3.9,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 4,
+                  "tot": 133.0,
+                  "opp": "T6",
+                  "proj": 130.3,
+                  "maxPot": 147.5,
+                  "starters": {
+                        "QB": 39.9,
+                        "RB": 34.6,
+                        "WR": 37.2,
+                        "TE": 12.0,
+                        "DST": 9.3
+                  },
+                  "bench": {
+                        "QB": 14.0,
+                        "RB": 17.3,
+                        "WR": 16.7,
+                        "TE": 4.8,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 5,
+                  "tot": 114.0,
+                  "opp": "T2",
+                  "proj": 116.3,
+                  "maxPot": 129.5,
+                  "starters": {
+                        "QB": 34.2,
+                        "RB": 29.6,
+                        "WR": 31.9,
+                        "TE": 10.3,
+                        "DST": 8.0
+                  },
+                  "bench": {
+                        "QB": 12.0,
+                        "RB": 14.8,
+                        "WR": 14.4,
+                        "TE": 4.1,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 6,
+                  "tot": 122.3,
+                  "opp": "T9",
+                  "proj": 119.8,
+                  "maxPot": 138.8,
+                  "starters": {
+                        "QB": 36.7,
+                        "RB": 31.8,
+                        "WR": 34.2,
+                        "TE": 11.0,
+                        "DST": 8.6
+                  },
+                  "bench": {
+                        "QB": 12.8,
+                        "RB": 15.9,
+                        "WR": 15.4,
+                        "TE": 4.4,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            },
+            {
+                  "wk": 7,
+                  "tot": 111.6,
+                  "opp": "T4",
+                  "proj": 113.8,
+                  "maxPot": 129.1,
+                  "starters": {
+                        "QB": 33.5,
+                        "RB": 29.0,
+                        "WR": 31.2,
+                        "TE": 10.0,
+                        "DST": 7.9
+                  },
+                  "bench": {
+                        "QB": 11.7,
+                        "RB": 14.5,
+                        "WR": 14.0,
+                        "TE": 4.0,
+                        "DST": 0.0
+                  },
+                  "ir": 0.0
+            }
       ]
-    };
+};
 
     // League History Data (31 Seasons: 1996-2026 with Owner_ID Mapping, Reg. Season Title & Points Title)
     const CHAMPIONS_HISTORY = [
@@ -1691,7 +3175,7 @@
     // =========================================================================
     // 2. FILTER STATE & HELPER FUNCTIONS
     // =========================================================================
-    let selectedWeeks = new Set([1, 2, 3, 4, 5, 6]);
+    let selectedWeeks = new Set([1, 2, 3, 4, 5, 6, 7]);
     let selectedPositions = new Set(["QB", "RB", "WR", "TE", "DST"]);
     let currentSortKey = "total";
     let currentSortAsc = false;
@@ -1748,9 +3232,9 @@
 
     function setWeekPreset(preset) {
       if (preset === "all") {
-        selectedWeeks = new Set([1, 2, 3, 4, 5, 6]);
+        selectedWeeks = new Set([1, 2, 3, 4, 5, 6, 7]);
       } else if (preset === "last3") {
-        selectedWeeks = new Set([4, 5, 6]);
+        selectedWeeks = new Set([5, 6, 7]);
       }
       syncWeekPills();
       refreshScoringViews();
@@ -2019,7 +3503,7 @@
 
       const filteredChamps = CHAMPIONS_HISTORY.filter(c => era === "ALL" || c.era === era);
       if (filteredChamps.length === 0) {
-        champsBody.innerHTML = `<tr><td colspan="7" class="center" style="color:var(--text-secondary)">2026 Superflex Season is currently in progress (Week 6 of 17).</td></tr>`;
+        champsBody.innerHTML = `<tr><td colspan="7" class="center" style="color:var(--text-secondary)">2026 Superflex Season is currently in progress (Through Week 7 of 17).</td></tr>`;
       } else {
         champsBody.innerHTML = filteredChamps.map(c => {
           const isPendingReg = c.regTitle === "Pending Yahoo Sync";
@@ -2145,7 +3629,7 @@
       });
 
       // 2. Calculate Weekly All-Play Records (Weeks 1-6) & Weekly Top-Scorer Prize Wins
-      for (let wk = 1; wk <= 6; wk++) {
+      for (let wk = 1; wk <= 7; wk++) {
         OWNERS.forEach(a => {
           let w = 0, l = 0;
           const scoreA = statsMap[a.id].wkScores[wk - 1];
@@ -2175,7 +3659,7 @@
           };
         });
 
-        for (let wk = 7; wk <= 15; wk++) {
+        for (let wk = 8; wk <= 15; wk++) {
           const pairings = SCHEDULE_PAIRINGS[wk];
           pairings.forEach(([idA, idB]) => {
             const stA = statsMap[idA];
@@ -2246,7 +3730,7 @@
       weeklyApBody.innerHTML = perfRows.map(r => `
         <tr>
           <td><strong>${r.owner}</strong></td>
-          ${[1,2,3,4,5,6].map(wk => {
+          ${[1,2,3,4,5,6,7].map(wk => {
             const rec = r.weeklyAllPlay[wk];
             const isTop = rec === "9-0";
             return `<td class="center" style="font-weight:${isTop ? '800' : '500'}; color:${isTop ? 'var(--amber)' : 'var(--text-primary)'}">${rec}${isTop ? ' 🏆' : ''}</td>`;
@@ -2397,7 +3881,7 @@
       }).join("");
 
       document.getElementById("projMatrixBody").innerHTML = summaryRows.map(r => {
-        const cells = [1,2,3,4,5,6].map(wk => {
+        const cells = [1,2,3,4,5,6,7].map(wk => {
           const d = r.wkDiffs[wk];
           const sign = d.diff >= 0 ? "+" : "";
           const color = d.diff >= 0 ? "var(--emerald)" : "var(--rose)";
@@ -2657,6 +4141,7 @@
     window.addEventListener("DOMContentLoaded", () => {
       initDropdowns();
       refreshScoringViews();
+      fetchLiveGoogleSheetData();
       renderHistoryTab();
       runMonteCarloSimulations();
       renderFaabTab();
@@ -2664,6 +4149,71 @@
       renderKeepersTab();
       renderTradesTab();
     });
+
+    // =========================================================================
+    // 10. LIVE GOOGLE SHEET AUTO-SYNC (ZERO MANUAL UPLOADS)
+    // =========================================================================
+    const GOOGLE_SHEET_ID = "1FYR92BNST-8NtHIzm0qHfcsnLyMADNum0y-qHQ7xgak";
+
+    async function fetchLiveGoogleSheetData() {
+      if (!GOOGLE_SHEET_ID) return;
+      const url = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/gviz/tq?tqx=out:json&sheet=Yahoo_2026_Live";
+      
+      try {
+        const res = await fetch(url);
+        if (!res.ok) return;
+        const raw = await res.text();
+        const jsonStart = raw.indexOf('{');
+        const jsonEnd = raw.lastIndexOf('}');
+        if (jsonStart === -1 || jsonEnd === -1) return;
+        
+        const jsonStr = raw.substring(jsonStart, jsonEnd + 1);
+        const data = JSON.parse(jsonStr);
+        const rows = data.table && data.table.rows;
+        if (!rows || rows.length === 0) return;
+
+        rows.forEach(r => {
+          const c = r.c;
+          if (!c) return;
+          const teamName = (c[2] && c[2].v ? c[2].v : "").toString().trim();
+          const mgrName = (c[3] && c[3].v ? c[3].v : "").toString().trim();
+          const w = parseInt(c[4] && c[4].v, 10);
+          const l = parseInt(c[5] && c[5].v, 10);
+          const pf = parseFloat(c[8] && c[8].v);
+          const pa = parseFloat(c[9] && c[9].v);
+          const streak = (c[10] && c[10].v ? c[10].v : "").toString().trim();
+          const waiver = parseInt(c[11] && c[11].v, 10);
+          const faab = parseInt(c[12] && c[12].v, 10);
+
+          const target = OWNERS.find(o => 
+            (mgrName && o.owner.toLowerCase().includes(mgrName.toLowerCase())) ||
+            (teamName && o.team.toLowerCase().includes(teamName.toLowerCase())) ||
+            (mgrName && mgrName.toLowerCase().includes(o.owner.split(" ")[0].toLowerCase()))
+          );
+
+          if (target) {
+            if (!isNaN(w)) target.wins = w;
+            if (!isNaN(l)) target.losses = l;
+            if (!isNaN(pf)) target.pfLive = pf;
+            if (!isNaN(pa)) target.paLive = pa;
+            if (streak) target.streak = streak;
+            if (!isNaN(waiver)) target.waiver = waiver;
+            if (!isNaN(faab)) target.faabLeft = faab;
+          }
+        });
+
+        const badge = document.querySelector(".sync-badge");
+        if (badge) {
+          badge.innerHTML = '<span class="status-dot"></span><span>Live Google Sheet Connected ✓ (Auto-Synced)</span>';
+        }
+
+        refreshScoringViews();
+        runMonteCarloSimulations();
+      } catch (err) {
+        console.warn("Google Sheet live feed currently offline or restricted. Using pre-cached data:", err);
+      }
+    }
+
   </script>
   <div id="toastBanner" style="position:fixed;bottom:24px;right:24px;background:#1e293b;color:#f8fafc;border:1px solid #38bdf8;padding:12px 18px;border-radius:10px;box-shadow:0 10px 25px rgba(0,0,0,0.5);font-size:13px;font-weight:600;display:none;z-index:2000;"></div>
 </body>
