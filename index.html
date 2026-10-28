@@ -4401,11 +4401,11 @@
         "bid": 0,
         "type": "Free Agent",
         "source": "freeagents",
-        "starts": 2,
-        "starterPts": 37.0,
+        "starts": 1,
+        "starterPts": 18.5,
         "ptsPerStart": 18.5,
-        "onTeam": true,
-        "slot": "Q/W/R/T"
+        "onTeam": false,
+        "slot": "None"
     },
     {
         "player": "Kendre Miller",
@@ -4724,8 +4724,8 @@
         "starts": 2,
         "starterPts": 15.0,
         "ptsPerStart": 7.5,
-        "onTeam": true,
-        "slot": "DEF"
+        "onTeam": false,
+        "slot": "None"
     },
     {
         "player": "Tyreek Hill",
@@ -7174,6 +7174,7 @@
       }
 
       // 2. Fetch Live Weekly Matchup Scores if Yahoo_2026_Weekly_Scores tab exists in Google Sheet
+      let maxCompletedWk = 7;
       try {
         const urlWeekly = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/gviz/tq?tqx=out:json&sheet=Yahoo_2026_Weekly_Scores&_t=" + Date.now();
         const resWeekly = await fetch(urlWeekly);
@@ -7189,6 +7190,9 @@
                 const c = r.c;
                 if (!c) return;
                 const wk = parseInt(c[0] && c[0].v, 10);
+                if (!isNaN(wk) && wk > maxCompletedWk) {
+                  maxCompletedWk = wk;
+                }
                 const teamName = (c[2] && c[2].v ? c[2].v : "").toString().trim();
                 const mgrName = (c[3] && c[3].v ? c[3].v : "").toString().trim();
                 const pts = parseFloat(c[4] && c[4].v);
@@ -7282,13 +7286,13 @@
         const resTx = await fetch(urlTx);
         if (resTx.ok) {
           const rawTx = await resTx.text();
-          const jStart = rawTx.indexOf('{');
-          const jEnd = rawTx.lastIndexOf('}');
+          const jStart = rawTx.indexOf("{");
+          const jEnd = rawTx.lastIndexOf("}");
           if (jStart !== -1 && jEnd !== -1) {
             const dataTx = JSON.parse(rawTx.substring(jStart, jEnd + 1));
             const rowsTx = dataTx.table && dataTx.table.rows;
             if (rowsTx && rowsTx.length > 0) {
-              const liveBids = [];
+              const rawItems = [];
               rowsTx.forEach(r => {
                 const c = r.c;
                 if (!c) return;
@@ -7313,79 +7317,125 @@
                 const ownerName = target ? target.owner : (mgrName || teamName);
                 const resolvedTeam = target ? target.team : teamName;
 
-                // Check live roster status & lineup slot
-                const key = teamName.toLowerCase().trim() + "_" + pName.toLowerCase().trim();
-                const isCurrentlyOnTeam = liveRosterMap.size > 0 ? liveRosterMap.has(key) : true;
-                const slot = liveRosterMap.get(key) || "None";
-
-                // Consistent pickup type: all waiver claims are "FAAB Bid" (even if $0 bid)
-                let pickupType = "Free Agent";
-                if (src === "waivers") {
-                  pickupType = "FAAB Bid";
-                } else {
-                  pickupType = "Free Agent";
-                }
-
-                // Dynamic starts calculation
-                let starts = 0;
-                let starterPts = 0.0;
-                const pNameLower = pName.toLowerCase();
-                if (wk >= 8) {
-                  starts = 0;
-                  starterPts = 0.0;
-                } else if (pNameLower.includes("eagles") && pos === "DEF") {
-                  starts = 7;
-                  starterPts = 52.5;
-                } else if (pNameLower.includes("michael wilson")) {
-                  starts = 4;
-                  starterPts = 52.8;
-                } else if (pNameLower.includes("ollie gordon")) {
-                  starts = 2;
-                  starterPts = 25.6;
-                } else {
-                  const starterSlots = ["QB", "RB", "WR", "TE", "W/R/T", "Q/W/R/T", "DEF"];
-                  const isStarter = starterSlots.includes(slot);
-
-                  if (!isCurrentlyOnTeam) {
-                    if (pos === "DEF" && wk <= 6) starts = 1;
-                    else if (wk <= 3) starts = 1;
-                    else starts = 0;
-                  } else {
-                    if (isStarter) {
-                      if (wk === 7) starts = 1;
-                      else if (wk === 6) starts = 2;
-                      else if (wk === 5) starts = 2;
-                      else if (wk === 4) starts = 2;
-                      else if (wk === 3) starts = 4;
-                      else if (wk === 2) starts = 4;
-                      else if (wk <= 1) starts = (pos === "DEF" ? 7 : 6);
-                    } else {
-                      if (wk <= 3) starts = 1;
-                      else starts = 0;
-                    }
-                  }
-                  const ppgMap = { QB: 18.5, RB: 12.8, WR: 13.2, TE: 9.8, DEF: 7.5 };
-                  const estPpg = ppgMap[pos] || 11.0;
-                  starterPts = Math.round(starts * estPpg * 10) / 10;
-                }
-
-                const ptsPerStart = starts > 0 ? Math.round((starterPts / starts) * 10) / 10 : 0.0;
-
-                liveBids.push({
-                  player: pName,
+                rawItems.push({
+                  dateStr,
+                  wk,
+                  txType,
+                  pName,
                   pos: pos || "FLEX",
-                  owner: ownerName,
-                  team: resolvedTeam,
-                  date: dateStr || ("Wk " + wk),
-                  wk: wk,
-                  bid: safeBid,
-                  type: pickupType,
-                  source: src || (safeBid > 0 ? "waivers" : "freeagents"),
-                  starts: starts,
-                  starterPts: starterPts,
-                  ptsPerStart: ptsPerStart,
-                  onTeam: isCurrentlyOnTeam,
-                  slot: slot
+                  teamName: resolvedTeam,
+                  ownerName,
+                  safeBid,
+                  src
+                });
+              });
+
+              // Multi-Tenure Resolution: Group by acquiring team and player
+              // Handles situations where a player was streamed/added, dropped, and later re-added
+              const playerGroups = new Map();
+              rawItems.forEach(item => {
+                const groupKey = item.teamName.toLowerCase().trim() + "_" + item.pName.toLowerCase().trim();
+                if (!playerGroups.has(groupKey)) {
+                  playerGroups.set(groupKey, []);
+                }
+                playerGroups.get(groupKey).push(item);
+              });
+
+              const liveBids = [];
+              const starterSlots = ["QB", "RB", "WR", "TE", "W/R/T", "Q/W/R/T", "DEF"];
+              const ppgMap = { QB: 18.5, RB: 12.8, WR: 13.2, TE: 9.8, DEF: 7.5 };
+
+              playerGroups.forEach((stints, groupKey) => {
+                // Sort chronologically ascending (oldest stint first)
+                stints.sort((a, b) => a.wk - b.wk || a.dateStr.localeCompare(b.dateStr));
+
+                stints.forEach((item, idx) => {
+                  const isLatestStint = (idx === stints.length - 1);
+                  const pNameLower = item.pName.toLowerCase();
+                  const estPpg = ppgMap[item.pos] || 11.0;
+
+                  let isCurrentlyOnTeam = false;
+                  let slot = "None";
+                  let starts = 0;
+                  let starterPts = 0.0;
+                  let pickupType = item.src === "waivers" ? "FAAB Bid" : "Free Agent";
+
+                  if (isLatestStint) {
+                    // Latest/Current Stint: inspect live active roster map
+                    isCurrentlyOnTeam = liveRosterMap.size > 0 ? liveRosterMap.has(groupKey) : true;
+                    slot = liveRosterMap.get(groupKey) || "None";
+                    const isStarter = starterSlots.includes(slot);
+
+                    if (item.wk > maxCompletedWk) {
+                      starts = 0;
+                      starterPts = 0.0;
+                    } else if (pNameLower.includes("eagles") && item.pos === "DEF") {
+                      starts = Math.max(0, maxCompletedWk - item.wk + 1);
+                      starterPts = Math.round(starts * 7.5 * 10) / 10;
+                    } else if (pNameLower.includes("michael wilson")) {
+                      const basePastStarts = 4;
+                      const futureStarts = isStarter && maxCompletedWk > 7 ? (maxCompletedWk - 7) : 0;
+                      starts = basePastStarts + futureStarts;
+                      starterPts = Math.round(starts * 13.2 * 10) / 10;
+                    } else if (pNameLower.includes("ollie gordon")) {
+                      const basePastStarts = 2;
+                      const futureStarts = isStarter && maxCompletedWk > 7 ? (maxCompletedWk - 7) : 0;
+                      starts = basePastStarts + futureStarts;
+                      starterPts = Math.round(starts * 12.8 * 10) / 10;
+                    } else {
+                      if (!isCurrentlyOnTeam) {
+                        if (item.pos === "DEF" && item.wk <= 6) starts = 1;
+                        else if (item.wk <= 3) starts = 1;
+                        else starts = 0;
+                      } else {
+                        if (isStarter) {
+                          const elapsedWks = Math.max(1, maxCompletedWk - item.wk + 1);
+                          starts = elapsedWks <= 1 ? 1 : Math.max(1, elapsedWks - (elapsedWks >= 4 ? 1 : 0));
+                        } else {
+                          if (item.wk <= 3) starts = 1;
+                          else starts = 0;
+                        }
+                      }
+                      starterPts = Math.round(starts * estPpg * 10) / 10;
+                    }
+                  } else {
+                    // Prior Stint: player was subsequently cut/dropped before the later re-addition
+                    isCurrentlyOnTeam = false;
+                    slot = "None";
+                    const nextStintWk = stints[idx + 1].wk;
+                    const maxStintWks = Math.max(1, nextStintWk - item.wk);
+
+                    // If started as streamer during this prior stint, cap starts at stint duration
+                    if (item.pos === "DEF") {
+                      starts = Math.min(maxStintWks <= 1 ? 1 : 2, maxStintWks);
+                    } else if (item.pos === "QB") {
+                      starts = Math.min(1, maxStintWks);
+                    } else if (item.wk <= 3) {
+                      starts = Math.min(1, maxStintWks);
+                    } else {
+                      starts = 0;
+                    }
+                    starterPts = Math.round(starts * estPpg * 10) / 10;
+                  }
+
+                  const ptsPerStart = starts > 0 ? Math.round((starterPts / starts) * 10) / 10 : 0.0;
+
+                  liveBids.push({
+                    player: item.pName,
+                    pos: item.pos,
+                    owner: item.ownerName,
+                    team: item.teamName,
+                    date: item.dateStr || ("Wk " + item.wk),
+                    wk: item.wk,
+                    bid: item.safeBid,
+                    type: pickupType,
+                    source: item.src || (item.safeBid > 0 ? "waivers" : "freeagents"),
+                    starts: starts,
+                    starterPts: starterPts,
+                    ptsPerStart: ptsPerStart,
+                    onTeam: isCurrentlyOnTeam,
+                    slot: slot
+                  });
                 });
               });
 
