@@ -7190,13 +7190,18 @@
                 const c = r.c;
                 if (!c) return;
                 const wk = parseInt(c[0] && c[0].v, 10);
-                if (!isNaN(wk) && wk > maxCompletedWk) {
-                  maxCompletedWk = wk;
-                }
                 const teamName = (c[2] && c[2].v ? c[2].v : "").toString().trim();
                 const mgrName = (c[3] && c[3].v ? c[3].v : "").toString().trim();
                 const pts = parseFloat(c[4] && c[4].v);
                 const proj = parseFloat(c[5] && c[5].v);
+                const resVal = (c[8] && c[8].v ? c[8].v : "").toString().trim().toUpperCase();
+
+                // A week is completed ONLY if actual game scores were posted (pts > 25 and result is W/L/T)
+                // This strictly prevents upcoming scheduled matchup rows (e.g. Weeks 8 and 9) from inflating the completed week count!
+                const isGameCompleted = !isNaN(wk) && !isNaN(pts) && pts > 25 && (resVal === "W" || resVal === "L" || resVal === "T" || pts > 40);
+                if (isGameCompleted && wk > maxCompletedWk) {
+                  maxCompletedWk = wk;
+                }
 
                 const target = OWNERS.find(o => 
                   (mgrName && o.owner.toLowerCase().includes(mgrName.toLowerCase())) ||
@@ -7214,7 +7219,7 @@
                   (oppName && oppName.toLowerCase().includes(o.owner.split(" ")[0].toLowerCase()))
                 );
 
-                if (target && !isNaN(wk) && !isNaN(pts) && WEEKLY_DATA[target.id]) {
+                if (target && isGameCompleted && WEEKLY_DATA[target.id]) {
                   let weekObj = WEEKLY_DATA[target.id].find(w => w.wk === wk);
                   if (!weekObj) {
                     weekObj = {
