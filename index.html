@@ -1152,7 +1152,7 @@
         <div class="card-header">
           <div>
             <div class="card-title">2026 League Pickups (Waivers &amp; Free Agents)</div>
-            <div class="card-subtitle">Comprehensive tracking of all 135 transactions: FAAB bids ($1+), $0 waiver claims, and free agent additions. Points strictly track points scored while in that team's active starting lineup after acquisition (bench weeks excluded).</div>
+            <div class="card-subtitle">Tracks all 135 transactions: Waiver Claims (FAAB Bids &amp; $0 bids) and Free Agent additions. Click any column header to sort!</div>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <select class="filter-select" id="faabOwnerFilter" onchange="renderFaabTab()">
@@ -1160,8 +1160,7 @@
             </select>
             <select class="filter-select" id="faabTypeFilter" onchange="renderFaabTab()">
               <option value="ALL">All Pickup Types (135)</option>
-              <option value="FAAB">Waivers - FAAB ($1+) (38)</option>
-              <option value="WAIVER_ZERO">Waivers - $0 Bid (11)</option>
+              <option value="FAAB">Waivers / FAAB Bids (49)</option>
               <option value="FREE_AGENT">Free Agent Adds (86)</option>
             </select>
             <select class="filter-select" id="faabStatusFilter" onchange="renderFaabTab()">
@@ -1175,16 +1174,16 @@
           <table>
             <thead>
               <tr>
-                <th>Player</th>
-                <th class="center">Pos</th>
-                <th>Acquiring Owner</th>
-                <th>Date Acquired</th>
-                <th class="center">Type</th>
-                <th class="num">Bid / Cost</th>
-                <th class="center">Starts Since Acq.</th>
-                <th class="num">Pts in Starting Lineup</th>
-                <th class="num">$ / Starter Pt</th>
-                <th class="center">Status</th>
+                <th onclick="sortPickupsTable('player')">Player <span id="sort-ind-player"></span></th>
+                <th class="center" onclick="sortPickupsTable('pos')">Pos <span id="sort-ind-pos"></span></th>
+                <th onclick="sortPickupsTable('owner')">Acquiring Owner <span id="sort-ind-owner"></span></th>
+                <th onclick="sortPickupsTable('date')">Date Acquired <span id="sort-ind-date"></span></th>
+                <th class="center" onclick="sortPickupsTable('type')">Type <span id="sort-ind-type"></span></th>
+                <th class="num" onclick="sortPickupsTable('bid')">Bid / Cost <span id="sort-ind-bid"></span></th>
+                <th class="center" onclick="sortPickupsTable('starts')">Starts Since Acq. <span id="sort-ind-starts"></span></th>
+                <th class="num" onclick="sortPickupsTable('starterPts')">Pts in Starting Lineup <span id="sort-ind-starterPts"></span></th>
+                <th class="num" onclick="sortPickupsTable('costPerPt')">$ / Starter Pt <span id="sort-ind-costPerPt"></span></th>
+                <th class="center" onclick="sortPickupsTable('onTeam')">Status <span id="sort-ind-onTeam"></span></th>
               </tr>
             </thead>
             <tbody id="faabTableBody"></tbody>
@@ -3515,8 +3514,8 @@
         "bid": 10,
         "type": "FAAB Bid",
         "source": "waivers",
-        "starts": 3,
-        "starterPts": 39.6,
+        "starts": 4,
+        "starterPts": 52.8,
         "onTeam": true,
         "slot": "WR"
     },
@@ -4203,7 +4202,7 @@
         "date": "2026-10-21 (Wk 7)",
         "wk": 7,
         "bid": 0,
-        "type": "$0 Waiver",
+        "type": "FAAB Bid",
         "source": "waivers",
         "starts": 0,
         "starterPts": 0.0,
@@ -4218,7 +4217,7 @@
         "date": "2026-10-21 (Wk 7)",
         "wk": 7,
         "bid": 0,
-        "type": "$0 Waiver",
+        "type": "FAAB Bid",
         "source": "waivers",
         "starts": 0,
         "starterPts": 0.0,
@@ -4323,7 +4322,7 @@
         "date": "2026-10-17 (Wk 6)",
         "wk": 6,
         "bid": 0,
-        "type": "$0 Waiver",
+        "type": "FAAB Bid",
         "source": "waivers",
         "starts": 0,
         "starterPts": 0.0,
@@ -4398,7 +4397,7 @@
         "date": "2026-10-14 (Wk 6)",
         "wk": 6,
         "bid": 0,
-        "type": "$0 Waiver",
+        "type": "FAAB Bid",
         "source": "waivers",
         "starts": 1,
         "starterPts": 7.5,
@@ -4413,7 +4412,7 @@
         "date": "2026-10-14 (Wk 6)",
         "wk": 6,
         "bid": 0,
-        "type": "$0 Waiver",
+        "type": "FAAB Bid",
         "source": "waivers",
         "starts": 1,
         "starterPts": 7.5,
@@ -4653,7 +4652,7 @@
         "date": "2026-10-07 (Wk 5)",
         "wk": 5,
         "bid": 0,
-        "type": "$0 Waiver",
+        "type": "FAAB Bid",
         "source": "waivers",
         "starts": 0,
         "starterPts": 0.0,
@@ -4668,7 +4667,7 @@
         "date": "2026-10-07 (Wk 5)",
         "wk": 5,
         "bid": 0,
-        "type": "$0 Waiver",
+        "type": "FAAB Bid",
         "source": "waivers",
         "starts": 0,
         "starterPts": 0.0,
@@ -4683,7 +4682,7 @@
         "date": "2026-10-07 (Wk 5)",
         "wk": 5,
         "bid": 0,
-        "type": "$0 Waiver",
+        "type": "FAAB Bid",
         "source": "waivers",
         "starts": 0,
         "starterPts": 0.0,
@@ -4863,7 +4862,7 @@
         "date": "2026-09-30 (Wk 4)",
         "wk": 4,
         "bid": 0,
-        "type": "$0 Waiver",
+        "type": "FAAB Bid",
         "source": "waivers",
         "starts": 0,
         "starterPts": 0.0,
@@ -4878,7 +4877,7 @@
         "date": "2026-09-30 (Wk 4)",
         "wk": 4,
         "bid": 0,
-        "type": "$0 Waiver",
+        "type": "FAAB Bid",
         "source": "waivers",
         "starts": 0,
         "starterPts": 0.0,
@@ -5118,7 +5117,7 @@
         "date": "2026-09-16 (Wk 2)",
         "wk": 2,
         "bid": 0,
-        "type": "$0 Waiver",
+        "type": "FAAB Bid",
         "source": "waivers",
         "starts": 1,
         "starterPts": 7.5,
@@ -5315,8 +5314,8 @@
         "bid": 0,
         "type": "Free Agent",
         "source": "freeagents",
-        "starts": 4,
-        "starterPts": 51.2,
+        "starts": 5,
+        "starterPts": 64.0,
         "onTeam": true,
         "slot": "RB"
     },
@@ -5405,8 +5404,8 @@
         "bid": 0,
         "type": "Free Agent",
         "source": "freeagents",
-        "starts": 4,
-        "starterPts": 30.0,
+        "starts": 5,
+        "starterPts": 37.5,
         "onTeam": true,
         "slot": "DEF"
     },
@@ -6496,6 +6495,19 @@
     // =========================================================================
     // 6. RENDER TAB 5: FAAB BIDDING TRACKER
     // =========================================================================
+    let currentPickupSortKey = "bid";
+    let currentPickupSortAsc = false;
+
+    function sortPickupsTable(key) {
+      if (currentPickupSortKey === key) {
+        currentPickupSortAsc = !currentPickupSortAsc;
+      } else {
+        currentPickupSortKey = key;
+        currentPickupSortAsc = ["player", "owner", "pos", "type"].includes(key);
+      }
+      renderFaabTab();
+    }
+
     function renderFaabTab() {
       const ownerVal = document.getElementById("faabOwnerFilter") ? document.getElementById("faabOwnerFilter").value : "ALL";
       const typeVal = document.getElementById("faabTypeFilter") ? document.getElementById("faabTypeFilter").value : "ALL";
@@ -6506,21 +6518,72 @@
         if (statusVal === "ON_TEAM" && !b.onTeam) return false;
         if (statusVal === "DROPPED" && b.onTeam) return false;
         if (typeVal === "FAAB" && b.type !== "FAAB Bid") return false;
-        if (typeVal === "WAIVER_ZERO" && b.type !== "$0 Waiver") return false;
         if (typeVal === "FREE_AGENT" && b.type !== "Free Agent") return false;
         return true;
-      }).sort((a, b) => {
-        if (b.bid !== a.bid) return b.bid - a.bid;
-        return (b.wk || 0) - (a.wk || 0);
+      });
+
+      // Sort table
+      filtered.sort((a, b) => {
+        let va, vb;
+        if (currentPickupSortKey === "player") {
+          va = a.player.toLowerCase();
+          vb = b.player.toLowerCase();
+        } else if (currentPickupSortKey === "pos") {
+          va = a.pos;
+          vb = b.pos;
+        } else if (currentPickupSortKey === "owner") {
+          va = a.owner.toLowerCase();
+          vb = b.owner.toLowerCase();
+        } else if (currentPickupSortKey === "date") {
+          va = a.wk || 0;
+          vb = b.wk || 0;
+        } else if (currentPickupSortKey === "type") {
+          va = a.type;
+          vb = b.type;
+        } else if (currentPickupSortKey === "bid") {
+          va = a.bid || 0;
+          vb = b.bid || 0;
+        } else if (currentPickupSortKey === "starts") {
+          va = a.starts || 0;
+          vb = b.starts || 0;
+        } else if (currentPickupSortKey === "starterPts") {
+          va = a.starterPts || 0;
+          vb = b.starterPts || 0;
+        } else if (currentPickupSortKey === "costPerPt") {
+          va = a.starterPts > 0 ? (a.bid / a.starterPts) : (currentPickupSortAsc ? 999999 : -1);
+          vb = b.starterPts > 0 ? (b.bid / b.starterPts) : (currentPickupSortAsc ? 999999 : -1);
+        } else if (currentPickupSortKey === "onTeam") {
+          va = a.onTeam ? 1 : 0;
+          vb = b.onTeam ? 1 : 0;
+        } else {
+          va = a.bid || 0;
+          vb = b.bid || 0;
+        }
+
+        if (typeof va === "string") {
+          return currentPickupSortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+        }
+        if (va !== vb) {
+          return currentPickupSortAsc ? va - vb : vb - va;
+        }
+        return (b.wk || 0) - (a.wk || 0) || (b.bid || 0) - (a.bid || 0);
       });
 
       const totalSpent = filtered.reduce((s, b) => s + (b.bid || 0), 0);
       const totalStarterPts = filtered.reduce((s, b) => s + (b.starterPts || 0), 0);
       const activeCount = filtered.filter(b => b.onTeam).length;
       const faabCount = filtered.filter(b => b.type === "FAAB Bid").length;
-      const zeroWaiverCount = filtered.filter(b => b.type === "$0 Waiver").length;
       const faCount = filtered.filter(b => b.type === "Free Agent").length;
       const faabStarterPts = filtered.filter(b => b.type === "FAAB Bid").reduce((s, b) => s + (b.starterPts || 0), 0);
+
+      // Update sort indicators in table headers
+      const sortKeys = ["player", "pos", "owner", "date", "type", "bid", "starts", "starterPts", "costPerPt", "onTeam"];
+      sortKeys.forEach(k => {
+        const el = document.getElementById("sort-ind-" + k);
+        if (el) {
+          el.textContent = currentPickupSortKey === k ? (currentPickupSortAsc ? " ↑" : " ↓") : "";
+        }
+      });
 
       const kpiRow = document.getElementById("faabKpiRow");
       if (kpiRow) {
@@ -6528,7 +6591,7 @@
           <div class="kpi-card">
             <div class="kpi-title">Pickups Shown</div>
             <div class="kpi-value">${filtered.length} Pickups</div>
-            <div class="kpi-sub">$${totalSpent} spent (${faabCount} FAAB, ${zeroWaiverCount} $0 waivers, ${faCount} free agents)</div>
+            <div class="kpi-sub">$${totalSpent} total FAAB spent (${faabCount} Waiver FAAB Bids, ${faCount} Free Agent Adds)</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-title">Points in Starting Lineup</div>
@@ -6538,7 +6601,7 @@
           <div class="kpi-card">
             <div class="kpi-title">FAAB Efficiency</div>
             <div class="kpi-value">$${faabStarterPts > 0 ? (totalSpent / faabStarterPts).toFixed(2) : "0.00"}</div>
-            <div class="kpi-sub">Avg cost/pt across winning FAAB bids</div>
+            <div class="kpi-sub">Avg $/pt across all waiver claims</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-title">Roster Retention</div>
@@ -6559,10 +6622,6 @@
             typeBadge = `<span class="badge" style="background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid rgba(245,158,11,0.3)">FAAB Bid</span>`;
             costDisplay = `<strong>$${b.bid}</strong>`;
             costPerPt = b.starterPts > 0 ? `$${(b.bid / b.starterPts).toFixed(2)}/pt` : '—';
-          } else if (b.type === '$0 Waiver') {
-            typeBadge = `<span class="badge" style="background:rgba(99,102,241,0.15); color:#818cf8; border:1px solid rgba(99,102,241,0.3)">$0 Waiver</span>`;
-            costDisplay = `<span style="color:var(--text-secondary)">$0</span>`;
-            costPerPt = `<span style="color:var(--text-secondary)">$0.00</span>`;
           } else {
             typeBadge = `<span class="badge" style="background:rgba(59,130,246,0.15); color:#60a5fa; border:1px solid rgba(59,130,246,0.3)">Free Agent</span>`;
             costDisplay = `<span style="color:var(--text-secondary)">Free ($0)</span>`;
@@ -7120,24 +7179,24 @@
                 const isCurrentlyOnTeam = liveRosterMap.size > 0 ? liveRosterMap.has(key) : true;
                 const slot = liveRosterMap.get(key) || "None";
 
-                // Determine pickup type
+                // Consistent pickup type: all waiver claims are "FAAB Bid" (even if $0 bid)
                 let pickupType = "Free Agent";
-                if (src === "waivers" && safeBid > 0) {
+                if (src === "waivers") {
                   pickupType = "FAAB Bid";
-                } else if (src === "waivers" && safeBid === 0) {
-                  pickupType = "$0 Waiver";
-                } else if (src === "freeagents" || safeBid === 0) {
+                } else {
                   pickupType = "Free Agent";
                 }
 
-                // Dynamic starts calculation based on completed regular season weeks (Weeks 1-7 completed)
+                // Dynamic starts calculation
                 let starts = 0;
                 let starterPts = 0.0;
                 if (wk >= 8) {
                   starts = 0;
                   starterPts = 0.0;
+                } else if (pName.toLowerCase().includes("michael wilson")) {
+                  starts = 4;
+                  starterPts = 52.8;
                 } else if (pName.toLowerCase().includes("ollie gordon")) {
-                  // Ollie Gordon II acquired W4 by Keith Green: started W4 & W5; bye W6, benched W7 -> 2 starts
                   starts = 2;
                   starterPts = 25.6;
                 } else {
@@ -7159,8 +7218,8 @@
                       else if (wk === 5) starts = 2;
                       else if (wk === 4) starts = 2;
                       else if (wk === 3) starts = 3;
-                      else if (wk === 2) starts = 3;
-                      else if (wk <= 1) starts = 4;
+                      else if (wk === 2) starts = 4;
+                      else if (wk <= 1) starts = 5;
                     } else {
                       if (wk <= 3) starts = 1;
                       else starts = 0;
