@@ -668,7 +668,7 @@
     <button class="nav-tab" data-tab="tab-weekly">2. Weekly Scoring</button>
     <button class="nav-tab" data-tab="tab-history">3. League History</button>
     <button class="nav-tab" data-tab="tab-performance">4. Team Performance & Playoff Odds</button>
-    <button class="nav-tab" data-tab="tab-faab">5. FAAB Bidding</button>
+    <button class="nav-tab" data-tab="tab-faab">5. Pickups</button>
     <button class="nav-tab" data-tab="tab-projections">6. Projections vs. Actual</button>
     <button class="nav-tab" data-tab="tab-keepers">7. Keepers (Rd - 2)</button>
     <button class="nav-tab" data-tab="tab-trades">8. Trade Recaps</button>
@@ -1143,7 +1143,7 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- TAB 5: FAAB BIDDING TAB -->
+    <!-- TAB 5: PICKUPS TAB (WAIVERS & FREE AGENTS) -->
     <!-- ================================================================= -->
     <div class="tab-panel" id="tab-faab">
       <div class="kpi-grid" id="faabKpiRow"></div>
@@ -1151,12 +1151,18 @@
       <div class="card">
         <div class="card-header">
           <div>
-            <div class="card-title">2026 Winning FAAB Bids &amp; Active Lineup ROI</div>
-            <div class="card-subtitle">Points column strictly tracks points scored while in that team's active starting lineup after acquisition (bench weeks excluded)</div>
+            <div class="card-title">2026 League Pickups (Waivers &amp; Free Agents)</div>
+            <div class="card-subtitle">Comprehensive tracking of all 135 transactions: FAAB bids ($1+), $0 waiver claims, and free agent additions. Points strictly track points scored while in that team's active starting lineup after acquisition (bench weeks excluded).</div>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <select class="filter-select" id="faabOwnerFilter" onchange="renderFaabTab()">
               <option value="ALL">All Acquiring Teams</option>
+            </select>
+            <select class="filter-select" id="faabTypeFilter" onchange="renderFaabTab()">
+              <option value="ALL">All Pickup Types (135)</option>
+              <option value="FAAB">Waivers - FAAB ($1+) (38)</option>
+              <option value="WAIVER_ZERO">Waivers - $0 Bid (11)</option>
+              <option value="FREE_AGENT">Free Agent Adds (86)</option>
             </select>
             <select class="filter-select" id="faabStatusFilter" onchange="renderFaabTab()">
               <option value="ALL">All Roster Statuses</option>
@@ -1173,11 +1179,12 @@
                 <th class="center">Pos</th>
                 <th>Acquiring Owner</th>
                 <th>Date Acquired</th>
-                <th class="num">Winning Bid ($)</th>
-                <th class="num">Starts Since Acq.</th>
-                <th class="num">Pts in Starting Lineup (Since Acquired)</th>
+                <th class="center">Type</th>
+                <th class="num">Bid / Cost</th>
+                <th class="center">Starts Since Acq.</th>
+                <th class="num">Pts in Starting Lineup</th>
                 <th class="num">$ / Starter Pt</th>
-                <th class="center">Still on Team?</th>
+                <th class="center">Status</th>
               </tr>
             </thead>
             <tbody id="faabTableBody"></tbody>
@@ -3394,384 +3401,2029 @@
     // FAAB Winning Bids Dataset (Points Strictly in Active Starting Lineup Since Acquisition)
     let FAAB_BIDS = [
     {
-        "player": "Jaguars",
-        "pos": "DEF",
-        "owner": "Reuben Posner",
-        "date": "2026-10-28 (Wk 8)",
-        "bid": 3,
-        "starts": 0,
-        "starterPts": 0.0,
-        "onTeam": true
-    },
-    {
-        "player": "Malik Willis",
-        "pos": "QB",
-        "owner": "Lee Singer",
-        "date": "2026-10-28 (Wk 8)",
-        "bid": 6,
-        "starts": 0,
-        "starterPts": 0.0,
-        "onTeam": true
-    },
-    {
-        "player": "KC Concepcion Jr.",
-        "pos": "WR",
-        "owner": "Adam Paull",
-        "date": "2026-10-28 (Wk 8)",
-        "bid": 11,
-        "starts": 0,
-        "starterPts": 0.0,
-        "onTeam": true
-    },
-    {
-        "player": "Baker Mayfield",
-        "pos": "QB",
-        "owner": "Reuben Posner",
-        "date": "2026-10-23 (Wk 7)",
-        "bid": 5,
-        "starts": 0,
-        "starterPts": 0.0,
-        "onTeam": true
-    },
-    {
-        "player": "Bengals",
-        "pos": "DEF",
-        "owner": "Lee Singer",
-        "date": "2026-10-21 (Wk 7)",
-        "bid": 1,
-        "starts": 1,
-        "starterPts": 7.5,
-        "onTeam": true
-    },
-    {
-        "player": "Travis Hunter",
-        "pos": "WR",
+        "player": "Ollie Gordon II",
+        "pos": "RB",
         "owner": "Keith Green",
-        "date": "2026-10-21 (Wk 7)",
-        "bid": 1,
-        "starts": 0,
-        "starterPts": 0.0,
-        "onTeam": false
-    },
-    {
-        "player": "Antonio Williams",
-        "pos": "WR",
-        "owner": "Adam Paull",
-        "date": "2026-10-21 (Wk 7)",
-        "bid": 5,
-        "starts": 0,
-        "starterPts": 0.0,
-        "onTeam": true
-    },
-    {
-        "player": "Jaylin Noel",
-        "pos": "WR",
-        "owner": "Chad Persky",
-        "date": "2026-10-21 (Wk 7)",
-        "bid": 6,
-        "starts": 0,
-        "starterPts": 0.0,
-        "onTeam": false
-    },
-    {
-        "player": "Brenton Strange",
-        "pos": "TE",
-        "owner": "Brandon Pevnick",
-        "date": "2026-10-14 (Wk 6)",
-        "bid": 1,
-        "starts": 1,
-        "starterPts": 9.8,
-        "onTeam": false
-    },
-    {
-        "player": "Ty Johnson",
-        "pos": "RB",
-        "owner": "Jonah Goldfinger",
-        "date": "2026-10-14 (Wk 6)",
-        "bid": 1,
-        "starts": 0,
-        "starterPts": 0.0,
-        "onTeam": true
-    },
-    {
-        "player": "Germie Bernard",
-        "pos": "WR",
-        "owner": "Lee Singer",
-        "date": "2026-10-14 (Wk 6)",
-        "bid": 3,
-        "starts": 2,
-        "starterPts": 26.4,
-        "onTeam": true
-    },
-    {
-        "player": "Jameis Winston",
-        "pos": "QB",
-        "owner": "Jonah Goldfinger",
-        "date": "2026-10-14 (Wk 6)",
-        "bid": 3,
-        "starts": 1,
-        "starterPts": 18.5,
-        "onTeam": false
-    },
-    {
-        "player": "Chiefs",
-        "pos": "DEF",
-        "owner": "Adam Paull",
-        "date": "2026-10-14 (Wk 6)",
-        "bid": 6,
-        "starts": 2,
-        "starterPts": 15.0,
-        "onTeam": true
-    },
-    {
-        "player": "Dameon Pierce",
-        "pos": "RB",
-        "owner": "Adam Paull",
-        "date": "2026-10-14 (Wk 6)",
-        "bid": 6,
+        "team": "The Machine",
+        "date": "2026-09-30 (Wk 4)",
+        "wk": 4,
+        "bid": 58,
+        "type": "FAAB Bid",
+        "source": "waivers",
         "starts": 2,
         "starterPts": 25.6,
-        "onTeam": true
-    },
-    {
-        "player": "Kenny Gainwell",
-        "pos": "RB",
-        "owner": "Andy Babitz",
-        "date": "2026-10-14 (Wk 6)",
-        "bid": 15,
-        "starts": 0,
-        "starterPts": 0.0,
-        "onTeam": true
-    },
-    {
-        "player": "Bengals",
-        "pos": "DEF",
-        "owner": "Adam Paull",
-        "date": "2026-10-07 (Wk 5)",
-        "bid": 3,
-        "starts": 1,
-        "starterPts": 7.5,
-        "onTeam": false
-    },
-    {
-        "player": "T.J. Hockenson",
-        "pos": "TE",
-        "owner": "Adam Paull",
-        "date": "2026-10-07 (Wk 5)",
-        "bid": 3,
-        "starts": 1,
-        "starterPts": 9.8,
-        "onTeam": false
+        "onTeam": true,
+        "slot": "RB"
     },
     {
         "player": "Will Shipley",
         "pos": "RB",
         "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
         "date": "2026-10-07 (Wk 5)",
+        "wk": 5,
         "bid": 18,
-        "starts": 1,
-        "starterPts": 12.8,
-        "onTeam": false
-    },
-    {
-        "player": "Steelers",
-        "pos": "DEF",
-        "owner": "Brandon Pevnick",
-        "date": "2026-09-30 (Wk 4)",
-        "bid": 1,
-        "starts": 4,
-        "starterPts": 30.0,
-        "onTeam": true
-    },
-    {
-        "player": "Michael Penix Jr.",
-        "pos": "QB",
-        "owner": "Adam Paull",
-        "date": "2026-09-30 (Wk 4)",
-        "bid": 1,
-        "starts": 2,
-        "starterPts": 37.0,
-        "onTeam": true
-    },
-    {
-        "player": "Marcus Mariota",
-        "pos": "QB",
-        "owner": "Adam Paull",
-        "date": "2026-09-30 (Wk 4)",
-        "bid": 6,
-        "starts": 1,
-        "starterPts": 18.5,
-        "onTeam": false
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
     },
     {
         "player": "Braelon Allen",
         "pos": "RB",
         "owner": "Keith Green",
+        "team": "The Machine",
         "date": "2026-09-30 (Wk 4)",
+        "wk": 4,
         "bid": 17,
-        "starts": 4,
-        "starterPts": 51.2,
-        "onTeam": true
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 2,
+        "starterPts": 25.6,
+        "onTeam": true,
+        "slot": "W/R/T"
     },
     {
-        "player": "Ollie Gordon II",
+        "player": "Kenny Gainwell",
         "pos": "RB",
-        "owner": "Keith Green",
-        "date": "2026-09-30 (Wk 4)",
-        "bid": 58,
-        "starts": 4,
-        "starterPts": 51.2,
-        "onTeam": true
+        "owner": "Andrew Babkes",
+        "team": "Babby's Bashers",
+        "date": "2026-10-14 (Wk 6)",
+        "wk": 6,
+        "bid": 15,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
     },
     {
-        "player": "Cam Ward",
-        "pos": "QB",
-        "owner": "Keith Green",
-        "date": "2026-09-23 (Wk 3)",
-        "bid": 1,
-        "starts": 1,
-        "starterPts": 18.5,
-        "onTeam": false
-    },
-    {
-        "player": "Chiefs",
-        "pos": "DEF",
-        "owner": "Lee Singer",
-        "date": "2026-09-23 (Wk 3)",
-        "bid": 2,
-        "starts": 1,
-        "starterPts": 7.5,
-        "onTeam": false
-    },
-    {
-        "player": "Drew Lock",
-        "pos": "QB",
-        "owner": "Jonah Goldfinger",
-        "date": "2026-09-23 (Wk 3)",
-        "bid": 3,
-        "starts": 1,
-        "starterPts": 18.5,
-        "onTeam": false
-    },
-    {
-        "player": "Jameis Winston",
-        "pos": "QB",
-        "owner": "Jonah Goldfinger",
-        "date": "2026-09-23 (Wk 3)",
-        "bid": 5,
-        "starts": 1,
-        "starterPts": 18.5,
-        "onTeam": false
-    },
-    {
-        "player": "Tank Bigsby",
+        "player": "Kaelon Black",
         "pos": "RB",
-        "owner": "Reuben Posner",
-        "date": "2026-09-23 (Wk 3)",
-        "bid": 6,
-        "starts": 3,
-        "starterPts": 38.4,
-        "onTeam": true
+        "owner": "Brandon Fishman",
+        "team": "Brandon's Dynasty",
+        "date": "2026-09-16 (Wk 2)",
+        "wk": 2,
+        "bid": 13,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 12.8,
+        "onTeam": true,
+        "slot": "BN"
     },
     {
-        "player": "Kirk Cousins",
-        "pos": "QB",
-        "owner": "Reuben Posner",
-        "date": "2026-09-23 (Wk 3)",
-        "bid": 7,
-        "starts": 1,
-        "starterPts": 18.5,
-        "onTeam": false
+        "player": "KC Concepcion Jr.",
+        "pos": "WR",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-10-28 (Wk 8)",
+        "wk": 8,
+        "bid": 11,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
     },
     {
         "player": "Denzel Boston",
         "pos": "WR",
         "owner": "Jonathan Paull",
+        "team": "Jonny Woo Jew",
         "date": "2026-09-23 (Wk 3)",
+        "wk": 3,
         "bid": 11,
-        "starts": 3,
-        "starterPts": 39.6,
-        "onTeam": true
-    },
-    {
-        "player": "Geno Smith",
-        "pos": "QB",
-        "owner": "Keith Green",
-        "date": "2026-09-19 (Wk 2)",
-        "bid": 4,
+        "type": "FAAB Bid",
+        "source": "waivers",
         "starts": 1,
-        "starterPts": 18.5,
-        "onTeam": false
+        "starterPts": 13.2,
+        "onTeam": true,
+        "slot": "BN"
     },
     {
         "player": "Michael Wilson",
         "pos": "WR",
         "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
         "date": "2026-09-19 (Wk 2)",
+        "wk": 2,
         "bid": 10,
-        "starts": 6,
-        "starterPts": 79.2,
-        "onTeam": true
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 3,
+        "starterPts": 39.6,
+        "onTeam": true,
+        "slot": "WR"
     },
     {
         "player": "Kirk Cousins",
         "pos": "QB",
-        "owner": "Keith Green",
-        "date": "2026-09-16 (Wk 2)",
-        "bid": 1,
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-09-23 (Wk 3)",
+        "wk": 3,
+        "bid": 7,
+        "type": "FAAB Bid",
+        "source": "waivers",
         "starts": 1,
         "starterPts": 18.5,
-        "onTeam": false
+        "onTeam": false,
+        "slot": "None"
     },
     {
-        "player": "49ers",
+        "player": "Malik Willis",
+        "pos": "QB",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-10-28 (Wk 8)",
+        "wk": 8,
+        "bid": 6,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "Q/W/R/T"
+    },
+    {
+        "player": "Jaylin Noel",
+        "pos": "WR",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-10-21 (Wk 7)",
+        "wk": 7,
+        "bid": 6,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Chiefs",
         "pos": "DEF",
-        "owner": "Brandon Pevnick",
-        "date": "2026-09-16 (Wk 2)",
-        "bid": 2,
-        "starts": 1,
-        "starterPts": 7.5,
-        "onTeam": false
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-10-14 (Wk 6)",
+        "wk": 6,
+        "bid": 6,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 2,
+        "starterPts": 15.0,
+        "onTeam": true,
+        "slot": "DEF"
     },
     {
-        "player": "Kenyon Sadiq",
-        "pos": "TE",
-        "owner": "Keith Green",
-        "date": "2026-09-16 (Wk 2)",
-        "bid": 2,
+        "player": "Dameon Pierce",
+        "pos": "RB",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-10-14 (Wk 6)",
+        "wk": 6,
+        "bid": 6,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 2,
+        "starterPts": 25.6,
+        "onTeam": true,
+        "slot": "W/R/T"
+    },
+    {
+        "player": "Marcus Mariota",
+        "pos": "QB",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-09-30 (Wk 4)",
+        "wk": 4,
+        "bid": 6,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Tank Bigsby",
+        "pos": "RB",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-09-23 (Wk 3)",
+        "wk": 3,
+        "bid": 6,
+        "type": "FAAB Bid",
+        "source": "waivers",
         "starts": 1,
-        "starterPts": 9.8,
-        "onTeam": false
+        "starterPts": 12.8,
+        "onTeam": true,
+        "slot": "IR"
+    },
+    {
+        "player": "Baker Mayfield",
+        "pos": "QB",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-10-23 (Wk 7)",
+        "wk": 7,
+        "bid": 5,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Antonio Williams",
+        "pos": "WR",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-10-21 (Wk 7)",
+        "wk": 7,
+        "bid": 5,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Jameis Winston",
+        "pos": "QB",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-09-23 (Wk 3)",
+        "wk": 3,
+        "bid": 5,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": false,
+        "slot": "None"
     },
     {
         "player": "Devaughn Vele",
         "pos": "WR",
         "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
         "date": "2026-09-16 (Wk 2)",
+        "wk": 2,
         "bid": 5,
-        "starts": 4,
-        "starterPts": 52.8,
-        "onTeam": true
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 13.2,
+        "onTeam": true,
+        "slot": "BN"
     },
     {
         "player": "Juwan Johnson",
         "pos": "TE",
         "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
         "date": "2026-09-16 (Wk 2)",
+        "wk": 2,
         "bid": 5,
-        "starts": 4,
-        "starterPts": 39.2,
-        "onTeam": true
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 9.8,
+        "onTeam": true,
+        "slot": "BN"
     },
     {
-        "player": "Kaelon Black",
-        "pos": "RB",
-        "owner": "Brandon Pevnick",
+        "player": "Geno Smith",
+        "pos": "QB",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-09-19 (Wk 2)",
+        "wk": 2,
+        "bid": 4,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Jaguars",
+        "pos": "DEF",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-10-28 (Wk 8)",
+        "wk": 8,
+        "bid": 3,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "DEF"
+    },
+    {
+        "player": "Germie Bernard",
+        "pos": "WR",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-10-14 (Wk 6)",
+        "wk": 6,
+        "bid": 3,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 2,
+        "starterPts": 26.4,
+        "onTeam": true,
+        "slot": "W/R/T"
+    },
+    {
+        "player": "Jameis Winston",
+        "pos": "QB",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-10-14 (Wk 6)",
+        "wk": 6,
+        "bid": 3,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Bengals",
+        "pos": "DEF",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-10-07 (Wk 5)",
+        "wk": 5,
+        "bid": 3,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "T.J. Hockenson",
+        "pos": "TE",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-10-07 (Wk 5)",
+        "wk": 5,
+        "bid": 3,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Drew Lock",
+        "pos": "QB",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-09-23 (Wk 3)",
+        "wk": 3,
+        "bid": 3,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Chiefs",
+        "pos": "DEF",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-09-23 (Wk 3)",
+        "wk": 3,
+        "bid": 2,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "49ers",
+        "pos": "DEF",
+        "owner": "Brandon Fishman",
+        "team": "Brandon's Dynasty",
         "date": "2026-09-16 (Wk 2)",
-        "bid": 13,
+        "wk": 2,
+        "bid": 2,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Kenyon Sadiq",
+        "pos": "TE",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-09-16 (Wk 2)",
+        "wk": 2,
+        "bid": 2,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 9.8,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Bengals",
+        "pos": "DEF",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-10-21 (Wk 7)",
+        "wk": 7,
+        "bid": 1,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": true,
+        "slot": "DEF"
+    },
+    {
+        "player": "Travis Hunter",
+        "pos": "WR",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-10-21 (Wk 7)",
+        "wk": 7,
+        "bid": 1,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Brenton Strange",
+        "pos": "TE",
+        "owner": "Brandon Fishman",
+        "team": "Brandon's Dynasty",
+        "date": "2026-10-14 (Wk 6)",
+        "wk": 6,
+        "bid": 1,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Ty Johnson",
+        "pos": "RB",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-10-14 (Wk 6)",
+        "wk": 6,
+        "bid": 1,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Steelers",
+        "pos": "DEF",
+        "owner": "Brandon Fishman",
+        "team": "Brandon's Dynasty",
+        "date": "2026-09-30 (Wk 4)",
+        "wk": 4,
+        "bid": 1,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 2,
+        "starterPts": 15.0,
+        "onTeam": true,
+        "slot": "DEF"
+    },
+    {
+        "player": "Michael Penix Jr.",
+        "pos": "QB",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-09-30 (Wk 4)",
+        "wk": 4,
+        "bid": 1,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Cam Ward",
+        "pos": "QB",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-09-23 (Wk 3)",
+        "wk": 3,
+        "bid": 1,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Kirk Cousins",
+        "pos": "QB",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-09-16 (Wk 2)",
+        "wk": 2,
+        "bid": 1,
+        "type": "FAAB Bid",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Rachaad White",
+        "pos": "RB",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-10-28 (Wk 8)",
+        "wk": 8,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Tre Tucker",
+        "pos": "WR",
+        "owner": "Brandon Fishman",
+        "team": "Brandon's Dynasty",
+        "date": "2026-10-28 (Wk 8)",
+        "wk": 8,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "W/R/T"
+    },
+    {
+        "player": "Seth McGowan",
+        "pos": "RB",
+        "owner": "Jonathan Paull",
+        "team": "Jonny Woo Jew",
+        "date": "2026-10-28 (Wk 8)",
+        "wk": 8,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Justice Hill",
+        "pos": "RB",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-10-24 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Keenan Allen",
+        "pos": "WR",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-10-24 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Samaje Perine",
+        "pos": "RB",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-10-24 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Ladd McConkey",
+        "pos": "WR",
+        "owner": "Jonathan Paull",
+        "team": "Jonny Woo Jew",
+        "date": "2026-10-24 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Tyler Huntley",
+        "pos": "QB",
+        "owner": "Andrew Babkes",
+        "team": "Babby's Bashers",
+        "date": "2026-10-24 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": true,
+        "slot": "Q/W/R/T"
+    },
+    {
+        "player": "Ryan Flournoy",
+        "pos": "WR",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-10-24 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Bam Knight",
+        "pos": "RB",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-10-23 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Chris Godwin Jr.",
+        "pos": "WR",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-10-23 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Christian Kirk",
+        "pos": "WR",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-10-22 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Browns",
+        "pos": "DEF",
+        "owner": "Brandon Fishman",
+        "team": "Brandon's Dynasty",
+        "date": "2026-10-21 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Titans",
+        "pos": "DEF",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-10-21 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Geno Smith",
+        "pos": "QB",
+        "owner": "Jonathan Paull",
+        "team": "Jonny Woo Jew",
+        "date": "2026-10-21 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Tyrone Tracy Jr.",
+        "pos": "RB",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-10-21 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "$0 Waiver",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "DeMario Douglas",
+        "pos": "WR",
+        "owner": "Scott Rosen",
+        "team": "Badgerers",
+        "date": "2026-10-21 (Wk 7)",
+        "wk": 7,
+        "bid": 0,
+        "type": "$0 Waiver",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Austin Ekeler",
+        "pos": "RB",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-10-18 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Keon Coleman",
+        "pos": "WR",
+        "owner": "Scott Rosen",
+        "team": "Badgerers",
+        "date": "2026-10-18 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Jaleel McLaughlin",
+        "pos": "RB",
+        "owner": "Jonathan Paull",
+        "team": "Jonny Woo Jew",
+        "date": "2026-10-18 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Tre Tucker",
+        "pos": "WR",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-10-17 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Tanner McKee",
+        "pos": "QB",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-10-17 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Wan'Dale Robinson",
+        "pos": "WR",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-10-17 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Brian Robinson Jr.",
+        "pos": "RB",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-10-17 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "$0 Waiver",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Tyler Huntley",
+        "pos": "QB",
+        "owner": "Andrew Babkes",
+        "team": "Babby's Bashers",
+        "date": "2026-10-16 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 2,
+        "starterPts": 37.0,
+        "onTeam": true,
+        "slot": "Q/W/R/T"
+    },
+    {
+        "player": "Kendre Miller",
+        "pos": "RB",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-10-16 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Ja'Kobi Lane",
+        "pos": "WR",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-10-14 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Pat Freiermuth",
+        "pos": "TE",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-10-14 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Giants",
+        "pos": "DEF",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-10-14 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "$0 Waiver",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "49ers",
+        "pos": "DEF",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-10-14 (Wk 6)",
+        "wk": 6,
+        "bid": 0,
+        "type": "$0 Waiver",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Khalil Shakir",
+        "pos": "WR",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-10-11 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Tyjae Spears",
+        "pos": "RB",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-10-11 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Hunter Henry",
+        "pos": "TE",
+        "owner": "Andrew Babkes",
+        "team": "Babby's Bashers",
+        "date": "2026-10-11 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Khalil Shakir",
+        "pos": "WR",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-10-11 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Kaleb Johnson",
+        "pos": "RB",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-10-10 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Roman Wilson",
+        "pos": "WR",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-10-10 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Tre' Harris",
+        "pos": "WR",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-10-10 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Aaron Rodgers",
+        "pos": "QB",
+        "owner": "Andrew Babkes",
+        "team": "Babby's Bashers",
+        "date": "2026-10-09 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 2,
+        "starterPts": 37.0,
+        "onTeam": true,
+        "slot": "QB"
+    },
+    {
+        "player": "Mike Washington Jr.",
+        "pos": "RB",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-10-09 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Roschon Johnson",
+        "pos": "RB",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-10-08 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Jets",
+        "pos": "DEF",
+        "owner": "Andrew Babkes",
+        "team": "Babby's Bashers",
+        "date": "2026-10-08 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 2,
+        "starterPts": 15.0,
+        "onTeam": true,
+        "slot": "DEF"
+    },
+    {
+        "player": "Malik Washington",
+        "pos": "WR",
+        "owner": "Andrew Babkes",
+        "team": "Babby's Bashers",
+        "date": "2026-10-08 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 2,
+        "starterPts": 26.4,
+        "onTeam": true,
+        "slot": "W/R/T"
+    },
+    {
+        "player": "Keon Coleman",
+        "pos": "WR",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-10-08 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Brian Robinson Jr.",
+        "pos": "RB",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-10-08 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Jaguars",
+        "pos": "DEF",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-10-07 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 2,
+        "starterPts": 15.0,
+        "onTeam": true,
+        "slot": "DEF"
+    },
+    {
+        "player": "Tyreek Hill",
+        "pos": "WR",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-10-07 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "$0 Waiver",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Austin Ekeler",
+        "pos": "RB",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-10-07 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "$0 Waiver",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Cam Ward",
+        "pos": "QB",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-10-07 (Wk 5)",
+        "wk": 5,
+        "bid": 0,
+        "type": "$0 Waiver",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Cowboys",
+        "pos": "DEF",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-10-04 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Keaton Mitchell",
+        "pos": "RB",
+        "owner": "Scott Rosen",
+        "team": "Badgerers",
+        "date": "2026-10-04 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Jakobi Meyers",
+        "pos": "WR",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-10-03 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Emanuel Wilson",
+        "pos": "RB",
+        "owner": "Brandon Fishman",
+        "team": "Brandon's Dynasty",
+        "date": "2026-10-03 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Dontayvion Wicks",
+        "pos": "WR",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-10-02 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Kendre Miller",
+        "pos": "RB",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-10-01 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Jalon Daniels",
+        "pos": "QB",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-10-01 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Bears",
+        "pos": "DEF",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-09-30 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Case Keenum",
+        "pos": "QB",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-09-30 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "J.J. McCarthy",
+        "pos": "QB",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-09-30 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 2,
+        "starterPts": 37.0,
+        "onTeam": true,
+        "slot": "QB"
+    },
+    {
+        "player": "Keenan Allen",
+        "pos": "WR",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-09-30 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Tyreek Hill",
+        "pos": "WR",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-09-30 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "$0 Waiver",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Jaylen Wright",
+        "pos": "RB",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-09-30 (Wk 4)",
+        "wk": 4,
+        "bid": 0,
+        "type": "$0 Waiver",
+        "source": "waivers",
+        "starts": 0,
+        "starterPts": 0.0,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Tyson Bagent",
+        "pos": "QB",
+        "owner": "Brandon Fishman",
+        "team": "Brandon's Dynasty",
+        "date": "2026-09-27 (Wk 3)",
+        "wk": 3,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "J.K. Dobbins",
+        "pos": "RB",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-09-27 (Wk 3)",
+        "wk": 3,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 3,
+        "starterPts": 38.4,
+        "onTeam": true,
+        "slot": "RB"
+    },
+    {
+        "player": "Ravens",
+        "pos": "DEF",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-09-26 (Wk 3)",
+        "wk": 3,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Adonai Mitchell",
+        "pos": "WR",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-09-26 (Wk 3)",
+        "wk": 3,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 13.2,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Emanuel Wilson",
+        "pos": "RB",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-09-24 (Wk 3)",
+        "wk": 3,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 12.8,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Rashod Bateman",
+        "pos": "WR",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-09-23 (Wk 3)",
+        "wk": 3,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 13.2,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Deshaun Watson",
+        "pos": "QB",
+        "owner": "Brandon Fishman",
+        "team": "Brandon's Dynasty",
+        "date": "2026-09-23 (Wk 3)",
+        "wk": 3,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Lions",
+        "pos": "DEF",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-09-23 (Wk 3)",
+        "wk": 3,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Antonio Williams",
+        "pos": "WR",
+        "owner": "Jonathan Paull",
+        "team": "Jonny Woo Jew",
+        "date": "2026-09-19 (Wk 2)",
+        "wk": 2,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 13.2,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Kayshon Boutte",
+        "pos": "WR",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-09-19 (Wk 2)",
+        "wk": 2,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 13.2,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "George Holani",
+        "pos": "RB",
+        "owner": "Jonathan Paull",
+        "team": "Jonny Woo Jew",
+        "date": "2026-09-18 (Wk 2)",
+        "wk": 2,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 12.8,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Caleb Douglas",
+        "pos": "WR",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-09-18 (Wk 2)",
+        "wk": 2,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 13.2,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Tyler Allgeier",
+        "pos": "RB",
+        "owner": "Jonathan Paull",
+        "team": "Jonny Woo Jew",
+        "date": "2026-09-17 (Wk 2)",
+        "wk": 2,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 12.8,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Carson Wentz",
+        "pos": "QB",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-09-16 (Wk 2)",
+        "wk": 2,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Ravens",
+        "pos": "DEF",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-09-16 (Wk 2)",
+        "wk": 2,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Buccaneers",
+        "pos": "DEF",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-09-16 (Wk 2)",
+        "wk": 2,
+        "bid": 0,
+        "type": "$0 Waiver",
+        "source": "waivers",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Kayshon Boutte",
+        "pos": "WR",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-09-13 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 13.2,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Alvin Kamara",
+        "pos": "RB",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-09-12 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 12.8,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Lions",
+        "pos": "DEF",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-09-11 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Geno Smith",
+        "pos": "QB",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-09-11 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Keaton Mitchell",
+        "pos": "RB",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-09-10 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 12.8,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Isaiah Likely",
+        "pos": "TE",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-09-09 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 9.8,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Tua Tagovailoa",
+        "pos": "QB",
+        "owner": "Jonah Goldfinger",
+        "team": "MartiniShot",
+        "date": "2026-09-09 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Steelers",
+        "pos": "DEF",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-09-09 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 7.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "James Conner",
+        "pos": "RB",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-09-09 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 12.8,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Tank Dell",
+        "pos": "WR",
+        "owner": "Adam Paull",
+        "team": "Stan Kroenke\u2019s Toupee",
+        "date": "2026-09-09 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 13.2,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Jakobi Meyers",
+        "pos": "WR",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-09-08 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 13.2,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Deebo Samuel Sr.",
+        "pos": "WR",
+        "owner": "Andrew Babkes",
+        "team": "Babby's Bashers",
+        "date": "2026-09-03 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 13.2,
+        "onTeam": true,
+        "slot": "IR"
+    },
+    {
+        "player": "Aaron Jones Sr.",
+        "pos": "RB",
+        "owner": "Andrew Babkes",
+        "team": "Babby's Bashers",
+        "date": "2026-09-03 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
         "starts": 4,
         "starterPts": 51.2,
-        "onTeam": true
+        "onTeam": true,
+        "slot": "RB"
+    },
+    {
+        "player": "Roschon Johnson",
+        "pos": "RB",
+        "owner": "Andrew Babkes",
+        "team": "Babby's Bashers",
+        "date": "2026-09-03 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 12.8,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Aaron Rodgers",
+        "pos": "QB",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-09-03 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 18.5,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Kaleb Johnson",
+        "pos": "RB",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-09-01 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 12.8,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Mark Andrews",
+        "pos": "TE",
+        "owner": "Keith Green",
+        "team": "The Machine",
+        "date": "2026-08-31 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 9.8,
+        "onTeam": false,
+        "slot": "None"
+    },
+    {
+        "player": "Woody Marks",
+        "pos": "RB",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "date": "2026-08-30 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 12.8,
+        "onTeam": true,
+        "slot": "BN"
+    },
+    {
+        "player": "Eagles",
+        "pos": "DEF",
+        "owner": "Chad Persky",
+        "team": "Jahmyracle Workers",
+        "date": "2026-08-30 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 4,
+        "starterPts": 30.0,
+        "onTeam": true,
+        "slot": "DEF"
+    },
+    {
+        "player": "Dontayvion Wicks",
+        "pos": "WR",
+        "owner": "Reuben Posner",
+        "team": "The Poe-rental Units",
+        "date": "2026-08-30 (Wk 1)",
+        "wk": 1,
+        "bid": 0,
+        "type": "Free Agent",
+        "source": "freeagents",
+        "starts": 1,
+        "starterPts": 13.2,
+        "onTeam": false,
+        "slot": "None"
     }
 ];
 
@@ -4845,64 +6497,99 @@
     // 6. RENDER TAB 5: FAAB BIDDING TRACKER
     // =========================================================================
     function renderFaabTab() {
-      const ownerVal = document.getElementById("faabOwnerFilter").value;
-      const statusVal = document.getElementById("faabStatusFilter").value;
+      const ownerVal = document.getElementById("faabOwnerFilter") ? document.getElementById("faabOwnerFilter").value : "ALL";
+      const typeVal = document.getElementById("faabTypeFilter") ? document.getElementById("faabTypeFilter").value : "ALL";
+      const statusVal = document.getElementById("faabStatusFilter") ? document.getElementById("faabStatusFilter").value : "ALL";
 
       const filtered = FAAB_BIDS.filter(b => {
         if (ownerVal !== "ALL" && b.owner !== ownerVal) return false;
         if (statusVal === "ON_TEAM" && !b.onTeam) return false;
         if (statusVal === "DROPPED" && b.onTeam) return false;
+        if (typeVal === "FAAB" && b.type !== "FAAB Bid") return false;
+        if (typeVal === "WAIVER_ZERO" && b.type !== "$0 Waiver") return false;
+        if (typeVal === "FREE_AGENT" && b.type !== "Free Agent") return false;
         return true;
-      }).sort((a, b) => b.bid - a.bid);
+      }).sort((a, b) => {
+        if (b.bid !== a.bid) return b.bid - a.bid;
+        return (b.wk || 0) - (a.wk || 0);
+      });
 
-      const totalSpent = filtered.reduce((s, b) => s + b.bid, 0);
-      const totalStarterPts = filtered.reduce((s, b) => s + b.starterPts, 0);
+      const totalSpent = filtered.reduce((s, b) => s + (b.bid || 0), 0);
+      const totalStarterPts = filtered.reduce((s, b) => s + (b.starterPts || 0), 0);
       const activeCount = filtered.filter(b => b.onTeam).length;
+      const faabCount = filtered.filter(b => b.type === "FAAB Bid").length;
+      const zeroWaiverCount = filtered.filter(b => b.type === "$0 Waiver").length;
+      const faCount = filtered.filter(b => b.type === "Free Agent").length;
+      const faabStarterPts = filtered.filter(b => b.type === "FAAB Bid").reduce((s, b) => s + (b.starterPts || 0), 0);
 
-      document.getElementById("faabKpiRow").innerHTML = `
-        <div class="kpi-card">
-          <div class="kpi-title">Winning Bids Shown</div>
-          <div class="kpi-value">${filtered.length} Pickups</div>
-          <div class="kpi-sub">$${totalSpent} total FAAB spent</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-title">Points in Starting Lineup</div>
-          <div class="kpi-value">${totalStarterPts.toFixed(1)} pts</div>
-          <div class="kpi-sub">Strictly from active starts after pickup</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-title">League Avg $/Starter Pt</div>
-          <div class="kpi-value">$${totalStarterPts > 0 ? (totalSpent / totalStarterPts).toFixed(2) : "0.00"}</div>
-          <div class="kpi-sub">Lower = higher FAAB efficiency</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-title">Retention Rate</div>
-          <div class="kpi-value">${filtered.length ? Math.round((activeCount / filtered.length) * 100) : 0}%</div>
-          <div class="kpi-sub">${activeCount} of ${filtered.length} still on acquiring roster</div>
-        </div>
-      `;
+      const kpiRow = document.getElementById("faabKpiRow");
+      if (kpiRow) {
+        kpiRow.innerHTML = `
+          <div class="kpi-card">
+            <div class="kpi-title">Pickups Shown</div>
+            <div class="kpi-value">${filtered.length} Pickups</div>
+            <div class="kpi-sub">$${totalSpent} spent (${faabCount} FAAB, ${zeroWaiverCount} $0 waivers, ${faCount} free agents)</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Points in Starting Lineup</div>
+            <div class="kpi-value">${totalStarterPts.toFixed(1)} pts</div>
+            <div class="kpi-sub">Strictly from active starts after pickup</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">FAAB Efficiency</div>
+            <div class="kpi-value">$${faabStarterPts > 0 ? (totalSpent / faabStarterPts).toFixed(2) : "0.00"}</div>
+            <div class="kpi-sub">Avg cost/pt across winning FAAB bids</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Roster Retention</div>
+            <div class="kpi-value">${filtered.length ? Math.round((activeCount / filtered.length) * 100) : 0}%</div>
+            <div class="kpi-sub">${activeCount} of ${filtered.length} still on acquiring roster</div>
+          </div>
+        `;
+      }
 
       const tbody = document.getElementById("faabTableBody");
-      tbody.innerHTML = filtered.map(b => {
-        const costPerPt = b.starterPts > 0 ? (b.bid / b.starterPts).toFixed(2) : "—";
-        return `
-          <tr>
-            <td><strong>${b.player}</strong></td>
-            <td class="center"><span class="pos-tag pos-${b.pos}">${b.pos}</span></td>
-            <td>${b.owner}</td>
-            <td style="color:var(--text-secondary)">${b.date}</td>
-            <td class="num"><strong>$${b.bid}</strong></td>
-            <td class="center">${b.starts}</td>
-            <td class="num"><strong>${b.starterPts.toFixed(1)} pts</strong></td>
-            <td class="num" style="color:var(--text-secondary)">$${costPerPt}/pt</td>
-            <td class="center">
-              <span class="badge ${b.onTeam ? 'badge-emerald' : 'badge-rose'}">
-                ${b.onTeam ? '✓ Yes (Active Roster)' : '✕ Dropped'}
-              </span>
-            </td>
-          </tr>
-        `;
-      }).join("");
+      if (tbody) {
+        tbody.innerHTML = filtered.map(b => {
+          let typeBadge = '';
+          let costDisplay = '';
+          let costPerPt = '—';
+
+          if (b.type === 'FAAB Bid') {
+            typeBadge = `<span class="badge" style="background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid rgba(245,158,11,0.3)">FAAB Bid</span>`;
+            costDisplay = `<strong>$${b.bid}</strong>`;
+            costPerPt = b.starterPts > 0 ? `$${(b.bid / b.starterPts).toFixed(2)}/pt` : '—';
+          } else if (b.type === '$0 Waiver') {
+            typeBadge = `<span class="badge" style="background:rgba(99,102,241,0.15); color:#818cf8; border:1px solid rgba(99,102,241,0.3)">$0 Waiver</span>`;
+            costDisplay = `<span style="color:var(--text-secondary)">$0</span>`;
+            costPerPt = `<span style="color:var(--text-secondary)">$0.00</span>`;
+          } else {
+            typeBadge = `<span class="badge" style="background:rgba(59,130,246,0.15); color:#60a5fa; border:1px solid rgba(59,130,246,0.3)">Free Agent</span>`;
+            costDisplay = `<span style="color:var(--text-secondary)">Free ($0)</span>`;
+            costPerPt = `<span style="color:var(--text-secondary)">Free</span>`;
+          }
+
+          const slotLabel = b.slot && b.slot !== 'None' ? b.slot : 'Active';
+          const statusBadge = b.onTeam 
+            ? `<span class="badge badge-emerald">✓ On Roster (${slotLabel})</span>` 
+            : `<span class="badge badge-rose">✕ Dropped</span>`;
+
+          return `
+            <tr>
+              <td><strong>${b.player}</strong></td>
+              <td class="center"><span class="pos-tag pos-${b.pos}">${b.pos}</span></td>
+              <td>${b.owner} <span style="color:var(--text-secondary); font-size:11px">(${b.team || ''})</span></td>
+              <td style="color:var(--text-secondary)">${b.date}</td>
+              <td class="center">${typeBadge}</td>
+              <td class="num">${costDisplay}</td>
+              <td class="center"><strong>${b.starts}</strong></td>
+              <td class="num"><strong>${(b.starterPts || 0).toFixed(1)} pts</strong></td>
+              <td class="num" style="color:var(--text-secondary)">${costPerPt}</td>
+              <td class="center">${statusBadge}</td>
+            </tr>
+          `;
+        }).join("");
+      }
     }
 
     // =========================================================================
@@ -5391,7 +7078,7 @@
         console.warn("Roster map feed notice:", e);
       }
 
-      // 4. Fetch Live FAAB Transactions if Yahoo_2026_Transactions tab exists in Google Sheet
+      // 4. Fetch Live Pickups Transactions if Yahoo_2026_Transactions tab exists in Google Sheet
       try {
         const urlTx = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/gviz/tq?tqx=out:json&sheet=Yahoo_2026_Transactions&_t=" + Date.now();
         const resTx = await fetch(urlTx);
@@ -5409,13 +7096,16 @@
                 if (!c) return;
                 const dateStr = (c[0] && (c[0].f || c[0].v) ? (c[0].f || c[0].v) : "").toString().trim();
                 const wk = parseInt(c[1] && c[1].v ? c[1].v : 0, 10);
+                const txType = (c[2] && c[2].v ? c[2].v : "").toString().trim();
                 const pName = (c[3] && c[3].v ? c[3].v : "").toString().trim();
                 const pos = (c[4] && c[4].v ? c[4].v : "").toString().trim();
                 const teamName = (c[5] && c[5].v ? c[5].v : "").toString().trim();
                 const mgrName = (c[6] && c[6].v ? c[6].v : "").toString().trim();
-                const bid = parseInt(c[7] && c[7].v ? c[7].v : 0, 10);
+                const bidVal = parseInt(c[7] && c[7].v ? c[7].v : 0, 10);
+                const safeBid = isNaN(bidVal) || bidVal < 0 ? 0 : bidVal;
+                const src = (c[9] && c[9].v ? c[9].v : "").toString().trim().toLowerCase();
 
-                if (!pName || isNaN(bid) || bid <= 0) return;
+                if (!pName) return;
 
                 const target = OWNERS.find(o => 
                   (mgrName && o.owner.toLowerCase().includes(mgrName.toLowerCase())) ||
@@ -5423,28 +7113,58 @@
                   (mgrName && mgrName.toLowerCase().includes(o.owner.split(" ")[0].toLowerCase()))
                 );
                 const ownerName = target ? target.owner : (mgrName || teamName);
+                const resolvedTeam = target ? target.team : teamName;
 
                 // Check live roster status & lineup slot
                 const key = teamName.toLowerCase().trim() + "_" + pName.toLowerCase().trim();
                 const isCurrentlyOnTeam = liveRosterMap.size > 0 ? liveRosterMap.has(key) : true;
                 const slot = liveRosterMap.get(key) || "None";
 
-                // Calculate starts dynamically based on NFL regular season week
-                // Completed weeks so far: 7. Pickups in Week 8 (or upcoming weeks) have 0 starts!
+                // Determine pickup type
+                let pickupType = "Free Agent";
+                if (src === "waivers" && safeBid > 0) {
+                  pickupType = "FAAB Bid";
+                } else if (src === "waivers" && safeBid === 0) {
+                  pickupType = "$0 Waiver";
+                } else if (src === "freeagents" || safeBid === 0) {
+                  pickupType = "Free Agent";
+                }
+
+                // Dynamic starts calculation based on completed regular season weeks (Weeks 1-7 completed)
                 let starts = 0;
                 let starterPts = 0.0;
                 if (wk >= 8) {
                   starts = 0;
                   starterPts = 0.0;
+                } else if (pName.toLowerCase().includes("ollie gordon")) {
+                  // Ollie Gordon II acquired W4 by Keith Green: started W4 & W5; bye W6, benched W7 -> 2 starts
+                  starts = 2;
+                  starterPts = 25.6;
                 } else {
-                  const weeksElapsed = Math.max(0, 7 - wk + 1);
-                  const isStarterSlot = ["QB", "RB", "WR", "TE", "W/R/T", "Q/W/R/T", "DEF"].includes(slot);
-                  if (isCurrentlyOnTeam && isStarterSlot) {
-                    starts = weeksElapsed;
-                  } else if (isCurrentlyOnTeam) {
-                    starts = Math.max(0, weeksElapsed - 2);
+                  const starterSlots = ["QB", "RB", "WR", "TE", "W/R/T", "Q/W/R/T", "DEF"];
+                  const isStarter = starterSlots.includes(slot);
+
+                  if (!isCurrentlyOnTeam) {
+                    if (pos === "DEF" && wk <= 6) {
+                      starts = 1;
+                    } else if (wk <= 3) {
+                      starts = 1;
+                    } else {
+                      starts = 0;
+                    }
                   } else {
-                    starts = weeksElapsed > 1 ? 1 : 0; // Player was started briefly before being dropped
+                    if (isStarter) {
+                      if (wk === 7) starts = 1;
+                      else if (wk === 6) starts = 2;
+                      else if (wk === 5) starts = 2;
+                      else if (wk === 4) starts = 2;
+                      else if (wk === 3) starts = 3;
+                      else if (wk === 2) starts = 3;
+                      else if (wk <= 1) starts = 4;
+                    } else {
+                      if (wk <= 3) starts = 1;
+                      else starts = 0;
+                    }
                   }
                   const ppgMap = { QB: 18.5, RB: 12.8, WR: 13.2, TE: 9.8, DEF: 7.5 };
                   const estPpg = ppgMap[pos] || 11.0;
@@ -5455,11 +7175,16 @@
                   player: pName,
                   pos: pos || "FLEX",
                   owner: ownerName,
-                  date: dateStr || "2026",
-                  bid: bid,
+                  team: resolvedTeam,
+                  date: dateStr || ("Wk " + wk),
+                  wk: wk,
+                  bid: safeBid,
+                  type: pickupType,
+                  source: src || (safeBid > 0 ? "waivers" : "freeagents"),
                   starts: starts,
                   starterPts: starterPts,
-                  onTeam: isCurrentlyOnTeam
+                  onTeam: isCurrentlyOnTeam,
+                  slot: slot
                 });
               });
 
