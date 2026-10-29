@@ -1,4 +1,53 @@
-<!DOCTYPE html>
+function formatCanonicalOwner(str) {
+      if (!str || str === '—') return '—';
+      const mapping = {
+        'lees': 'Lee Singer',
+        'lee singer': 'Lee Singer',
+        'lee': 'Lee Singer',
+        'scottr': 'Scott Rosen',
+        'scott rosen': 'Scott Rosen',
+        'scott': 'Scott Rosen',
+        'brandon': 'Brandon Pevnick',
+        'brandon pevnick': 'Brandon Pevnick',
+        'jeff': 'Jeff Spector',
+        'jeff spector': 'Jeff Spector',
+        'jonathan': 'Jonathan Paull',
+        'jonathan paull': 'Jonathan Paull',
+        'danny babitz': 'Danny Babitz',
+        'danny': 'Danny Babitz',
+        'adam': 'Adam Paull',
+        'adam paull': 'Adam Paull',
+        'chad persky': 'Chad Persky',
+        'chad': 'Chad Persky',
+        'andy babitz': 'Andy Babitz',
+        'andrew': 'Andy Babitz',
+        'andrew babitz': 'Andy Babitz',
+        'billy hoffman': 'Billy Hoffman',
+        'billy': 'Billy Hoffman',
+        'evan singer': 'Evan Singer',
+        'evan bricker': 'Evan Bricker',
+        'evan': 'Evan Bricker',
+        'colton boehm': 'Colton Boehm',
+        'colton': 'Colton Boehm',
+        'reuben posner': 'Reuben Posner',
+        'reuben': 'Reuben Posner',
+        'jonah goldfinger': 'Jonah Goldfinger',
+        'jonah': 'Jonah Goldfinger',
+        'keith green': 'Keith Green',
+        'keith': 'Keith Green',
+        'brian feldman': 'Brian Feldman',
+        'matt lebon': 'Matt Lebon'
+      };
+      const m = str.match(/^([^\(]+)(\(.*?\))?$/);
+      if (m) {
+        const rawName = m[1].trim().toLowerCase();
+        const suffix = m[2] ? ' ' + m[2].trim() : '';
+        if (mapping[rawName]) {
+          return mapping[rawName] + suffix;
+        }
+      }
+      return str;
+    }<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -813,11 +862,7 @@
     <!-- TAB 3: LEAGUE HISTORY TAB -->
     <!-- ================================================================= -->
     <div class="tab-panel" id="tab-history">
-      <div class="rule-banner">
-        <div>
-          <strong>👥 Historical Owner Franchise Mapping Active:</strong> Past team records automatically follow the human owner across seasons (e.g., Team Slot #4 maps to <em>Dave R. (2019–2022)</em> and <em>Keith Green (2023–2026)</em> via the Commissioner Google Sheet).
-        </div>
-      </div>
+
 
       <div class="card" style="margin-bottom:20px;">
         <div class="card-header">
@@ -3172,16 +3217,16 @@
         "era": "LEGACY",
         "owner": "Lee Singer",
         "team": "The Slithering Eels",
-        "runnerUp": "Colton (Sutton on my Nixs)",
-        "regTitle": "LeeS (12-3)",
-        "pointsTitle": "LeeS (1,823.48 PF)",
+        "runnerUp": "Colton Boehm (Sutton on my Nixs)",
+        "regTitle": "Lee Singer (12-3)",
+        "pointsTitle": "Lee Singer (1,823.48 PF)",
         "score": "Yahoo (10 Teams)"
     },
     {
         "year": "2024 (XXIX)",
         "era": "LEGACY",
         "owner": "Scott Rosen",
-        "team": "sorosen / Badgerers",
+        "team": "Badgerers",
         "runnerUp": "Danny Babitz (Primetime)",
         "regTitle": "Lee Singer (10-5)",
         "pointsTitle": "Lee Singer (1,950.20 PF)",
@@ -3192,9 +3237,9 @@
         "era": "LEGACY",
         "owner": "Jeff Spector",
         "team": "Commish",
-        "runnerUp": "Brandon (Brandon's Dynasty)",
-        "regTitle": "Jeff (13-2)",
-        "pointsTitle": "Jeff (1,931.88 PF)",
+        "runnerUp": "Brandon Pevnick (Brandon's Dynasty)",
+        "regTitle": "Jeff Spector (13-2)",
+        "pointsTitle": "Jeff Spector (1,931.88 PF)",
         "score": "Yahoo (10 Teams)"
     },
     {
@@ -3202,7 +3247,7 @@
         "era": "LEGACY",
         "owner": "Chad Persky",
         "team": "Duckett to Pickett",
-        "runnerUp": "Jonathan (THE BONESAW RISES VOL. 2!!!)",
+        "runnerUp": "Jonathan Paull (THE BONESAW RISES VOL. 2!!!)",
         "regTitle": "Danny Babitz (10-5)",
         "pointsTitle": "Danny Babitz (1,837.54 PF)",
         "score": "Yahoo (10 Teams) \u2022 MNF Split"
@@ -3212,9 +3257,9 @@
         "era": "LEGACY",
         "owner": "Danny Babitz",
         "team": "Primetime",
-        "runnerUp": "LeeS (The Slithering Eels)",
-        "regTitle": "LeeS (11-4)",
-        "pointsTitle": "Adam (2,178.2 PF)",
+        "runnerUp": "Lee Singer (The Slithering Eels)",
+        "regTitle": "Lee Singer (11-4)",
+        "pointsTitle": "Adam Paull (2,178.2 PF)",
         "score": "Yahoo (10 Teams)"
     },
     {
@@ -3222,8 +3267,8 @@
         "era": "LEGACY",
         "owner": "Adam Paull",
         "team": "BATTLEHAWKS",
-        "runnerUp": "Jonathan (BONESAW RETURNS!!!)",
-        "regTitle": "Adam (10-3)",
+        "runnerUp": "Jonathan Paull (BONESAW RETURNS!!!)",
+        "regTitle": "Adam Paull (10-3)",
         "pointsTitle": "Chad Persky (1,478.16 PF)",
         "score": "Yahoo (12 Teams)"
     },
@@ -3232,7 +3277,7 @@
         "era": "LEGACY",
         "owner": "Brandon Pevnick",
         "team": "Brandon's Dynasty",
-        "runnerUp": "LeeS (The Slithering Eels)",
+        "runnerUp": "Lee Singer (The Slithering Eels)",
         "regTitle": "Danny Babitz (10-3)",
         "pointsTitle": "Danny Babitz (1,607.2 PF)",
         "score": "Yahoo (12 Teams) \u2022 75/25 Split"
@@ -3242,19 +3287,19 @@
         "era": "LEGACY",
         "owner": "Scott Rosen",
         "team": "Badgerers",
-        "runnerUp": "Jeff (Commish)",
+        "runnerUp": "Jeff Spector (Commish)",
         "regTitle": "Billy Hoffman (9-4)",
-        "pointsTitle": "LeeS (1,591.34 PF)",
-        "score": "Yahoo (12 Teams) \u2022 $0 FAAB"
+        "pointsTitle": "Lee Singer (1,591.34 PF)",
+        "score": "Yahoo (12 Teams) \u2022 /usr/bin/bash FAAB"
     },
     {
         "year": "2017 (XXII)",
         "era": "LEGACY",
         "owner": "Jonathan Paull",
         "team": "BONESAW!",
-        "runnerUp": "Andrew (Babby's Bashers)",
-        "regTitle": "LeeS (11-3)",
-        "pointsTitle": "Jonathan (1,742.22 PF)",
+        "runnerUp": "Andy Babitz (Babby's Bashers)",
+        "regTitle": "Lee Singer (11-3)",
+        "pointsTitle": "Jonathan Paull (1,742.22 PF)",
         "score": "Yahoo (10 Teams)"
     },
     {
@@ -3262,9 +3307,9 @@
         "era": "LEGACY",
         "owner": "Andy Babitz",
         "team": "Babby's Bashers",
-        "runnerUp": "ScottR (Badgerers)",
-        "regTitle": "Brandon (11-3)",
-        "pointsTitle": "Brandon (1,675.78 PF)",
+        "runnerUp": "Scott Rosen (Badgerers)",
+        "regTitle": "Brandon Pevnick (11-3)",
+        "pointsTitle": "Brandon Pevnick (1,675.78 PF)",
         "score": "Yahoo (10 Teams)"
     },
     {
@@ -3283,8 +3328,8 @@
         "owner": "Lee Singer",
         "team": "The Slithering Eels",
         "runnerUp": "\u2014",
-        "regTitle": "Jeff (0-0)",
-        "pointsTitle": "Jeff (0.0 PF)",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
         "score": "NFL.com (10 Teams)"
     },
     {
@@ -3292,7 +3337,7 @@
         "era": "LEGACY",
         "owner": "Danny Babitz",
         "team": "Primetime",
-        "runnerUp": "ScottR (Ote'sGonnaWin)",
+        "runnerUp": "Scott Rosen (Ote'sGonnaWin)",
         "regTitle": "Danny Babitz (10-3)",
         "pointsTitle": "Danny Babitz (1,594.64 PF)",
         "score": "Yahoo (12 Teams)"
@@ -3302,9 +3347,9 @@
         "era": "LEGACY",
         "owner": "Danny Babitz",
         "team": "Primetime",
-        "runnerUp": "Evan (BrickAttack)",
-        "regTitle": "LeeS (11-2)",
-        "pointsTitle": "LeeS (1,528.14 PF)",
+        "runnerUp": "Evan Bricker (BrickAttack)",
+        "regTitle": "Lee Singer (11-2)",
+        "pointsTitle": "Lee Singer (1,528.14 PF)",
         "score": "Yahoo (12 Teams)"
     },
     {
@@ -3312,8 +3357,8 @@
         "era": "LEGACY",
         "owner": "Jeff Spector",
         "team": "Commish",
-        "runnerUp": "ScottR (Ote'sGonnaWin)",
-        "regTitle": "LeeS (10-3)",
+        "runnerUp": "Scott Rosen (Ote'sGonnaWin)",
+        "regTitle": "Lee Singer (10-3)",
         "pointsTitle": "Danny Babitz (1,381.18 PF)",
         "score": "Yahoo (12 Teams)"
     },
@@ -3322,7 +3367,7 @@
         "era": "LEGACY",
         "owner": "Jeff Spector",
         "team": "Commish",
-        "runnerUp": "Evan (SHOW ME YA TD\u2019S)",
+        "runnerUp": "Evan Bricker (SHOW ME YA TD\u2019S)",
         "regTitle": "Danny Babitz (11-3)",
         "pointsTitle": "Danny Babitz (1,489.36 PF)",
         "score": "Yahoo (10 Teams)"
@@ -3331,17 +3376,17 @@
         "year": "2009 (XIV)",
         "era": "LEGACY",
         "owner": "Lee Singer",
-        "team": "Lee Singer",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
-        "score": "ESPN (10 Teams)"
+        "score": "Yahoo (10 Teams)"
     },
     {
         "year": "2008 (XIII)",
         "era": "LEGACY",
         "owner": "Evan Bricker",
-        "team": "Evan Bricker",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3351,7 +3396,7 @@
         "year": "2007 (XII)",
         "era": "LEGACY",
         "owner": "Andy Babitz",
-        "team": "Andy Babitz",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3361,7 +3406,7 @@
         "year": "2006 (XI)",
         "era": "LEGACY",
         "owner": "Jonathan Paull",
-        "team": "Jonathan Paull",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3371,7 +3416,7 @@
         "year": "2005 (X)",
         "era": "LEGACY",
         "owner": "Jonathan Paull",
-        "team": "Jonathan Paull",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3381,7 +3426,7 @@
         "year": "2004 (IX)",
         "era": "LEGACY",
         "owner": "Jeff Spector",
-        "team": "Jeff Spector",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3391,7 +3436,7 @@
         "year": "2003 (VIII)",
         "era": "LEGACY",
         "owner": "Brian Feldman",
-        "team": "Brian Feldman",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3401,7 +3446,7 @@
         "year": "2002 (VII)",
         "era": "LEGACY",
         "owner": "Brian Feldman",
-        "team": "Brian Feldman",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3411,7 +3456,7 @@
         "year": "2001 (VI)",
         "era": "LEGACY",
         "owner": "Jonathan Paull",
-        "team": "Jonathan Paull",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3421,7 +3466,7 @@
         "year": "2000 (V)",
         "era": "LEGACY",
         "owner": "Matt Lebon",
-        "team": "Matt Lebon",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3431,7 +3476,7 @@
         "year": "1999 (IV)",
         "era": "LEGACY",
         "owner": "Jonathan Paull",
-        "team": "Jonathan Paull",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3441,7 +3486,7 @@
         "year": "1998 (III)",
         "era": "LEGACY",
         "owner": "Jonathan Paull",
-        "team": "Jonathan Paull",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3451,7 +3496,7 @@
         "year": "1997 (II)",
         "era": "LEGACY",
         "owner": "Chad Persky",
-        "team": "Chad Persky",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -3461,7 +3506,7 @@
         "year": "1996 (I)",
         "era": "LEGACY",
         "owner": "Jonathan Paull",
-        "team": "Jonathan Paull",
+        "team": "\u2014",
         "runnerUp": "\u2014",
         "regTitle": "\u2014",
         "pointsTitle": "\u2014",
@@ -7796,8 +7841,7 @@
             "Stefon Diggs (WR)",
             "Alvin Kamara (RB)"
         ],
-        "picksToB": [],
-        "note": ""
+        "picksToB": []
     },
     {
         "id": "TR-2026-02",
@@ -7813,8 +7857,7 @@
             "Puka Nacua (WR)",
             "Tony Pollard (RB)"
         ],
-        "picksToB": [],
-        "note": ""
+        "picksToB": []
     },
     {
         "id": "TR-2026-01",
@@ -7824,12 +7867,16 @@
         "playersToA": [
             "Jordan Love (QB)"
         ],
-        "picksToA": [],
-        "playersToB": [
-            "Chase Brown (RB)"
+        "picksToA": [
+            "2027 6th-round pick"
         ],
-        "picksToB": [],
-        "note": ""
+        "playersToB": [
+            "Chase Brown (RB)",
+            "Kirk Cousins (QB)"
+        ],
+        "picksToB": [
+            "2027 16th-round pick"
+        ]
     }
 ];
 
@@ -9682,9 +9729,20 @@
                 let pts = normStr(c[7] && c[7].v ? c[7].v : "—");
 
                 if (yVal === 2015) { reg = "Billy Hoffman (14-0)"; pts = "Billy Hoffman (1,786.54 PF)"; }
-                else if (yVal === 2018) { reg = "Billy Hoffman (9-4)"; pts = "LeeS (1,591.34 PF)"; }
+                else if (yVal === 2018) { reg = "Billy Hoffman (9-4)"; pts = "Lee Singer (1,591.34 PF)"; }
                 if (reg.startsWith("_ _")) reg = "—";
-                if (pts.startswith && pts.startsWith("_ _")) pts = "—";
+                if (pts.startsWith && pts.startsWith("_ _")) pts = "—";
+
+                if (yVal < 2010) {
+                  runner = "—";
+                  reg = "—";
+                  pts = "—";
+                  teamStr = "—";
+                } else {
+                  runner = formatCanonicalOwner(runner);
+                  reg = formatCanonicalOwner(reg);
+                  pts = formatCanonicalOwner(pts);
+                }
 
                 let platDesc = platVal + " (" + szVal + " Teams)";
                 if (yVal === 2022) platDesc += " • MNF Split";
@@ -9727,8 +9785,6 @@
             const dataT = JSON.parse(rawT.substring(jStart, jEnd + 1));
             const rowsT = dataT.table && dataT.table.rows;
             if (rowsT && rowsT.length > 0) {
-              const liveTrades = [];
-              let tradeCounter = 1;
               rowsT.forEach(r => {
                 const c = r.c;
                 if (!c) return;
@@ -9740,43 +9796,78 @@
                 const playersRaw = normStr(c[5] && c[5].v ? c[5].v : "");
                 if (!tmA || !tmB || normKey(tmA) === "team_a_owner") return;
 
-                const picksA = (pkA && normKey(pkA) !== "none") ? [pkA] : [];
-                const picksB = (pkB && normKey(pkB) !== "none") ? [pkB] : [];
-                const playersToA = [];
-                const playersToB = [];
+                const picksA = (pkA && normKey(pkA) !== "none" && pkA !== "—") ? [pkA] : [];
+                const picksB = (pkB && normKey(pkB) !== "none" && pkB !== "—") ? [pkB] : [];
+
+                const parsedA = [];
+                const parsedB = [];
 
                 if (playersRaw) {
-                  // Split on semicolon or slash if players described per side
-                  const parts = playersRaw.split(/;|\//);
-                  parts.forEach(part => {
-                    const cleanP = part.trim();
-                    if (!cleanP) return;
-                    if (cleanP.toLowerCase().includes("team a") || cleanP.toLowerCase().includes(tmA.split(" ")[0].toLowerCase())) {
-                      playersToA.push(cleanP.replace(/^team a receives:?/i, "").trim());
-                    } else if (cleanP.toLowerCase().includes("team b") || cleanP.toLowerCase().includes(tmB.split(" ")[0].toLowerCase())) {
-                      playersToB.push(cleanP.replace(/^team b receives:?/i, "").trim());
+                  const clauses = playersRaw.includes(';') ? playersRaw.split(';') : playersRaw.split('/');
+                  clauses.forEach(cl => {
+                    const cleanCl = cl.trim();
+                    if (!cleanCl) return;
+                    const low = cleanCl.toLowerCase();
+                    const firstA = tmA.split(" ")[0].toLowerCase();
+                    const firstB = tmB.split(" ")[0].toLowerCase();
+                    const teamNickA = (tmA.match(/\((.*?)\)/)?.[1] || "").toLowerCase();
+                    const teamNickB = (tmB.match(/\((.*?)\)/)?.[1] || "").toLowerCase();
+
+                    const isSideB = low.includes("team b") || 
+                                    low.includes(firstB) || 
+                                    (teamNickB && low.includes(teamNickB));
+                    const isSideA = low.includes("team a") || 
+                                    low.includes(firstA) || 
+                                    (teamNickA && low.includes(teamNickA));
+
+                    let cleaned = cleanCl
+                      .replace(/^.*?(receives|gets|acquires):?/i, "")
+                      .replace(/^(team [ab]):?/i, "")
+                      .trim();
+
+                    const pList = cleaned.split(/,|and/).map(p => p.trim()).filter(Boolean);
+                    if (isSideB && !isSideA) {
+                      parsedB.push(...pList);
+                    } else if (isSideA && !isSideB) {
+                      parsedA.push(...pList);
+                    } else if (parsedA.length === 0) {
+                      parsedA.push(...pList);
                     } else {
-                      playersToA.push(cleanP);
+                      parsedB.push(...pList);
                     }
                   });
                 }
 
-                liveTrades.push({
-                  id: "TR-2026-0" + (tradeCounter++),
-                  date: dStr,
-                  teamA: tmA,
-                  teamB: tmB,
-                  playersToA: playersToA,
-                  picksToA: picksA,
-                  playersToB: playersToB,
-                  picksToB: picksB
+                // Match with existing trades in TRADES_DATA
+                const existing = TRADES_DATA.find(t => {
+                  const firstA = tmA.split(" ")[0].toLowerCase();
+                  const firstB = tmB.split(" ")[0].toLowerCase();
+                  const matchA = t.teamA.toLowerCase().includes(firstA) || t.teamB.toLowerCase().includes(firstA);
+                  const matchB = t.teamA.toLowerCase().includes(firstB) || t.teamB.toLowerCase().includes(firstB);
+                  return matchA && matchB;
                 });
+
+                if (existing) {
+                  if (picksA.length > 0) existing.picksToA = picksA;
+                  if (picksB.length > 0) existing.picksToB = picksB;
+                  if (parsedA.length > 0) existing.playersToA = parsedA;
+                  if (parsedB.length > 0) existing.playersToB = parsedB;
+                  if (dStr) existing.date = dStr;
+                } else {
+                  TRADES_DATA.unshift({
+                    id: "TR-2026-0" + (TRADES_DATA.length + 1),
+                    date: dStr || "2026 Season",
+                    teamA: tmA,
+                    teamB: tmB,
+                    playersToA: parsedA,
+                    picksToA: picksA,
+                    playersToB: parsedB,
+                    picksToB: picksB
+                  });
+                }
               });
 
-              if (liveTrades.length > 0) {
-                TRADES_DATA = liveTrades;
-                renderTradesTab();
-              }
+              renderTradesTab();
             }
           }
         }
