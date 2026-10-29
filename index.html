@@ -664,20 +664,20 @@
 
   <!-- Navigation Bar (All 8 Requested Tabs) -->
   <nav class="nav-bar" id="mainNav">
-    <button class="nav-tab active" data-tab="tab-scoring">1. Scoring</button>
-    <button class="nav-tab" data-tab="tab-weekly">2. Weekly Scoring</button>
-    <button class="nav-tab" data-tab="tab-history">3. League History</button>
-    <button class="nav-tab" data-tab="tab-performance">4. Team Performance & Playoff Odds</button>
+    <button class="nav-tab active" data-tab="tab-performance">1. Team Performance & Playoff Odds</button>
+    <button class="nav-tab" data-tab="tab-scoring">2. Season Scoring</button>
+    <button class="nav-tab" data-tab="tab-weekly">3. Weekly Scoring</button>
+    <button class="nav-tab" data-tab="tab-projections">4. Projections vs. Actual</button>
     <button class="nav-tab" data-tab="tab-faab">5. Pickups</button>
-    <button class="nav-tab" data-tab="tab-projections">6. Projections vs. Actual</button>
+    <button class="nav-tab" data-tab="tab-trades">6. Trades</button>
     <button class="nav-tab" data-tab="tab-keepers">7. Keepers</button>
-    <button class="nav-tab" data-tab="tab-trades">8. Trade Recaps</button>
+    <button class="nav-tab" data-tab="tab-history">8. League History</button>
   </nav>
 
   <main class="main-container">
 
     <!-- SHARED FILTER BAR FOR TABS 1 & 2 (Shown automatically when Tab 1 or Tab 2 is active) -->
-    <section class="filter-card" id="sharedScoringFilters">
+    <section class="filter-card" id="sharedScoringFilters" style="display:none;">
       <div class="filter-row">
         <div class="filter-group">
           <span class="filter-label">Weeks (Multi-Select for Trends)</span>
@@ -732,169 +732,9 @@
     </section>
 
     <!-- ================================================================= -->
-    <!-- TAB 1: SCORING TAB -->
-    <!-- ================================================================= -->
-    <div class="tab-panel active" id="tab-scoring">
-      <div class="kpi-grid" id="scoringKpiRow"></div>
-
-      <div class="card">
-        <div class="card-header">
-          <div>
-            <div class="card-title">Team Scoring Breakdown by Position</div>
-            <div class="card-subtitle" id="posChartSubtitle">Showing Starters Only across Weeks 1–7 (Sorted by Total Filtered Points)</div>
-          </div>
-          <div class="chart-legend">
-            <span class="legend-item"><span class="legend-swatch" style="background:var(--qb-color)"></span>QB (1 + SFLX)</span>
-            <span class="legend-item"><span class="legend-swatch" style="background:var(--rb-color)"></span>RB (2 + FLEX)</span>
-            <span class="legend-item"><span class="legend-swatch" style="background:var(--wr-color)"></span>WR (2 + FLEX)</span>
-            <span class="legend-item"><span class="legend-swatch" style="background:var(--te-color)"></span>TE (1 + FLEX)</span>
-            <span class="legend-item"><span class="legend-swatch" style="background:var(--dst-color)"></span>DST (1)</span>
-          </div>
-        </div>
-        <div id="stackedPosChart"></div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div>
-            <div class="card-title">League Scoring Table (Click Any Column Header to Sort)</div>
-            <div class="card-subtitle">Automatically adjusts for multi-week trends, lineup scope (Starters vs. Bench/IR), and position filters</div>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table id="scoringTable">
-            <thead>
-              <tr>
-                <th onclick="sortScoringTable('rank')">Rank</th>
-                <th onclick="sortScoringTable('owner')">Owner / Team</th>
-                <th class="center" onclick="sortScoringTable('games')">Wks</th>
-                <th class="num" onclick="sortScoringTable('QB')">QB Pts</th>
-                <th class="num" onclick="sortScoringTable('RB')">RB Pts</th>
-                <th class="num" onclick="sortScoringTable('WR')">WR Pts</th>
-                <th class="num" onclick="sortScoringTable('TE')">TE Pts</th>
-                <th class="num" onclick="sortScoringTable('DST')">DST Pts</th>
-                <th class="num" onclick="sortScoringTable('irPts')">IR Stash Pts</th>
-                <th class="num" onclick="sortScoringTable('total')">Total Points ↓</th>
-                <th class="num" onclick="sortScoringTable('ppg')">Pts / Wk</th>
-              </tr>
-            </thead>
-            <tbody id="scoringTableBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================================================================= -->
-    <!-- TAB 2: WEEKLY SCORING TAB -->
-    <!-- ================================================================= -->
-    <div class="tab-panel" id="tab-weekly">
-      <div class="card">
-        <div class="card-header">
-          <div>
-            <div class="card-title">Weekly Scoring Matrix (Owners × Ascending Week Numbers)</div>
-            <div class="card-subtitle" id="weeklyMatrixSubtitle">Uses the filters above • ★ marks the weekly top-scoring team prize winner</div>
-          </div>
-          <div>
-            <label style="font-size:12.5px; color:var(--text-secondary); cursor:pointer;">
-              <input type="checkbox" id="heatmapToggle" checked onchange="refreshScoringViews()" /> Show Score Heatmap Shading
-            </label>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead id="weeklyMatrixHead"></thead>
-            <tbody id="weeklyMatrixBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================================================================= -->
-    <!-- TAB 3: LEAGUE HISTORY TAB -->
-    <!-- ================================================================= -->
-    <div class="tab-panel" id="tab-history">
-
-
-      <div class="card" style="margin-bottom:20px;">
-        <div class="card-header">
-          <div>
-            <div class="card-title">🏆 JFFL League Champions, Regular Season Titles &amp; Points Titles by Year (1996–2025)</div>
-            <div class="card-subtitle">Tracks the Playoff Champion, Runner-Up, Regular Season #1 Seed, and Regular Season Points Leader (Most PF) across every JFFL season</div>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Year</th>
-                <th>🏆 League Champion</th>
-                <th>Champion Team</th>
-                <th>🥈 Runner-Up</th>
-                <th>🥇 Reg. Season Title (#1 Seed)</th>
-                <th>🔥 Points Title (Most PF)</th>
-                <th>Platform / Size</th>
-              </tr>
-            </thead>
-            <tbody id="championsTableBody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="card" style="margin-bottom:20px;">
-        <div class="card-header">
-          <div>
-            <div class="card-title">⚡ Single-Season &amp; Career All-Time JFFL Records</div>
-            <div class="card-subtitle">Championships, regular-season dominance, and historical milestones across JFFL history</div>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Record Category</th>
-                <th>Holder (Owner / Player)</th>
-                <th class="num">Mark</th>
-                <th>Season / Context</th>
-              </tr>
-            </thead>
-            <tbody id="recordsTableBody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div>
-            <div class="card-title">⚔️ All-Time Career Head-to-Head Matchup Explorer (By Human Owner)</div>
-            <div class="card-subtitle">Select any owner to inspect their lifetime record against every current and former JFFL manager</div>
-          </div>
-          <div>
-            <select class="filter-select" id="h2hOwnerSelect" onchange="renderH2HTable()"></select>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Opponent Owner</th>
-                <th>Years Active in JFFL</th>
-                <th class="center">H2H Record</th>
-                <th class="num">Win %</th>
-                <th class="num">Avg Pts For</th>
-                <th class="num">Avg Pts Against</th>
-                <th>Last Meeting</th>
-              </tr>
-            </thead>
-            <tbody id="h2hTableBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================================================================= -->
     <!-- TAB 4: TEAM PERFORMANCE TAB -->
     <!-- ================================================================= -->
-    <div class="tab-panel" id="tab-performance">
+    <div class="tab-panel active" id="tab-performance">
       <div class="rule-banner">
         <div>
           <strong>🎲 Playoff Simulation Engine (4 of 10 Teams Make Playoffs • Weeks 16–17):</strong> Runs 10,000 Monte Carlo simulations of Regular Season Weeks 8–15 using each team's 2026 scoring mean &amp; standard deviation.
@@ -993,50 +833,78 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- TAB 5: PICKUPS TAB (WAIVERS & FREE AGENTS) -->
+    <!-- TAB 1: SCORING TAB -->
     <!-- ================================================================= -->
-    <div class="tab-panel" id="tab-faab">
-      <div class="kpi-grid" id="faabKpiRow"></div>
+    <div class="tab-panel" id="tab-scoring">
+      <div class="kpi-grid" id="scoringKpiRow"></div>
 
       <div class="card">
         <div class="card-header">
           <div>
-            <div class="card-title">2026 League Pickups (Waivers &amp; Free Agents)</div>
-            <div class="card-subtitle">Tracks all 135 transactions: Waiver Claims (FAAB Bids &amp; $0 bids) and Free Agent additions. Click any column header to sort!</div>
+            <div class="card-title">Team Scoring Breakdown by Position</div>
+            <div class="card-subtitle" id="posChartSubtitle">Showing Starters Only across Weeks 1–7 (Sorted by Total Filtered Points)</div>
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <select class="filter-select" id="faabOwnerFilter" onchange="renderFaabTab()">
-              <option value="ALL">All Acquiring Teams</option>
-            </select>
-            <select class="filter-select" id="faabTypeFilter" onchange="renderFaabTab()">
-              <option value="ALL">All Pickup Types (135)</option>
-              <option value="FAAB">Waivers / FAAB Bids (49)</option>
-              <option value="FREE_AGENT">Free Agent Adds (86)</option>
-            </select>
-            <select class="filter-select" id="faabStatusFilter" onchange="renderFaabTab()">
-              <option value="ALL">All Roster Statuses</option>
-              <option value="ON_TEAM">Still on Team Only</option>
-              <option value="DROPPED">Dropped Only</option>
-            </select>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--qb-color)"></span>QB (1 + SFLX)</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--rb-color)"></span>RB (2 + FLEX)</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--wr-color)"></span>WR (2 + FLEX)</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--te-color)"></span>TE (1 + FLEX)</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--dst-color)"></span>DST (1)</span>
+          </div>
+        </div>
+        <div id="stackedPosChart"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">League Season Scoring Table (Click Any Column Header to Sort)</div>
+            <div class="card-subtitle">Automatically adjusts for multi-week trends, lineup scope (Starters vs. Bench/IR), and position filters</div>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="scoringTable">
+            <thead>
+              <tr>
+                <th onclick="sortScoringTable('rank')">Rank</th>
+                <th onclick="sortScoringTable('owner')">Owner / Team</th>
+                <th class="center" onclick="sortScoringTable('games')">Wks</th>
+                <th class="num" onclick="sortScoringTable('QB')">QB Pts</th>
+                <th class="num" onclick="sortScoringTable('RB')">RB Pts</th>
+                <th class="num" onclick="sortScoringTable('WR')">WR Pts</th>
+                <th class="num" onclick="sortScoringTable('TE')">TE Pts</th>
+                <th class="num" onclick="sortScoringTable('DST')">DST Pts</th>
+                <th class="num" onclick="sortScoringTable('irPts')">IR Stash Pts</th>
+                <th class="num" onclick="sortScoringTable('total')">Total Points ↓</th>
+                <th class="num" onclick="sortScoringTable('ppg')">Pts / Wk</th>
+              </tr>
+            </thead>
+            <tbody id="scoringTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 2: WEEKLY SCORING TAB -->
+    <!-- ================================================================= -->
+    <div class="tab-panel" id="tab-weekly">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Weekly Scoring Matrix (Owners × Ascending Week Numbers)</div>
+            <div class="card-subtitle" id="weeklyMatrixSubtitle">Uses the filters above • ★ marks the weekly top-scoring team prize winner</div>
+          </div>
+          <div>
+            <label style="font-size:12.5px; color:var(--text-secondary); cursor:pointer;">
+              <input type="checkbox" id="heatmapToggle" checked onchange="refreshScoringViews()" /> Show Score Heatmap Shading
+            </label>
           </div>
         </div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th onclick="sortPickupsTable('player')">Player <span id="sort-ind-player"></span></th>
-                <th class="center" onclick="sortPickupsTable('pos')">Pos <span id="sort-ind-pos"></span></th>
-                <th onclick="sortPickupsTable('owner')">Acquiring Owner <span id="sort-ind-owner"></span></th>
-                <th onclick="sortPickupsTable('date')">Date Acquired <span id="sort-ind-date"></span></th>
-                <th class="center" onclick="sortPickupsTable('type')">Type <span id="sort-ind-type"></span></th>
-                <th class="num" onclick="sortPickupsTable('bid')">Bid / Cost <span id="sort-ind-bid"></span></th>
-                <th class="center" onclick="sortPickupsTable('starts')">Starts Since Acq. <span id="sort-ind-starts"></span></th>
-                <th class="num" onclick="sortPickupsTable('starterPts')">Pts in Starting Lineup <span id="sort-ind-starterPts"></span></th>
-                <th class="num" onclick="sortPickupsTable('ptsPerStart')">Pts / Start <span id="sort-ind-ptsPerStart"></span></th>
-                <th class="center" onclick="sortPickupsTable('onTeam')">Status <span id="sort-ind-onTeam"></span></th>
-              </tr>
-            </thead>
-            <tbody id="faabTableBody"></tbody>
+            <thead id="weeklyMatrixHead"></thead>
+            <tbody id="weeklyMatrixBody"></tbody>
           </table>
         </div>
       </div>
@@ -1113,6 +981,70 @@
     </div>
 
     <!-- ================================================================= -->
+    <!-- TAB 5: PICKUPS TAB (WAIVERS & FREE AGENTS) -->
+    <!-- ================================================================= -->
+    <div class="tab-panel" id="tab-faab">
+      <div class="kpi-grid" id="faabKpiRow"></div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">2026 League Pickups (Waivers &amp; Free Agents)</div>
+            <div class="card-subtitle">Tracks all 135 transactions: Waiver Claims (FAAB Bids &amp; $0 bids) and Free Agent additions. Click any column header to sort!</div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <select class="filter-select" id="faabOwnerFilter" onchange="renderFaabTab()">
+              <option value="ALL">All Acquiring Teams</option>
+            </select>
+            <select class="filter-select" id="faabTypeFilter" onchange="renderFaabTab()">
+              <option value="ALL">All Pickup Types (135)</option>
+              <option value="FAAB">Waivers / FAAB Bids (49)</option>
+              <option value="FREE_AGENT">Free Agent Adds (86)</option>
+            </select>
+            <select class="filter-select" id="faabStatusFilter" onchange="renderFaabTab()">
+              <option value="ALL">All Roster Statuses</option>
+              <option value="ON_TEAM">Still on Team Only</option>
+              <option value="DROPPED">Dropped Only</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th onclick="sortPickupsTable('player')">Player <span id="sort-ind-player"></span></th>
+                <th class="center" onclick="sortPickupsTable('pos')">Pos <span id="sort-ind-pos"></span></th>
+                <th onclick="sortPickupsTable('owner')">Acquiring Owner <span id="sort-ind-owner"></span></th>
+                <th onclick="sortPickupsTable('date')">Date Acquired <span id="sort-ind-date"></span></th>
+                <th class="center" onclick="sortPickupsTable('type')">Type <span id="sort-ind-type"></span></th>
+                <th class="num" onclick="sortPickupsTable('bid')">Bid / Cost <span id="sort-ind-bid"></span></th>
+                <th class="center" onclick="sortPickupsTable('starts')">Starts Since Acq. <span id="sort-ind-starts"></span></th>
+                <th class="num" onclick="sortPickupsTable('starterPts')">Pts in Starting Lineup <span id="sort-ind-starterPts"></span></th>
+                <th class="num" onclick="sortPickupsTable('ptsPerStart')">Pts / Start <span id="sort-ind-ptsPerStart"></span></th>
+                <th class="center" onclick="sortPickupsTable('onTeam')">Status <span id="sort-ind-onTeam"></span></th>
+              </tr>
+            </thead>
+            <tbody id="faabTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 8: TRADE RECAPS TAB -->
+    <!-- ================================================================= -->
+    <div class="tab-panel" id="tab-trades">
+      <div class="rule-banner">
+        <div>
+          <strong>🤝 League Trade Log + Commissioner Draft Pick Supplement:</strong> Yahoo's API provides the players and trade date automatically, while any traded future draft picks (e.g., <em>2027 8th Round Pick</em>) are merged from the <code>Trade_Notes</code> tab of your Commissioner Google Sheet.
+        </div>
+
+      </div>
+
+      <div id="tradesContainer"></div>
+    </div>
+
+    <!-- ================================================================= -->
     <!-- TAB 7: KEEPERS TAB -->
     <!-- ================================================================= -->
     <div class="tab-panel" id="tab-keepers">
@@ -1164,20 +1096,88 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- TAB 8: TRADE RECAPS TAB -->
+    <!-- TAB 3: LEAGUE HISTORY TAB -->
     <!-- ================================================================= -->
-    <div class="tab-panel" id="tab-trades">
-      <div class="rule-banner">
-        <div>
-          <strong>🤝 League Trade Log + Commissioner Draft Pick Supplement:</strong> Yahoo's API provides the players and trade date automatically, while any traded future draft picks (e.g., <em>2027 8th Round Pick</em>) are merged from the <code>Trade_Notes</code> tab of your Commissioner Google Sheet.
-        </div>
+    <div class="tab-panel" id="tab-history">
 
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <div>
+            <div class="card-title">🏆 JFFL League Champions, Regular Season Titles &amp; Points Titles by Year (1996–2025)</div>
+            <div class="card-subtitle">Tracks the playoff champion for every JFFL season and runner-up and regular season and points titles since 2010 (excluding 2014 on NFL.com).</div>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>🏆 League Champion</th>
+                <th>Champion Team</th>
+                <th>🥈 Runner-Up</th>
+                <th>🥇 Reg. Season Title (#1 Seed)</th>
+                <th>🔥 Points Title (Most PF)</th>
+                <th>Platform / Size</th>
+              </tr>
+            </thead>
+            <tbody id="championsTableBody"></tbody>
+          </table>
+        </div>
       </div>
 
-      <div id="tradesContainer"></div>
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <div>
+            <div class="card-title">⚡ Single-Season &amp; Career All-Time JFFL Records</div>
+            <div class="card-subtitle">Championships, regular-season dominance, and historical milestones across JFFL history</div>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Record Category</th>
+                <th>Holder (Owner / Player)</th>
+                <th class="num">Mark</th>
+                <th>Season / Context</th>
+              </tr>
+            </thead>
+            <tbody id="recordsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">⚔️ All-Time Career Head-to-Head Matchup Explorer (By Human Owner)</div>
+            <div class="card-subtitle">Select any owner to inspect their lifetime record against every current and former JFFL manager</div>
+          </div>
+          <div>
+            <select class="filter-select" id="h2hOwnerSelect" onchange="renderH2HTable()"></select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Opponent Owner</th>
+                <th>Years Active in JFFL</th>
+                <th class="center">H2H Record</th>
+                <th class="num">Win %</th>
+                <th class="num">Avg Pts For</th>
+                <th class="num">Avg Pts Against</th>
+                <th>Last Meeting</th>
+              </tr>
+            </thead>
+            <tbody id="h2hTableBody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
-  </main>
+    </main>
 
   <!-- MODAL 1: COMMISSIONER GOOGLE SHEET INTEGRATION GUIDE -->
   <div class="modal-backdrop" id="sheetModal">
@@ -3266,7 +3266,7 @@
         "runnerUp": "Jonathan Paull (THE BONESAW RISES VOL. 2!!!)",
         "regTitle": "Danny Babitz (10-5)",
         "pointsTitle": "Danny Babitz (1,837.54 PF)",
-        "score": "Yahoo (10 Teams) \u2022 MNF Split"
+        "score": "Yahoo (10 Teams)"
     },
     {
         "year": "2021 (XXVI)",
@@ -3296,7 +3296,7 @@
         "runnerUp": "Lee Singer (The Slithering Eels)",
         "regTitle": "Danny Babitz (10-3)",
         "pointsTitle": "Danny Babitz (1,607.2 PF)",
-        "score": "Yahoo (12 Teams) \u2022 75/25 Split"
+        "score": "Yahoo (12 Teams)"
     },
     {
         "year": "2018 (XXIII)",
@@ -3306,7 +3306,7 @@
         "runnerUp": "Jeff Spector (Commish)",
         "regTitle": "Billy Hoffman (9-4)",
         "pointsTitle": "Lee Singer (1,591.34 PF)",
-        "score": "Yahoo (12 Teams) \u2022 /usr/bin/bash FAAB"
+        "score": "Yahoo (12 Teams)"
     },
     {
         "year": "2017 (XXII)",
@@ -9752,21 +9752,22 @@
                 if (reg.startsWith("_ _")) reg = "—";
                 if (pts.startsWith && pts.startsWith("_ _")) pts = "—";
 
-                if (yVal < 2010) {
+                if (yVal < 2010 || yVal === 2014) {
                   runner = "—";
                   reg = "—";
                   pts = "—";
-                  teamStr = "—";
+                  if (yVal < 2010) teamStr = "—";
                 } else {
                   runner = formatCanonicalOwner(runner);
                   reg = formatCanonicalOwner(reg);
                   pts = formatCanonicalOwner(pts);
                 }
 
+                if (teamStr.toLowerCase().includes("sorosen")) {
+                  teamStr = "Badgerers";
+                }
+
                 let platDesc = platVal + " (" + szVal + " Teams)";
-                if (yVal === 2022) platDesc += " • MNF Split";
-                else if (yVal === 2019) platDesc += " • 75/25 Split";
-                else if (yVal === 2018) platDesc += " • $0 FAAB";
 
                 liveChamps.push({
                   year: yVal + " (" + edVal + ")",
