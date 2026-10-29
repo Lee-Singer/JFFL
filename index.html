@@ -651,15 +651,7 @@
         </div>
       </div>
     </div>
-    <div class="header-actions">
-      <div class="sync-badge">
-        <span class="status-dot"></span>
-        <span>2026 Season (Through Week 7) • Live Yahoo API Synced ✓</span>
-      </div>
-      <button class="btn" onclick="openModal('yahooTestModal')">🔑 Test Yahoo API Key</button>
-      <button class="btn" onclick="openModal('sheetModal')">📊 Commissioner Google Sheet Setup</button>
-      <button class="btn btn-primary" onclick="downloadSelfHtml()">⬇️ Download HTML File</button>
-    </div>
+
   </header>
 
   <!-- Navigation Bar (All 8 Requested Tabs) -->
@@ -739,14 +731,7 @@
         <div>
           <strong>🎲 Playoff Simulation Engine (4 of 10 Teams Make Playoffs • Weeks 16–17):</strong> Runs 10,000 Monte Carlo simulations of Regular Season Weeks 8–15 using each team's 2026 scoring mean &amp; standard deviation.
         </div>
-        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-          <span style="font-size:12px; color:var(--text-secondary);">Standings Tiebreaker:</span>
-          <select class="filter-select" id="tiebreakerSelect" onchange="runMonteCarloSimulations()">
-            <option value="h2h">Yahoo Default: H2H / Vs. Opponent Wins</option>
-            <option value="pf">Proposed Rule: Total Points For (PF)</option>
-          </select>
-          <button class="btn btn-primary" onclick="runMonteCarloSimulations()">🔄 Re-Run 10,000 Simulations</button>
-        </div>
+
       </div>
 
       <div class="card">
@@ -764,13 +749,13 @@
                 <th onclick="sortPerfTable('owner')">Owner / Team <span id="sort-perf-owner"></span></th>
                 <th class="center" onclick="sortPerfTable('wins')">Actual Rec <span id="sort-perf-wins"></span></th>
                 <th class="num" onclick="sortPerfTable('pf')">Points For <span id="sort-perf-pf"></span></th>
-                <th class="num" onclick="sortPerfTable('mean')">2026 Avg ± SD <span id="sort-perf-mean"></span></th>
+                <th class="num" onclick="sortPerfTable('mean')">Avg Pts/Wk <span id="sort-perf-mean"></span></th>
                 <th class="center" onclick="sortPerfTable('allPlayW')">Overall All-Play <span id="sort-perf-allPlayW"></span></th>
                 <th class="num" onclick="sortPerfTable('allPlayPct')">All-Play % <span id="sort-perf-allPlayPct"></span></th>
                 <th class="center" onclick="sortPerfTable('weeklyWinsCount')">🏆 Wkly High Wins <span id="sort-perf-weeklyWinsCount"></span></th>
                 <th class="num" onclick="sortPerfTable('projW')">Proj. Wins <span id="sort-perf-projW"></span></th>
                 <th class="num" onclick="sortPerfTable('playoffPct')">Make Playoffs (Top 4) <span id="sort-perf-playoffPct"></span></th>
-                <th class="num" onclick="sortPerfTable('seed1Pct')">#1 Seed % <span id="sort-perf-seed1Pct"></span></th>
+                
               </tr>
             </thead>
             <tbody id="performanceTableBody"></tbody>
@@ -8309,7 +8294,7 @@
     }
 
     function runMonteCarloSimulations() {
-      const tiebreaker = document.getElementById("tiebreakerSelect").value;
+      const tiebreaker = document.getElementById("tiebreakerSelect")?.value || "h2h";
 
       // 1. Compute each team's 2026 actual starter totals, mean, SD, weekly all-play, and max potential points
       const statsMap = {};
@@ -8484,7 +8469,7 @@
           <td><strong>${r.owner}</strong> <span style="color:var(--text-secondary); font-size:12px;">(${r.team})</span></td>
           <td class="center"><strong>${r.wins}-${r.losses}</strong></td>
           <td class="num">${r.pf.toFixed(1)}</td>
-          <td class="num" style="color:var(--text-secondary)">${r.mean.toFixed(1)} ± ${r.sd.toFixed(1)}</td>
+          <td class="num">${r.mean.toFixed(1)}</td>
           <td class="center"><strong>${r.allPlayW}-${r.allPlayL}</strong></td>
           <td class="num">${r.allPlayPct.toFixed(1)}%</td>
           <td class="center">${r.weeklyWinsCount > 0 ? `<span class="badge badge-amber">🏆 ${r.weeklyWinsCount}x</span>` : '<span style="color:var(--text-muted)">0</span>'}</td>
@@ -8495,7 +8480,7 @@
             </div>
             <strong>${r.playoffPct.toFixed(1)}%</strong>
           </td>
-          <td class="num">${r.seed1Pct.toFixed(1)}%</td>
+
         </tr>
       `).join("");
 
