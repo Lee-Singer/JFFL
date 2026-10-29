@@ -817,13 +817,6 @@
         <div>
           <strong>👥 Historical Owner Franchise Mapping Active:</strong> Past team records automatically follow the human owner across seasons (e.g., Team Slot #4 maps to <em>Dave R. (2019–2022)</em> and <em>Keith Green (2023–2026)</em> via the Commissioner Google Sheet).
         </div>
-        <div>
-          <select class="filter-select" id="historyEraFilter" onchange="renderHistoryTab()">
-            <option value="ALL">All 31 JFFL Seasons (1996–2026)</option>
-            <option value="SUPERFLEX">2026 Superflex Era Only</option>
-            <option value="LEGACY">1996–2025 Trophy & Keeper Era</option>
-          </select>
-        </div>
       </div>
 
       <div class="card" style="margin-bottom:20px;">
@@ -869,145 +862,6 @@
               </tr>
             </thead>
             <tbody id="recordsTableBody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="card" style="margin-bottom:20px;">
-        <div class="card-header">
-          <div>
-            <div class="card-title">📊 2024 JFFL XXIX Complete Season Archive (Sleeper League ID: 1126606444855468032)</div>
-            <div class="card-subtitle">Verified via Sleeper REST API • 4-way 10-5 tie atop the regular season led by Lee Singer (1,950.20 PF); Scott Rosen defeated Danny Babitz in the final</div>
-          </div>
-          <span class="badge badge-emerald">✓ Synced from Sleeper API</span>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Reg. Seed</th>
-                <th>Owner</th>
-                <th>Sleeper Username</th>
-                <th>2024 Team Name</th>
-                <th class="center">Reg. Record</th>
-                <th class="num">Points For (PF)</th>
-                <th class="num">Points Against (PA)</th>
-                <th class="num">PPG (15 Wks)</th>
-                <th>Final Playoff Result</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><span class="badge badge-emerald">#1</span></td>
-                <td><strong>Lee Singer</strong></td>
-                <td style="color:var(--text-secondary)">@LeeSinger</td>
-                <td>The Slithering Eels</td>
-                <td class="center"><strong>10-5</strong></td>
-                <td class="num"><strong>1,950.20</strong></td>
-                <td class="num">1,803.12</td>
-                <td class="num">130.0</td>
-                <td><span class="badge badge-blue">🥉 3rd Place (#1 Scoring Team)</span></td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-emerald">#2</span></td>
-                <td><strong>Scott Rosen</strong></td>
-                <td style="color:var(--text-secondary)">@sorosen</td>
-                <td>sorosen (Badgerers)</td>
-                <td class="center"><strong>10-5</strong></td>
-                <td class="num">1,807.46</td>
-                <td class="num">1,778.16</td>
-                <td class="num">120.5</td>
-                <td><span class="badge badge-amber">🏆 2024 JFFL Champion (1st)</span></td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-emerald">#3</span></td>
-                <td><strong>Colton Boehm</strong></td>
-                <td style="color:var(--text-secondary)">@leeman110</td>
-                <td>Back Dallas Up</td>
-                <td class="center"><strong>10-5</strong></td>
-                <td class="num">1,763.32</td>
-                <td class="num">1,652.54</td>
-                <td class="num">117.6</td>
-                <td><span class="badge badge-violet">4th Place (Semifinalist)</span></td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-emerald">#4</span></td>
-                <td><strong>Danny Babitz</strong></td>
-                <td style="color:var(--text-secondary)">@DBabitz</td>
-                <td>Primetime</td>
-                <td class="center"><strong>10-5</strong></td>
-                <td class="num">1,708.70</td>
-                <td class="num">1,491.70</td>
-                <td class="num">113.9</td>
-                <td><span class="badge badge-emerald">🥈 Runner-Up (2nd)</span></td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-blue">#5</span></td>
-                <td><strong>Jeff Spector</strong></td>
-                <td style="color:var(--text-secondary)">@jmspecto</td>
-                <td>Commish</td>
-                <td class="center">9-6</td>
-                <td class="num">1,742.78</td>
-                <td class="num">1,700.20</td>
-                <td class="num">116.2</td>
-                <td style="color:var(--text-secondary)">Missed Playoffs (5th)</td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-blue">#6</span></td>
-                <td><strong>Jonathan Paull</strong></td>
-                <td style="color:var(--text-secondary)">@JPaull85</td>
-                <td>BONESAW IS READY!!!</td>
-                <td class="center">9-6</td>
-                <td class="num">1,462.28</td>
-                <td class="num">1,470.02</td>
-                <td class="num">97.5</td>
-                <td style="color:var(--text-secondary)">Missed Playoffs (6th)</td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-blue">#7</span></td>
-                <td><strong>Brandon Pevnick</strong></td>
-                <td style="color:var(--text-secondary)">@bpev18</td>
-                <td>bpev18 (Brandon's Dynasty)</td>
-                <td class="center">5-10</td>
-                <td class="num">1,618.64</td>
-                <td class="num">1,619.26</td>
-                <td class="num">107.9</td>
-                <td style="color:var(--text-secondary)">Missed Playoffs (7th)</td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-blue">#8</span></td>
-                <td><strong>Chad Persky</strong></td>
-                <td style="color:var(--text-secondary)">@chadpersky</td>
-                <td>chadpersky (Duckett to Pickett)</td>
-                <td class="center">5-10</td>
-                <td class="num">1,539.12</td>
-                <td class="num">1,633.68</td>
-                <td class="num">102.6</td>
-                <td style="color:var(--text-secondary)">Missed Playoffs (8th)</td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-blue">#9</span></td>
-                <td><strong>Andy Babitz</strong></td>
-                <td style="color:var(--text-secondary)">@ababitz11</td>
-                <td>ababitz11 (Babby's Bashers)</td>
-                <td class="center">4-11</td>
-                <td class="num">1,465.42</td>
-                <td class="num">1,743.92</td>
-                <td class="num">97.7</td>
-                <td style="color:var(--text-secondary)">Missed Playoffs (9th)</td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-blue">#10</span></td>
-                <td><strong>Adam Paull</strong></td>
-                <td style="color:var(--text-secondary)">@AP90X</td>
-                <td>AP90X</td>
-                <td class="center">3-12</td>
-                <td class="num">1,661.30</td>
-                <td class="num">1,826.62</td>
-                <td class="num">110.8</td>
-                <td style="color:var(--text-secondary)">Missed Playoffs (10th • #1 PA)</td>
-              </tr>
-            </tbody>
           </table>
         </div>
       </div>
@@ -1271,9 +1125,7 @@
           <strong>🔒 JFFL 2027 Keeper Eligibility Preview (No Keepers in 2026 — Full Redraft for 3 New Owners):</strong>
           16-Round Draft • 2027 Cost = <strong>2026 Draft Round minus 2</strong> • <strong>Rounds 1–2 Picks Ineligible</strong> (e.g., Jahmyr Gibbs #1 Overall to Chad Persky) • <strong>Undrafted</strong> = <strong>Round 15 pick</strong> (Rd 17 − 2) • <strong>Dropped Drafted Players</strong> retain original 2026 draft round!
         </div>
-        <div>
-          <button class="btn btn-primary" onclick="exportKeepersCsv()">⬇️ Export Locked Keepers CSV (For Google Sheet)</button>
-        </div>
+
       </div>
 
       <div class="card">
@@ -1292,7 +1144,6 @@
               <option value="INELIGIBLE">Ineligible Only (Drafted Rd 1–2)</option>
               <option value="UNDRAFTED">Undrafted Pickups (Rd 15 Cost)</option>
               <option value="DROPPED_RETAINED">Waiver/Traded Players (Retained Original Draft Rd)</option>
-              <option value="LOCKED">Locked Keepers Only</option>
             </select>
           </div>
         </div>
@@ -1324,9 +1175,7 @@
         <div>
           <strong>🤝 League Trade Log + Commissioner Draft Pick Supplement:</strong> Yahoo's API provides the players and trade date automatically, while any traded future draft picks (e.g., <em>2027 8th Round Pick</em>) are merged from the <code>Trade_Notes</code> tab of your Commissioner Google Sheet.
         </div>
-        <div>
-          <button class="btn btn-primary" onclick="openModal('tradeModal')">+ Simulate Adding a Trade / Draft Pick Note</button>
-        </div>
+
       </div>
 
       <div id="tradesContainer"></div>
@@ -1351,45 +1200,6 @@
       </ul>
       <div style="text-align:right;">
         <button class="btn btn-primary" onclick="closeModal('sheetModal')">Got It</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL 2: ADD TRADE / FUTURE DRAFT PICK DEMO -->
-  <div class="modal-backdrop" id="tradeModal">
-    <div class="modal-box">
-      <div class="card-header">
-        <div class="card-title">+ Log New Trade / Future Draft Pick Note</div>
-        <button class="btn" onclick="closeModal('tradeModal')">✕ Close</button>
-      </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
-        <div class="filter-group">
-          <span class="filter-label">Team A Owner</span>
-          <select class="filter-select" id="newTradeTeamA"></select>
-        </div>
-        <div class="filter-group">
-          <span class="filter-label">Team B Owner</span>
-          <select class="filter-select" id="newTradeTeamB"></select>
-        </div>
-        <div class="filter-group">
-          <span class="filter-label">Team A Receives (Players)</span>
-          <input class="filter-input" id="newTradePlayersA" value="Tee Higgins (WR - 2027 Rd 4 Keeper)" />
-        </div>
-        <div class="filter-group">
-          <span class="filter-label">Team B Receives (Players)</span>
-          <input class="filter-input" id="newTradePlayersB" value="Brian Robinson Jr. (RB - 2027 Rd 7 Keeper)" />
-        </div>
-        <div class="filter-group">
-          <span class="filter-label">Team A Future Picks Received (From Sheet)</span>
-          <input class="filter-input" id="newTradePicksA" value="2027 9th Round Pick" />
-        </div>
-        <div class="filter-group">
-          <span class="filter-label">Team B Future Picks Received (From Sheet)</span>
-          <input class="filter-input" id="newTradePicksB" value="2027 6th Round Pick" />
-        </div>
-      </div>
-      <div style="text-align:right;">
-        <button class="btn btn-primary" onclick="addDemoTrade()">Add to Trade Log</button>
       </div>
     </div>
   </div>
@@ -3357,34 +3167,307 @@
 
     // League History Data (31 Seasons: 1996-2026 with Owner_ID Mapping, Reg. Season Title & Points Title)
     const CHAMPIONS_HISTORY = [
-      { year: "2025 (XXX)", era:"LEGACY", owner: "Lee Singer (3x)", team: "The Slithering Eels", runnerUp: "Pending Yahoo Sync", regTitle: "Pending Yahoo Sync", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (10 Teams)" },
-      { year: "2024 (XXIX)", era:"LEGACY", owner: "Scott Rosen (2x)", team: "sorosen (Badgerers)", runnerUp: "Danny Babitz (Primetime)", regTitle: "Lee Singer (10-5)", pointsTitle: "Lee Singer (1,950.20 PF)", score: "Sleeper (10 Teams)" },
-      { year: "2023 (XXVIII)", era:"LEGACY", owner: "Jeff Spector (4x)", team: "Commish", runnerUp: "Pending Yahoo Sync", regTitle: "Pending Yahoo Sync", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (10 Teams)" },
-      { year: "2022 (XXVII)", era:"LEGACY", owner: "Chad Persky (2x)", team: "Duckett to Pickett", runnerUp: "Jonathan Paull", regTitle: "Pending Yahoo Sync", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (10 Teams • MNF Split)" },
-      { year: "2021 (XXVI)", era:"LEGACY", owner: "Danny Babitz (3x)", team: "Primetime", runnerUp: "Pending Yahoo Sync", regTitle: "Lee Singer (#1 Seed)", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (10 Teams)" },
-      { year: "2020 (XXV)", era:"LEGACY", owner: "Adam Paull (1x)", team: "BATTLEHAWKS", runnerUp: "Pending Yahoo Sync", regTitle: "Pending Yahoo Sync", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (12 Teams)" },
-      { year: "2019 (XXIV)", era:"LEGACY", owner: "Brandon Pevnick (2x)", team: "Brandon's Dynasty", runnerUp: "Lee Singer", regTitle: "Pending Yahoo Sync", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (12 Teams • 75/25 Split)" },
-      { year: "2018 (XXIII)", era:"LEGACY", owner: "Scott Rosen (1x)", team: "Badgerers", runnerUp: "Jeff Spector", regTitle: "Pending Yahoo Sync", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (12 Teams • $0 FAAB)" },
-      { year: "2017 (XXII)", era:"LEGACY", owner: "Jonathan Paull (7x)", team: "BONESAW!", runnerUp: "Andy Babitz", regTitle: "Lee Singer (11W • #1 Seed)", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (10 Teams)" },
-      { year: "2016 (XXI)", era:"LEGACY", owner: "Andy Babitz (2x)", team: "Babby's Bashers", runnerUp: "Pending Yahoo Sync", regTitle: "Pending Yahoo Sync", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (10 Teams)" },
-      { year: "2015 (XX)", era:"LEGACY", owner: "Brandon Pevnick (1x)", team: "Brandon's Dynasty", runnerUp: "Pending Yahoo Sync", regTitle: "Pending Yahoo Sync", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (10 Teams)" },
-      { year: "2014 (XIX)", era:"LEGACY", owner: "Lee Singer (2x)", team: "The Slithering Eels", runnerUp: "Unknown (NFL.com)", regTitle: "Unknown (NFL.com)", pointsTitle: "Unknown (NFL.com)", score: "NFL.com (10 Teams)" },
-      { year: "2013 (XVIII)", era:"LEGACY", owner: "Danny Babitz (2x)", team: "Primetime", runnerUp: "Scott Rosen", regTitle: "Pending Yahoo Sync", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (12 Teams)" },
-      { year: "2012 (XVII)", era:"LEGACY", owner: "Danny Babitz (1x)", team: "Primetime", runnerUp: "Pending Yahoo Sync", regTitle: "Pending Yahoo Sync", pointsTitle: "Pending Yahoo Sync", score: "Yahoo (12 Teams)" },
-      { year: "2011 (XVI)", era:"LEGACY", owner: "Jeff Spector (3x)", team: "Commish", runnerUp: "Scott Rosen (Ote'sGonnaWin)", regTitle: "Lee Singer (10-3 • #1 Seed)", pointsTitle: "Danny Babitz (1,381.18 PF)", score: "Yahoo (12 Teams)" },
-      { year: "2010 (XV)", era:"LEGACY", owner: "Jeff Spector (2x)", team: "Commish", runnerUp: "Evan Singer (SHOW ME YA TD’S)", regTitle: "Danny Babitz (11-3 • #1 Seed)", pointsTitle: "Danny Babitz (1,489.36 PF)", score: "Yahoo (10 Teams)" },
-      { year: "2009 (XIV)", era:"LEGACY", owner: "Lee Singer (1x)", team: "The Slithering Eels", runnerUp: "—", regTitle: "—", pointsTitle: "—", score: "ESPN (Pre-Keeper)" },
-      { year: "2008 (XIII)", era:"LEGACY", owner: "Evan Bricker (1x)", team: "Brick Attack", runnerUp: "—", regTitle: "—", pointsTitle: "—", score: "Trophy Engraved" },
-      { year: "2007 (XII)", era:"LEGACY", owner: "Andy Babitz (1x)", team: "Babby's Bashers", runnerUp: "—", regTitle: "—", pointsTitle: "—", score: "Trophy Engraved" },
-      { year: "2005–2006", era:"LEGACY", owner: "Jonathan Paull (5x, 6x)", team: "Jonny's Stinkers", runnerUp: "—", regTitle: "—", pointsTitle: "—", score: "Back-to-Back Titles" },
-      { year: "2004 (IX)", era:"LEGACY", owner: "Jeff Spector (1x)", team: "Commish", runnerUp: "—", regTitle: "—", pointsTitle: "—", score: "Won on Cruise" },
-      { year: "2002–2003", era:"LEGACY", owner: "Brian Feldman (1x, 2x)", team: "I Miss Priest", runnerUp: "—", regTitle: "—", pointsTitle: "—", score: "Priest Holmes Era" },
-      { year: "2001 (VI)", era:"LEGACY", owner: "Jonathan Paull (4x)", team: "Jonny's Stinkers", runnerUp: "—", regTitle: "—", pointsTitle: "—", score: "Trophy Engraved" },
-      { year: "2000 (V)", era:"LEGACY", owner: "Matt Lebon (1x)", team: "Lebon", runnerUp: "—", regTitle: "—", pointsTitle: "—", score: "Jamal Lewis Rookie Yr" },
-      { year: "1998–1999", era:"LEGACY", owner: "Jonathan Paull (2x, 3x)", team: "Kurt Warner 1999", runnerUp: "—", regTitle: "—", pointsTitle: "—", score: "Back-to-Back Titles" },
-      { year: "1997 (II)", era:"LEGACY", owner: "Chad Persky (1x)", team: "Persky", runnerUp: "—", regTitle: "—", pointsTitle: "—", score: "2nd Year of JFFL" },
-      { year: "1996 (I)", era:"LEGACY", owner: "Jonathan Paull (1x)", team: "Inaugural JFFL Champ", runnerUp: "—", regTitle: "—", pointsTitle: "—", score: "6th Grade Season" }
-    ];
+    {
+        "year": "2025 (XXX)",
+        "era": "LEGACY",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "runnerUp": "Colton (Sutton on my Nixs)",
+        "regTitle": "LeeS (12-3)",
+        "pointsTitle": "LeeS (1,823.48 PF)",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2024 (XXIX)",
+        "era": "LEGACY",
+        "owner": "Scott Rosen",
+        "team": "sorosen / Badgerers",
+        "runnerUp": "Danny Babitz (Primetime)",
+        "regTitle": "Lee Singer (10-5)",
+        "pointsTitle": "Lee Singer (1,950.20 PF)",
+        "score": "Sleeper (10 Teams)"
+    },
+    {
+        "year": "2023 (XXVIII)",
+        "era": "LEGACY",
+        "owner": "Jeff Spector",
+        "team": "Commish",
+        "runnerUp": "Brandon (Brandon's Dynasty)",
+        "regTitle": "Jeff (13-2)",
+        "pointsTitle": "Jeff (1,931.88 PF)",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2022 (XXVII)",
+        "era": "LEGACY",
+        "owner": "Chad Persky",
+        "team": "Duckett to Pickett",
+        "runnerUp": "Jonathan (THE BONESAW RISES VOL. 2!!!)",
+        "regTitle": "Danny Babitz (10-5)",
+        "pointsTitle": "Danny Babitz (1,837.54 PF)",
+        "score": "Yahoo (10 Teams) \u2022 MNF Split"
+    },
+    {
+        "year": "2021 (XXVI)",
+        "era": "LEGACY",
+        "owner": "Danny Babitz",
+        "team": "Primetime",
+        "runnerUp": "LeeS (The Slithering Eels)",
+        "regTitle": "LeeS (11-4)",
+        "pointsTitle": "Adam (2,178.2 PF)",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2020 (XXV)",
+        "era": "LEGACY",
+        "owner": "Adam Paull",
+        "team": "BATTLEHAWKS",
+        "runnerUp": "Jonathan (BONESAW RETURNS!!!)",
+        "regTitle": "Adam (10-3)",
+        "pointsTitle": "Chad Persky (1,478.16 PF)",
+        "score": "Yahoo (12 Teams)"
+    },
+    {
+        "year": "2019 (XXIV)",
+        "era": "LEGACY",
+        "owner": "Brandon Pevnick",
+        "team": "Brandon's Dynasty",
+        "runnerUp": "LeeS (The Slithering Eels)",
+        "regTitle": "Danny Babitz (10-3)",
+        "pointsTitle": "Danny Babitz (1,607.2 PF)",
+        "score": "Yahoo (12 Teams) \u2022 75/25 Split"
+    },
+    {
+        "year": "2018 (XXIII)",
+        "era": "LEGACY",
+        "owner": "Scott Rosen",
+        "team": "Badgerers",
+        "runnerUp": "Jeff (Commish)",
+        "regTitle": "Billy Hoffman (9-4)",
+        "pointsTitle": "LeeS (1,591.34 PF)",
+        "score": "Yahoo (12 Teams) \u2022 $0 FAAB"
+    },
+    {
+        "year": "2017 (XXII)",
+        "era": "LEGACY",
+        "owner": "Jonathan Paull",
+        "team": "BONESAW!",
+        "runnerUp": "Andrew (Babby's Bashers)",
+        "regTitle": "LeeS (11-3)",
+        "pointsTitle": "Jonathan (1,742.22 PF)",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2016 (XXI)",
+        "era": "LEGACY",
+        "owner": "Andy Babitz",
+        "team": "Babby's Bashers",
+        "runnerUp": "ScottR (Badgerers)",
+        "regTitle": "Brandon (11-3)",
+        "pointsTitle": "Brandon (1,675.78 PF)",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2015 (XX)",
+        "era": "LEGACY",
+        "owner": "Brandon Pevnick",
+        "team": "Brandon's Dynasty",
+        "runnerUp": "Evan Singer (It's a Junior Mint)",
+        "regTitle": "Billy Hoffman (14-0)",
+        "pointsTitle": "Billy Hoffman (1,786.54 PF)",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2014 (XIX)",
+        "era": "LEGACY",
+        "owner": "Lee Singer",
+        "team": "The Slithering Eels",
+        "runnerUp": "\u2014",
+        "regTitle": "Jeff (0-0)",
+        "pointsTitle": "Jeff (0.0 PF)",
+        "score": "NFL.com (10 Teams)"
+    },
+    {
+        "year": "2013 (XVIII)",
+        "era": "LEGACY",
+        "owner": "Danny Babitz",
+        "team": "Primetime",
+        "runnerUp": "ScottR (Ote'sGonnaWin)",
+        "regTitle": "Danny Babitz (10-3)",
+        "pointsTitle": "Danny Babitz (1,594.64 PF)",
+        "score": "Yahoo (12 Teams)"
+    },
+    {
+        "year": "2012 (XVII)",
+        "era": "LEGACY",
+        "owner": "Danny Babitz",
+        "team": "Primetime",
+        "runnerUp": "Evan (BrickAttack)",
+        "regTitle": "LeeS (11-2)",
+        "pointsTitle": "LeeS (1,528.14 PF)",
+        "score": "Yahoo (12 Teams)"
+    },
+    {
+        "year": "2011 (XVI)",
+        "era": "LEGACY",
+        "owner": "Jeff Spector",
+        "team": "Commish",
+        "runnerUp": "ScottR (Ote'sGonnaWin)",
+        "regTitle": "LeeS (10-3)",
+        "pointsTitle": "Danny Babitz (1,381.18 PF)",
+        "score": "Yahoo (12 Teams)"
+    },
+    {
+        "year": "2010 (XV)",
+        "era": "LEGACY",
+        "owner": "Jeff Spector",
+        "team": "Commish",
+        "runnerUp": "Evan (SHOW ME YA TD\u2019S)",
+        "regTitle": "Danny Babitz (11-3)",
+        "pointsTitle": "Danny Babitz (1,489.36 PF)",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2009 (XIV)",
+        "era": "LEGACY",
+        "owner": "Lee Singer",
+        "team": "Lee Singer",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "ESPN (10 Teams)"
+    },
+    {
+        "year": "2008 (XIII)",
+        "era": "LEGACY",
+        "owner": "Evan Bricker",
+        "team": "Evan Bricker",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2007 (XII)",
+        "era": "LEGACY",
+        "owner": "Andy Babitz",
+        "team": "Andy Babitz",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2006 (XI)",
+        "era": "LEGACY",
+        "owner": "Jonathan Paull",
+        "team": "Jonathan Paull",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2005 (X)",
+        "era": "LEGACY",
+        "owner": "Jonathan Paull",
+        "team": "Jonathan Paull",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2004 (IX)",
+        "era": "LEGACY",
+        "owner": "Jeff Spector",
+        "team": "Jeff Spector",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2003 (VIII)",
+        "era": "LEGACY",
+        "owner": "Brian Feldman",
+        "team": "Brian Feldman",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2002 (VII)",
+        "era": "LEGACY",
+        "owner": "Brian Feldman",
+        "team": "Brian Feldman",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2001 (VI)",
+        "era": "LEGACY",
+        "owner": "Jonathan Paull",
+        "team": "Jonathan Paull",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "2000 (V)",
+        "era": "LEGACY",
+        "owner": "Matt Lebon",
+        "team": "Matt Lebon",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "1999 (IV)",
+        "era": "LEGACY",
+        "owner": "Jonathan Paull",
+        "team": "Jonathan Paull",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "1998 (III)",
+        "era": "LEGACY",
+        "owner": "Jonathan Paull",
+        "team": "Jonathan Paull",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "1997 (II)",
+        "era": "LEGACY",
+        "owner": "Chad Persky",
+        "team": "Chad Persky",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    },
+    {
+        "year": "1996 (I)",
+        "era": "LEGACY",
+        "owner": "Jonathan Paull",
+        "team": "Jonathan Paull",
+        "runnerUp": "\u2014",
+        "regTitle": "\u2014",
+        "pointsTitle": "\u2014",
+        "score": "Yahoo (10 Teams)"
+    }
+];
 
     const ALL_TIME_RECORDS = [
       { era:"LEGACY",    cat: "Most All-Time JFFL Championships (1996–2025)", holder: "Jonathan Paull", mark: "7 Titles", context: "1996, 1998, 1999, 2001, 2005, 2006, 2017" },
@@ -7700,40 +7783,55 @@
 ];
 
     let TRADES_DATA = [
-      {
-        id: "TR-2026-03",
-        date: "October 8, 2026 (Before Week 6)",
-        teamA: "Scott Rosen (Badgerers)",
-        teamB: "Adam Paull (Stan Kroenke's Toupee)",
-        playersToA: ["Malik Nabers (WR • Drafted Rd 5 → 2027 Rd 3 Keeper)"],
-        picksToA: ["2027 10th Round Pick (via Commissioner Sheet)"],
-        playersToB: ["Kenneth Walker III (RB • Drafted Rd 5 → 2027 Rd 3 Keeper)", "rome Odunze (WR • Drafted Rd 8 → 2027 Rd 6 Keeper)"],
-        picksToB: ["2027 7th Round Pick (via Commissioner Sheet)"],
-        note: "Blockbuster WR-for-RB swap with a 7th/10th round pick swap attached for 2027."
-      },
-      {
-        id: "TR-2026-02",
-        date: "September 29, 2026 (Before Week 5)",
-        teamA: "Lee Singer (The Slithering Eels)",
-        teamB: "Reuben Posner (The Poe-rental Units)",
-        playersToA: ["David Montgomery (RB • Drafted Rd 6 → 2027 Rd 4 Keeper)"],
-        picksToA: [],
-        playersToB: ["Zay Flowers (WR • Drafted Rd 5 → 2027 Rd 3 Keeper)"],
-        picksToB: ["2027 8th Round Pick (via Commissioner Sheet)"],
-        note: "Alex bolstered RB depth for a playoff push while sending Zay Flowers + an 8th-round pick to Greg."
-      },
-      {
-        id: "TR-2026-01",
-        date: "September 16, 2026 (Before Week 3)",
-        teamA: "Brandon Pevnick (Brandon's Dynasty)",
-        teamB: "Andy Babitz (Babby's Bashers)",
-        playersToA: ["Trey McBride (TE • Drafted Rd 4 → 2027 Rd 2 Keeper)"],
-        picksToA: ["2027 12th Round Pick (via Commissioner Sheet)"],
-        playersToB: ["Dalton Kincaid (TE • Drafted Rd 6 → 2027 Rd 4 Keeper)", "Najee Harris (RB • Drafted Rd 7 → 2027 Rd 5 Keeper)"],
-        picksToB: [],
-        note: "Early-season TE upgrade deal."
-      }
-    ];
+    {
+        "id": "TR-2026-03",
+        "date": "October 16, 2026 (Before Week 7)",
+        "teamA": "Keith Green (The Machine)",
+        "teamB": "Jonah Goldfinger (MartiniShot)",
+        "playersToA": [
+            "Cam Skattebo (RB)"
+        ],
+        "picksToA": [],
+        "playersToB": [
+            "Stefon Diggs (WR)",
+            "Alvin Kamara (RB)"
+        ],
+        "picksToB": [],
+        "note": ""
+    },
+    {
+        "id": "TR-2026-02",
+        "date": "October 8, 2026 (Before Week 6)",
+        "teamA": "Jonathan Paull (Jonny Woo Jew)",
+        "teamB": "Keith Green (The Machine)",
+        "playersToA": [
+            "Jonathan Taylor (RB)",
+            "Quinshon Judkins (RB)"
+        ],
+        "picksToA": [],
+        "playersToB": [
+            "Puka Nacua (WR)",
+            "Tony Pollard (RB)"
+        ],
+        "picksToB": [],
+        "note": ""
+    },
+    {
+        "id": "TR-2026-01",
+        "date": "September 24, 2026 (Before Week 4)",
+        "teamA": "Reuben Posner (The Poe-rental Units)",
+        "teamB": "Jonah Goldfinger (MartiniShot)",
+        "playersToA": [
+            "Jordan Love (QB)"
+        ],
+        "picksToA": [],
+        "playersToB": [
+            "Chase Brown (RB)"
+        ],
+        "picksToB": [],
+        "note": ""
+    }
+];
 
     // =========================================================================
     // 2. FILTER STATE & HELPER FUNCTIONS
@@ -8060,39 +8158,30 @@
     // 4. RENDER TAB 3: LEAGUE HISTORY
     // =========================================================================
     function renderHistoryTab() {
-      const era = document.getElementById("historyEraFilter").value;
       const champsBody = document.getElementById("championsTableBody");
       const recsBody = document.getElementById("recordsTableBody");
 
-      const filteredChamps = CHAMPIONS_HISTORY.filter(c => era === "ALL" || c.era === era);
-      if (filteredChamps.length === 0) {
-        champsBody.innerHTML = `<tr><td colspan="7" class="center" style="color:var(--text-secondary)">2026 Superflex Season is currently in progress (Through Week 7 of 17).</td></tr>`;
-      } else {
-        champsBody.innerHTML = filteredChamps.map(c => {
-          const isPendingReg = c.regTitle === "Pending Yahoo Sync";
-          const isPendingPts = c.pointsTitle === "Pending Yahoo Sync";
-          const regHtml = isPendingReg
-            ? `<span style="color:var(--text-muted); font-size:12px;">⏳ Yahoo API Sync</span>`
-            : (c.regTitle && c.regTitle !== "—" ? `<span class="badge badge-emerald">🥇 ${c.regTitle}</span>` : `<span style="color:var(--text-muted)">—</span>`);
-          const ptsHtml = isPendingPts
-            ? `<span style="color:var(--text-muted); font-size:12px;">⏳ Yahoo API Sync</span>`
-            : (c.pointsTitle && c.pointsTitle !== "—" ? `<span class="badge badge-blue">🔥 ${c.pointsTitle}</span>` : `<span style="color:var(--text-muted)">—</span>`);
-          return `
-            <tr>
-              <td><span class="badge badge-amber">${c.year}</span></td>
-              <td><strong>${c.owner}</strong></td>
-              <td>${c.team}</td>
-              <td>${c.runnerUp === "Pending Yahoo Sync" ? '<span style="color:var(--text-muted); font-size:12px;">⏳ Yahoo API Sync</span>' : c.runnerUp}</td>
-              <td>${regHtml}</td>
-              <td>${ptsHtml}</td>
-              <td style="color:var(--text-secondary)">${c.score}</td>
-            </tr>
-          `;
-        }).join("");
-      }
+      champsBody.innerHTML = CHAMPIONS_HISTORY.map(c => {
+        const regHtml = (c.regTitle && c.regTitle !== "—")
+          ? `<span class="badge badge-emerald">🥇 ${c.regTitle}</span>`
+          : `<span style="color:var(--text-muted)">—</span>`;
+        const ptsHtml = (c.pointsTitle && c.pointsTitle !== "—")
+          ? `<span class="badge badge-blue">🔥 ${c.pointsTitle}</span>`
+          : `<span style="color:var(--text-muted)">—</span>`;
+        return `
+          <tr>
+            <td><span class="badge badge-amber">${c.year}</span></td>
+            <td><strong>${c.owner}</strong></td>
+            <td>${c.team}</td>
+            <td>${c.runnerUp !== "—" ? `🥈 ${c.runnerUp}` : '<span style="color:var(--text-muted)">—</span>'}</td>
+            <td>${regHtml}</td>
+            <td>${ptsHtml}</td>
+            <td style="color:var(--text-secondary)">${c.score}</td>
+          </tr>
+        `;
+      }).join("");
 
-      const filteredRecs = ALL_TIME_RECORDS.filter(r => era === "ALL" || r.era === era);
-      recsBody.innerHTML = filteredRecs.map(r => `
+      recsBody.innerHTML = ALL_TIME_RECORDS.map(r => `
         <tr>
           <td><strong>${r.cat}</strong></td>
           <td>${r.holder}</td>
@@ -8806,30 +8895,35 @@
     // =========================================================================
     function renderTradesTab() {
       const container = document.getElementById("tradesContainer");
+      if (!TRADES_DATA.length) {
+        container.innerHTML = `<div class="card" style="padding:24px; text-align:center; color:var(--text-secondary)">No trades logged yet for the 2026 season.</div>`;
+        return;
+      }
       container.innerHTML = TRADES_DATA.map(t => `
         <div class="trade-card">
           <div class="trade-header">
             <span><strong>Trade ID: ${t.id}</strong> • ${t.date}</span>
-            <span class="badge badge-blue">Yahoo API + Commissioner Google Sheet Merged</span>
+            <span class="badge badge-blue">Official 2026 JFFL Trade</span>
           </div>
           <div class="trade-sides">
             <div class="trade-side-box">
               <div class="trade-owner">${t.teamA} Receives:</div>
               <ul class="trade-asset-list">
-                ${t.playersToA.map(p => `<li>🏈 <strong>${p}</strong></li>`).join("")}
-                ${t.picksToA.map(pk => `<li>📝 <span class="badge badge-amber">${pk}</span></li>`).join("")}
+                ${(t.playersToA || []).map(p => `<li>🏈 <strong>${p}</strong></li>`).join("")}
+                ${(t.picksToA || []).map(pk => `<li>📝 <span class="badge badge-amber">${pk}</span></li>`).join("")}
+                ${(!t.playersToA?.length && !t.picksToA?.length) ? `<li style="color:var(--text-muted)">None</li>` : ""}
               </ul>
             </div>
             <div class="center" style="font-size:20px; color:var(--text-secondary);">⇄</div>
             <div class="trade-side-box">
               <div class="trade-owner">${t.teamB} Receives:</div>
               <ul class="trade-asset-list">
-                ${t.playersToB.map(p => `<li>🏈 <strong>${p}</strong></li>`).join("")}
-                ${t.picksToB.map(pk => `<li>📝 <span class="badge badge-amber">${pk}</span></li>`).join("")}
+                ${(t.playersToB || []).map(p => `<li>🏈 <strong>${p}</strong></li>`).join("")}
+                ${(t.picksToB || []).map(pk => `<li>📝 <span class="badge badge-amber">${pk}</span></li>`).join("")}
+                ${(!t.playersToB?.length && !t.picksToB?.length) ? `<li style="color:var(--text-muted)">None</li>` : ""}
               </ul>
             </div>
           </div>
-          ${t.note ? `<div style="margin-top:10px; font-size:12px; color:var(--text-secondary);">💬 <em>Commissioner Note:</em> ${t.note}</div>` : ""}
         </div>
       `).join("");
     }
@@ -9580,6 +9674,142 @@
         }
       } catch (e) {
         console.warn("Keepers live sync notice:", e);
+      }
+
+      // 7. Dynamically Fetch Historical_Seasons from Google Sheet if updated
+      try {
+        const urlHist = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/gviz/tq?tqx=out:json&sheet=Historical_Seasons&_t=" + Date.now();
+        const resHist = await fetch(urlHist);
+        if (resHist.ok) {
+          const rawH = await resHist.text();
+          const jStart = rawH.indexOf("{");
+          const jEnd = rawH.lastIndexOf("}");
+          if (jStart !== -1 && jEnd !== -1) {
+            const dataH = JSON.parse(rawH.substring(jStart, jEnd + 1));
+            const rowsH = dataH.table && dataH.table.rows;
+            if (rowsH && rowsH.length > 0) {
+              const liveChamps = [];
+              rowsH.forEach(r => {
+                const c = r.c;
+                if (!c) return;
+                const yVal = parseInt(c[0] && c[0].v, 10);
+                if (isNaN(yVal) || yVal >= 2026 || yVal < 1996) return;
+                const edVal = normStr(c[1] && c[1].v ? c[1].v : "").replace("JFFL ", "");
+                const platVal = normStr(c[2] && c[2].v ? c[2].v : "Yahoo");
+                const szVal = parseInt(c[3] && c[3].v, 10) || (yVal >= 2021 || yVal === 2014 || yVal <= 2010 ? 10 : 12);
+                const rawChamp = normStr(c[4] && c[4].v ? c[4].v : "");
+                if (!rawChamp) return;
+
+                const cleanChamp = rawChamp.replace(/\s*\(.*?\)/g, "").trim();
+                let teamStr = cleanChamp;
+                const mTeam = rawChamp.match(/\((.*?)\)/);
+                if (mTeam && !mTeam[1].endsWith("x)")) teamStr = mTeam[1];
+
+                let runner = normStr(c[5] && c[5].v ? c[5].v : "—");
+                let reg = normStr(c[6] && c[6].v ? c[6].v : "—");
+                let pts = normStr(c[7] && c[7].v ? c[7].v : "—");
+
+                if (yVal === 2015) { reg = "Billy Hoffman (14-0)"; pts = "Billy Hoffman (1,786.54 PF)"; }
+                else if (yVal === 2018) { reg = "Billy Hoffman (9-4)"; pts = "LeeS (1,591.34 PF)"; }
+                if (reg.startsWith("_ _")) reg = "—";
+                if (pts.startswith && pts.startsWith("_ _")) pts = "—";
+
+                let platDesc = platVal + " (" + szVal + " Teams)";
+                if (yVal === 2022) platDesc += " • MNF Split";
+                else if (yVal === 2019) platDesc += " • 75/25 Split";
+                else if (yVal === 2018) platDesc += " • $0 FAAB";
+
+                liveChamps.push({
+                  year: yVal + " (" + edVal + ")",
+                  era: "LEGACY",
+                  owner: cleanChamp,
+                  team: teamStr,
+                  runnerUp: runner || "—",
+                  regTitle: reg || "—",
+                  pointsTitle: pts || "—",
+                  score: platDesc
+                });
+              });
+              if (liveChamps.length > 0) {
+                liveChamps.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+                CHAMPIONS_HISTORY.length = 0;
+                CHAMPIONS_HISTORY.push(...liveChamps);
+                renderHistoryTab();
+              }
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("Historical seasons live sync notice:", e);
+      }
+
+      // 8. Dynamically Fetch Trade_Picks from Commissioner Google Sheet
+      try {
+        const urlTrades = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/gviz/tq?tqx=out:json&sheet=Trade_Picks&_t=" + Date.now();
+        const resTrades = await fetch(urlTrades);
+        if (resTrades.ok) {
+          const rawT = await resTrades.text();
+          const jStart = rawT.indexOf("{");
+          const jEnd = rawT.lastIndexOf("}");
+          if (jStart !== -1 && jEnd !== -1) {
+            const dataT = JSON.parse(rawT.substring(jStart, jEnd + 1));
+            const rowsT = dataT.table && dataT.table.rows;
+            if (rowsT && rowsT.length > 0) {
+              const liveTrades = [];
+              let tradeCounter = 1;
+              rowsT.forEach(r => {
+                const c = r.c;
+                if (!c) return;
+                const dStr = normStr(c[0] && (c[0].f || c[0].v) ? (c[0].f || c[0].v) : "");
+                const tmA = normStr(c[1] && c[1].v ? c[1].v : "");
+                const pkA = normStr(c[2] && c[2].v ? c[2].v : "");
+                const tmB = normStr(c[3] && c[3].v ? c[3].v : "");
+                const pkB = normStr(c[4] && c[4].v ? c[4].v : "");
+                const playersRaw = normStr(c[5] && c[5].v ? c[5].v : "");
+                if (!tmA || !tmB || normKey(tmA) === "team_a_owner") return;
+
+                const picksA = (pkA && normKey(pkA) !== "none") ? [pkA] : [];
+                const picksB = (pkB && normKey(pkB) !== "none") ? [pkB] : [];
+                const playersToA = [];
+                const playersToB = [];
+
+                if (playersRaw) {
+                  // Split on semicolon or slash if players described per side
+                  const parts = playersRaw.split(/;|\//);
+                  parts.forEach(part => {
+                    const cleanP = part.trim();
+                    if (!cleanP) return;
+                    if (cleanP.toLowerCase().includes("team a") || cleanP.toLowerCase().includes(tmA.split(" ")[0].toLowerCase())) {
+                      playersToA.push(cleanP.replace(/^team a receives:?/i, "").trim());
+                    } else if (cleanP.toLowerCase().includes("team b") || cleanP.toLowerCase().includes(tmB.split(" ")[0].toLowerCase())) {
+                      playersToB.push(cleanP.replace(/^team b receives:?/i, "").trim());
+                    } else {
+                      playersToA.push(cleanP);
+                    }
+                  });
+                }
+
+                liveTrades.push({
+                  id: "TR-2026-0" + (tradeCounter++),
+                  date: dStr,
+                  teamA: tmA,
+                  teamB: tmB,
+                  playersToA: playersToA,
+                  picksToA: picksA,
+                  playersToB: playersToB,
+                  picksToB: picksB
+                });
+              });
+
+              if (liveTrades.length > 0) {
+                TRADES_DATA = liveTrades;
+                renderTradesTab();
+              }
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("Trade picks live sync notice:", e);
       }
 
       const badge = document.querySelector(".sync-badge");
