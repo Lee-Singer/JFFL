@@ -1,53 +1,4 @@
-function formatCanonicalOwner(str) {
-      if (!str || str === '—') return '—';
-      const mapping = {
-        'lees': 'Lee Singer',
-        'lee singer': 'Lee Singer',
-        'lee': 'Lee Singer',
-        'scottr': 'Scott Rosen',
-        'scott rosen': 'Scott Rosen',
-        'scott': 'Scott Rosen',
-        'brandon': 'Brandon Pevnick',
-        'brandon pevnick': 'Brandon Pevnick',
-        'jeff': 'Jeff Spector',
-        'jeff spector': 'Jeff Spector',
-        'jonathan': 'Jonathan Paull',
-        'jonathan paull': 'Jonathan Paull',
-        'danny babitz': 'Danny Babitz',
-        'danny': 'Danny Babitz',
-        'adam': 'Adam Paull',
-        'adam paull': 'Adam Paull',
-        'chad persky': 'Chad Persky',
-        'chad': 'Chad Persky',
-        'andy babitz': 'Andy Babitz',
-        'andrew': 'Andy Babitz',
-        'andrew babitz': 'Andy Babitz',
-        'billy hoffman': 'Billy Hoffman',
-        'billy': 'Billy Hoffman',
-        'evan singer': 'Evan Singer',
-        'evan bricker': 'Evan Bricker',
-        'evan': 'Evan Bricker',
-        'colton boehm': 'Colton Boehm',
-        'colton': 'Colton Boehm',
-        'reuben posner': 'Reuben Posner',
-        'reuben': 'Reuben Posner',
-        'jonah goldfinger': 'Jonah Goldfinger',
-        'jonah': 'Jonah Goldfinger',
-        'keith green': 'Keith Green',
-        'keith': 'Keith Green',
-        'brian feldman': 'Brian Feldman',
-        'matt lebon': 'Matt Lebon'
-      };
-      const m = str.match(/^([^\(]+)(\(.*?\))?$/);
-      if (m) {
-        const rawName = m[1].trim().toLowerCase();
-        const suffix = m[2] ? ' ' + m[2].trim() : '';
-        if (mapping[rawName]) {
-          return mapping[rawName] + suffix;
-        }
-      }
-      return str;
-    }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1295,6 +1246,71 @@ function formatCanonicalOwner(str) {
   </div>
 
   <script>
+    // Manager name normalizer across historical records
+    function formatCanonicalOwner(str) {
+      if (!str || str === '—') return '—';
+      const mapping = {
+        'lees': 'Lee Singer',
+        'lee singer': 'Lee Singer',
+        'lee': 'Lee Singer',
+        'scottr': 'Scott Rosen',
+        'scott rosen': 'Scott Rosen',
+        'scott': 'Scott Rosen',
+        'brandon': 'Brandon Pevnick',
+        'brandon pevnick': 'Brandon Pevnick',
+        'jeff': 'Jeff Spector',
+        'jeff spector': 'Jeff Spector',
+        'jonathan': 'Jonathan Paull',
+        'jonathan paull': 'Jonathan Paull',
+        'danny babitz': 'Danny Babitz',
+        'danny': 'Danny Babitz',
+        'adam': 'Adam Paull',
+        'adam paull': 'Adam Paull',
+        'chad persky': 'Chad Persky',
+        'chad': 'Chad Persky',
+        'andy babitz': 'Andy Babitz',
+        'andrew': 'Andy Babitz',
+        'andrew babitz': 'Andy Babitz',
+        'billy hoffman': 'Billy Hoffman',
+        'billy': 'Billy Hoffman',
+        'evan singer': 'Evan Singer',
+        'evan bricker': 'Evan Bricker',
+        'evan': 'Evan Bricker',
+        'colton boehm': 'Colton Boehm',
+        'colton': 'Colton Boehm',
+        'reuben posner': 'Reuben Posner',
+        'reuben': 'Reuben Posner',
+        'jonah goldfinger': 'Jonah Goldfinger',
+        'jonah': 'Jonah Goldfinger',
+        'keith green': 'Keith Green',
+        'keith': 'Keith Green',
+        'brian feldman': 'Brian Feldman',
+        'matt lebon': 'Matt Lebon'
+      };
+      const m = str.match(/^([^\(]+)(\(.*?\))?$/);
+      if (m) {
+        const rawName = m[1].trim().toLowerCase();
+        const suffix = m[2] ? ' ' + m[2].trim() : '';
+        if (mapping[rawName]) {
+          return mapping[rawName] + suffix;
+        }
+      }
+      return str;
+    }
+
+    function formatTradeDate(dStr) {
+      if (!dStr) return 'October 2026';
+      const m = dStr.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (m) {
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const month = months[parseInt(m[2], 10) - 1];
+        const day = parseInt(m[3], 10);
+        const year = m[1];
+        return `${month} ${day}, ${year}`;
+      }
+      return dStr;
+    }
+
     // =========================================================================
     // 1. REALISTIC 10-TEAM JFFL DATASET (0.5 PPR, Superflex, 6 Weeks Played)
     // =========================================================================
@@ -7829,23 +7845,9 @@ function formatCanonicalOwner(str) {
 
     let TRADES_DATA = [
     {
-        "id": "TR-2026-03",
-        "date": "October 16, 2026 (Before Week 7)",
-        "teamA": "Keith Green (The Machine)",
-        "teamB": "Jonah Goldfinger (MartiniShot)",
-        "playersToA": [
-            "Cam Skattebo (RB)"
-        ],
-        "picksToA": [],
-        "playersToB": [
-            "Stefon Diggs (WR)",
-            "Alvin Kamara (RB)"
-        ],
-        "picksToB": []
-    },
-    {
-        "id": "TR-2026-02",
-        "date": "October 8, 2026 (Before Week 6)",
+        "id": "TR-2026-01",
+        "season": "2026",
+        "date": "October 11, 2026",
         "teamA": "Jonathan Paull (Jonny Woo Jew)",
         "teamB": "Keith Green (The Machine)",
         "playersToA": [
@@ -7860,8 +7862,9 @@ function formatCanonicalOwner(str) {
         "picksToB": []
     },
     {
-        "id": "TR-2026-01",
-        "date": "September 24, 2026 (Before Week 4)",
+        "id": "TR-2026-02",
+        "season": "2026",
+        "date": "October 24, 2026",
         "teamA": "Reuben Posner (The Poe-rental Units)",
         "teamB": "Jonah Goldfinger (MartiniShot)",
         "playersToA": [
@@ -7877,6 +7880,22 @@ function formatCanonicalOwner(str) {
         "picksToB": [
             "2027 16th-round pick"
         ]
+    },
+    {
+        "id": "TR-2026-03",
+        "season": "2026",
+        "date": "October 27, 2026",
+        "teamA": "Keith Green (The Machine)",
+        "teamB": "Jonah Goldfinger (MartiniShot)",
+        "playersToA": [
+            "Cam Skattebo (RB)"
+        ],
+        "picksToA": [],
+        "playersToB": [
+            "Stefon Diggs (WR)",
+            "Alvin Kamara (RB)"
+        ],
+        "picksToB": []
     }
 ];
 
@@ -8945,7 +8964,7 @@ function formatCanonicalOwner(str) {
         <div class="trade-card">
           <div class="trade-header">
             <span><strong>Trade ID: ${t.id}</strong> • ${t.date}</span>
-            <span class="badge badge-blue">Official 2026 JFFL Trade</span>
+            <span class="badge badge-blue">${t.season || "2026"}</span>
           </div>
           <div class="trade-sides">
             <div class="trade-side-box">
@@ -9788,7 +9807,8 @@ function formatCanonicalOwner(str) {
               rowsT.forEach(r => {
                 const c = r.c;
                 if (!c) return;
-                const dStr = normStr(c[0] && (c[0].f || c[0].v) ? (c[0].f || c[0].v) : "");
+                const rawDate = normStr(c[0] && (c[0].f || c[0].v) ? (c[0].f || c[0].v) : "");
+                const dStr = formatTradeDate(rawDate);
                 const tmA = normStr(c[1] && c[1].v ? c[1].v : "");
                 const pkA = normStr(c[2] && c[2].v ? c[2].v : "");
                 const tmB = normStr(c[3] && c[3].v ? c[3].v : "");
@@ -9867,6 +9887,7 @@ function formatCanonicalOwner(str) {
                 }
               });
 
+              TRADES_DATA.sort((a, b) => new Date(a.date) - new Date(b.date));
               renderTradesTab();
             }
           }
