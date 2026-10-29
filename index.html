@@ -1070,17 +1070,17 @@
           <table>
             <thead>
               <tr>
-                <th>Seed</th>
-                <th>Owner / Team</th>
-                <th class="center">Actual Rec</th>
-                <th class="num">Points For</th>
-                <th class="num">2026 Avg ± SD</th>
-                <th class="center">Overall All-Play</th>
-                <th class="num">All-Play %</th>
-                <th class="center">🏆 Wkly High Wins</th>
-                <th class="num">Proj. Wins</th>
-                <th class="num">Make Playoffs (Top 4)</th>
-                <th class="num">#1 Seed %</th>
+                <th onclick="sortPerfTable('seed')">Seed <span id="sort-perf-seed"></span></th>
+                <th onclick="sortPerfTable('owner')">Owner / Team <span id="sort-perf-owner"></span></th>
+                <th class="center" onclick="sortPerfTable('wins')">Actual Rec <span id="sort-perf-wins"></span></th>
+                <th class="num" onclick="sortPerfTable('pf')">Points For <span id="sort-perf-pf"></span></th>
+                <th class="num" onclick="sortPerfTable('mean')">2026 Avg ± SD <span id="sort-perf-mean"></span></th>
+                <th class="center" onclick="sortPerfTable('allPlayW')">Overall All-Play <span id="sort-perf-allPlayW"></span></th>
+                <th class="num" onclick="sortPerfTable('allPlayPct')">All-Play % <span id="sort-perf-allPlayPct"></span></th>
+                <th class="center" onclick="sortPerfTable('weeklyWinsCount')">🏆 Wkly High Wins <span id="sort-perf-weeklyWinsCount"></span></th>
+                <th class="num" onclick="sortPerfTable('projW')">Proj. Wins <span id="sort-perf-projW"></span></th>
+                <th class="num" onclick="sortPerfTable('playoffPct')">Make Playoffs (Top 4) <span id="sort-perf-playoffPct"></span></th>
+                <th class="num" onclick="sortPerfTable('seed1Pct')">#1 Seed % <span id="sort-perf-seed1Pct"></span></th>
               </tr>
             </thead>
             <tbody id="performanceTableBody"></tbody>
@@ -1127,12 +1127,12 @@
             <table>
               <thead>
                 <tr>
-                  <th>Rank</th>
-                  <th>Owner</th>
-                  <th class="num">Actual Starter Pts</th>
-                  <th class="num">Max Potential Pts</th>
-                  <th class="num">Pts Left on Bench</th>
-                  <th class="num">Efficiency %</th>
+                  <th onclick="sortEffTable('rank')">Rank <span id="sort-eff-rank"></span></th>
+                  <th onclick="sortEffTable('owner')">Owner <span id="sort-eff-owner"></span></th>
+                  <th class="num" onclick="sortEffTable('pf')">Actual Starter Pts <span id="sort-eff-pf"></span></th>
+                  <th class="num" onclick="sortEffTable('maxPot')">Max Potential Pts <span id="sort-eff-maxPot"></span></th>
+                  <th class="num" onclick="sortEffTable('leftOnBench')">Pts Left on Bench <span id="sort-eff-leftOnBench"></span></th>
+                  <th class="num" onclick="sortEffTable('eff')">Efficiency % <span id="sort-eff-eff"></span></th>
                 </tr>
               </thead>
               <tbody id="efficiencyTableBody"></tbody>
@@ -1300,15 +1300,14 @@
           <table>
             <thead>
               <tr>
-                <th>Current Owner</th>
-                <th>Player</th>
-                <th class="center">Pos</th>
-                <th>How Acquired</th>
-                <th>Originally Drafted By</th>
-                <th class="center">2026 Draft Rd</th>
-                <th class="center">2027 Keeper Cost</th>
-                <th class="num">2026 PPG</th>
-                <th class="center">Commissioner Override / Lock (Max 3)</th>
+                <th onclick="sortKeepersTable('owner')">Current Owner <span id="sort-keep-owner"></span></th>
+                <th onclick="sortKeepersTable('player')">Player <span id="sort-keep-player"></span></th>
+                <th class="center" onclick="sortKeepersTable('pos')">Pos <span id="sort-keep-pos"></span></th>
+                <th onclick="sortKeepersTable('acquired')">How Acquired <span id="sort-keep-acquired"></span></th>
+                <th onclick="sortKeepersTable('draftedBy')">Originally Drafted By <span id="sort-keep-draftedBy"></span></th>
+                <th class="center" onclick="sortKeepersTable('draftRd')">2026 Draft Rd <span id="sort-keep-draftRd"></span></th>
+                <th class="center" onclick="sortKeepersTable('costRd')">2027 Keeper Cost <span id="sort-keep-costRd"></span></th>
+                <th class="center" onclick="sortKeepersTable('locked')">Commissioner Override / Lock (Max 3) <span id="sort-keep-locked"></span></th>
               </tr>
             </thead>
             <tbody id="keepersTableBody"></tbody>
@@ -1800,19 +1799,19 @@
             "tot": 154.56,
             "opp": "T8",
             "proj": 131.67,
-            "maxPot": 173.1,
+            "maxPot": 181.76,
             "starters": {
-                "QB": 46.4,
-                "RB": 40.2,
-                "WR": 43.3,
-                "TE": 13.9,
-                "DST": 10.8
+                "QB": 36.36,
+                "RB": 59.9,
+                "WR": 49.3,
+                "TE": 8.0,
+                "DST": 1.0
             },
             "bench": {
-                "QB": 16.2,
-                "RB": 20.1,
-                "WR": 19.5,
-                "TE": 5.6,
+                "QB": 18.46,
+                "RB": 12.2,
+                "WR": 29.8,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -1822,19 +1821,19 @@
             "tot": 126.56,
             "opp": "T9",
             "proj": 131.69,
-            "maxPot": 141.7,
+            "maxPot": 138.7,
             "starters": {
-                "QB": 38.0,
-                "RB": 32.9,
-                "WR": 35.4,
-                "TE": 11.4,
-                "DST": 8.9
+                "QB": 38.36,
+                "RB": 30.4,
+                "WR": 51.3,
+                "TE": 2.5,
+                "DST": 4.0
             },
             "bench": {
-                "QB": 13.3,
-                "RB": 16.4,
-                "WR": 15.9,
-                "TE": 4.6,
+                "QB": 17.02,
+                "RB": 18.7,
+                "WR": 2.9,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -1844,20 +1843,20 @@
             "tot": 152.32,
             "opp": "T7",
             "proj": 135.01,
-            "maxPot": 170.6,
+            "maxPot": 158.12,
             "starters": {
-                "QB": 45.7,
-                "RB": 39.6,
-                "WR": 42.6,
-                "TE": 13.7,
-                "DST": 10.7
+                "QB": 45.02,
+                "RB": 54.6,
+                "WR": 40.1,
+                "TE": 4.6,
+                "DST": 8.0
             },
             "bench": {
-                "QB": 16.0,
-                "RB": 19.8,
-                "WR": 19.2,
-                "TE": 5.5,
-                "DST": 0.0
+                "QB": 11.68,
+                "RB": 13.1,
+                "WR": 0.0,
+                "TE": 0.0,
+                "DST": 4.0
             },
             "ir": 0.0
         },
@@ -1866,20 +1865,20 @@
             "tot": 166.2,
             "opp": "T5",
             "proj": 139.77,
-            "maxPot": 186.1,
+            "maxPot": 174.4,
             "starters": {
-                "QB": 49.9,
-                "RB": 43.2,
-                "WR": 46.5,
-                "TE": 15.0,
-                "DST": 11.6
+                "QB": 42.7,
+                "RB": 65.8,
+                "WR": 38.2,
+                "TE": 13.5,
+                "DST": 6.0
             },
             "bench": {
-                "QB": 17.5,
-                "RB": 21.6,
-                "WR": 20.9,
-                "TE": 6.0,
-                "DST": 0.0
+                "QB": 12.56,
+                "RB": 14.2,
+                "WR": 0.0,
+                "TE": 0.0,
+                "DST": 1.0
             },
             "ir": 0.0
         },
@@ -1888,19 +1887,19 @@
             "tot": 108.5,
             "opp": "T4",
             "proj": 126.57,
-            "maxPot": 121.5,
+            "maxPot": 129.9,
             "starters": {
-                "QB": 32.5,
-                "RB": 28.2,
-                "WR": 30.4,
-                "TE": 9.8,
-                "DST": 7.6
+                "QB": 38.1,
+                "RB": 15.3,
+                "WR": 45.0,
+                "TE": 9.1,
+                "DST": 1.0
             },
             "bench": {
-                "QB": 11.4,
-                "RB": 14.1,
-                "WR": 13.7,
-                "TE": 3.9,
+                "QB": 12.24,
+                "RB": 25.2,
+                "WR": 7.2,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -1910,19 +1909,19 @@
             "tot": 121.34,
             "opp": "T2",
             "proj": 144.48,
-            "maxPot": 135.9,
+            "maxPot": 151.84,
             "starters": {
-                "QB": 36.4,
-                "RB": 31.5,
-                "WR": 34.0,
-                "TE": 10.9,
-                "DST": 8.5
+                "QB": 41.34,
+                "RB": 42.3,
+                "WR": 30.5,
+                "TE": 6.2,
+                "DST": 1.0
             },
             "bench": {
-                "QB": 12.7,
-                "RB": 15.8,
-                "WR": 15.3,
-                "TE": 4.4,
+                "QB": 9.76,
+                "RB": 18.5,
+                "WR": 50.7,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -1932,19 +1931,19 @@
             "tot": 91.54,
             "opp": "T6",
             "proj": 147.0,
-            "maxPot": 102.5,
+            "maxPot": 126.84,
             "starters": {
-                "QB": 27.5,
-                "RB": 23.8,
-                "WR": 25.6,
-                "TE": 8.2,
-                "DST": 6.4
+                "QB": 30.54,
+                "RB": 31.0,
+                "WR": 7.2,
+                "TE": 12.8,
+                "DST": 10.0
             },
             "bench": {
-                "QB": 9.6,
-                "RB": 11.9,
-                "WR": 11.5,
-                "TE": 3.3,
+                "QB": 0.0,
+                "RB": 26.9,
+                "WR": 21.7,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -1956,19 +1955,19 @@
             "tot": 183.92,
             "opp": "T9",
             "proj": 130.76,
-            "maxPot": 206.0,
+            "maxPot": 202.02,
             "starters": {
-                "QB": 55.2,
-                "RB": 47.8,
-                "WR": 51.5,
-                "TE": 16.6,
-                "DST": 12.8
+                "QB": 72.92,
+                "RB": 52.5,
+                "WR": 38.2,
+                "TE": 7.3,
+                "DST": 13.0
             },
             "bench": {
-                "QB": 19.3,
-                "RB": 23.9,
-                "WR": 23.2,
-                "TE": 6.6,
+                "QB": 16.48,
+                "RB": 28.9,
+                "WR": 13.9,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -1978,19 +1977,19 @@
             "tot": 175.64,
             "opp": "T7",
             "proj": 134.62,
-            "maxPot": 196.7,
+            "maxPot": 175.64,
             "starters": {
-                "QB": 52.7,
-                "RB": 45.7,
-                "WR": 49.2,
-                "TE": 15.8,
-                "DST": 12.2
+                "QB": 49.54,
+                "RB": 35.6,
+                "WR": 68.3,
+                "TE": 14.2,
+                "DST": 8.0
             },
             "bench": {
-                "QB": 18.4,
-                "RB": 22.9,
-                "WR": 22.1,
-                "TE": 6.3,
+                "QB": 7.5,
+                "RB": 10.1,
+                "WR": 4.2,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2000,19 +1999,19 @@
             "tot": 125.72,
             "opp": "T5",
             "proj": 124.01,
-            "maxPot": 140.8,
+            "maxPot": 149.06,
             "starters": {
-                "QB": 37.7,
-                "RB": 32.7,
-                "WR": 35.2,
-                "TE": 11.3,
-                "DST": 8.8
+                "QB": 40.22,
+                "RB": 24.5,
+                "WR": 54.1,
+                "TE": 5.9,
+                "DST": 1.0
             },
             "bench": {
-                "QB": 13.2,
-                "RB": 16.4,
-                "WR": 15.8,
-                "TE": 4.5,
+                "QB": 25.6,
+                "RB": 21.1,
+                "WR": 8.8,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2022,19 +2021,19 @@
             "tot": 117.54,
             "opp": "T4",
             "proj": 142.96,
-            "maxPot": 131.6,
+            "maxPot": 156.74,
             "starters": {
-                "QB": 35.3,
-                "RB": 30.6,
-                "WR": 32.9,
-                "TE": 10.6,
-                "DST": 8.1
+                "QB": 29.34,
+                "RB": 38.8,
+                "WR": 25.0,
+                "TE": 18.4,
+                "DST": 6.0
             },
             "bench": {
-                "QB": 12.4,
-                "RB": 15.3,
-                "WR": 14.8,
-                "TE": 4.2,
+                "QB": 28.36,
+                "RB": 26.8,
+                "WR": 18.0,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2044,19 +2043,19 @@
             "tot": 152.38,
             "opp": "T6",
             "proj": 139.51,
-            "maxPot": 170.7,
+            "maxPot": 152.38,
             "starters": {
-                "QB": 45.7,
-                "RB": 39.6,
-                "WR": 42.7,
-                "TE": 13.7,
-                "DST": 10.7
+                "QB": 57.28,
+                "RB": 30.7,
+                "WR": 46.1,
+                "TE": 17.3,
+                "DST": 1.0
             },
             "bench": {
-                "QB": 16.0,
-                "RB": 19.8,
-                "WR": 19.2,
-                "TE": 5.5,
+                "QB": 16.38,
+                "RB": 1.6,
+                "WR": 1.1,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2066,19 +2065,19 @@
             "tot": 120.6,
             "opp": "T1",
             "proj": 128.54,
-            "maxPot": 135.1,
+            "maxPot": 131.4,
             "starters": {
-                "QB": 36.2,
-                "RB": 31.4,
-                "WR": 33.8,
-                "TE": 10.9,
-                "DST": 8.3
+                "QB": 34.8,
+                "RB": 44.8,
+                "WR": 24.1,
+                "TE": 6.9,
+                "DST": 10.0
             },
             "bench": {
-                "QB": 12.7,
-                "RB": 15.7,
-                "WR": 15.2,
-                "TE": 4.4,
+                "QB": 17.38,
+                "RB": 4.2,
+                "WR": 16.0,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2088,20 +2087,20 @@
             "tot": 111.84,
             "opp": "T10",
             "proj": 131.58,
-            "maxPot": 125.3,
+            "maxPot": 132.64,
             "starters": {
-                "QB": 33.6,
-                "RB": 29.1,
-                "WR": 31.3,
-                "TE": 10.1,
-                "DST": 7.7
+                "QB": 41.34,
+                "RB": 42.6,
+                "WR": 20.6,
+                "TE": 2.3,
+                "DST": 5.0
             },
             "bench": {
-                "QB": 11.8,
-                "RB": 14.6,
-                "WR": 14.1,
-                "TE": 4.0,
-                "DST": 0.0
+                "QB": 16.48,
+                "RB": 29.4,
+                "WR": 0.0,
+                "TE": 0.0,
+                "DST": 8.0
             },
             "ir": 0.0
         }
@@ -2112,19 +2111,19 @@
             "tot": 148.36,
             "opp": "T10",
             "proj": 132.35,
-            "maxPot": 166.2,
+            "maxPot": 185.44,
             "starters": {
-                "QB": 44.5,
-                "RB": 38.6,
-                "WR": 41.5,
-                "TE": 13.4,
-                "DST": 10.4
+                "QB": 43.76,
+                "RB": 12.3,
+                "WR": 70.5,
+                "TE": 8.8,
+                "DST": 13.0
             },
             "bench": {
-                "QB": 15.6,
-                "RB": 19.3,
-                "WR": 18.7,
-                "TE": 5.4,
+                "QB": 32.44,
+                "RB": 15.6,
+                "WR": 6.8,
+                "TE": 24.3,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2134,19 +2133,19 @@
             "tot": 95.7,
             "opp": "T6",
             "proj": 109.35,
-            "maxPot": 107.2,
+            "maxPot": 126.22,
             "starters": {
-                "QB": 28.7,
-                "RB": 24.9,
-                "WR": 26.8,
-                "TE": 8.6,
-                "DST": 6.7
+                "QB": 21.9,
+                "RB": 30.3,
+                "WR": 24.1,
+                "TE": 11.4,
+                "DST": 8.0
             },
             "bench": {
-                "QB": 10.0,
-                "RB": 12.4,
-                "WR": 12.1,
-                "TE": 3.4,
+                "QB": 24.08,
+                "RB": 13.3,
+                "WR": 9.1,
+                "TE": 0.9,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2156,19 +2155,19 @@
             "tot": 135.72,
             "opp": "T8",
             "proj": 119.83,
-            "maxPot": 152.0,
+            "maxPot": 140.22,
             "starters": {
-                "QB": 40.7,
-                "RB": 35.3,
-                "WR": 38.0,
-                "TE": 12.2,
-                "DST": 9.5
+                "QB": 35.42,
+                "RB": 31.0,
+                "WR": 57.1,
+                "TE": 10.2,
+                "DST": 2.0
             },
             "bench": {
-                "QB": 14.2,
-                "RB": 17.6,
-                "WR": 17.1,
-                "TE": 4.9,
+                "QB": 0.0,
+                "RB": 22.8,
+                "WR": 1.9,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2178,41 +2177,41 @@
             "tot": 152.84,
             "opp": "T9",
             "proj": 140.83,
-            "maxPot": 171.2,
+            "maxPot": 158.54,
             "starters": {
-                "QB": 45.9,
-                "RB": 39.7,
-                "WR": 42.8,
-                "TE": 13.8,
-                "DST": 10.6
+                "QB": 34.54,
+                "RB": 27.3,
+                "WR": 72.4,
+                "TE": 6.6,
+                "DST": 12.0
             },
             "bench": {
-                "QB": 16.1,
-                "RB": 19.9,
-                "WR": 19.3,
-                "TE": 5.5,
+                "QB": 0.0,
+                "RB": 14.4,
+                "WR": 19.8,
+                "TE": 0.0,
                 "DST": 0.0
             },
-            "ir": 0.0
+            "ir": 1.5
         },
         {
             "wk": 5,
             "tot": 164.5,
             "opp": "T7",
             "proj": 131.9,
-            "maxPot": 184.2,
+            "maxPot": 173.7,
             "starters": {
-                "QB": 49.4,
-                "RB": 42.8,
-                "WR": 46.1,
-                "TE": 14.8,
-                "DST": 11.4
+                "QB": 55.0,
+                "RB": 39.5,
+                "WR": 43.1,
+                "TE": 17.9,
+                "DST": 9.0
             },
             "bench": {
-                "QB": 17.3,
-                "RB": 21.4,
-                "WR": 20.7,
-                "TE": 5.9,
+                "QB": 0.0,
+                "RB": 5.1,
+                "WR": 13.1,
+                "TE": 6.8,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2222,19 +2221,19 @@
             "tot": 129.54,
             "opp": "T5",
             "proj": 125.98,
-            "maxPot": 145.1,
+            "maxPot": 144.14,
             "starters": {
-                "QB": 38.9,
-                "RB": 33.7,
-                "WR": 36.3,
-                "TE": 11.7,
-                "DST": 8.9
+                "QB": 49.34,
+                "RB": 57.6,
+                "WR": 19.6,
+                "TE": 0.0,
+                "DST": 3.0
             },
             "bench": {
-                "QB": 13.6,
-                "RB": 16.9,
-                "WR": 16.3,
-                "TE": 4.7,
+                "QB": 19.84,
+                "RB": 12.8,
+                "WR": 5.9,
+                "TE": 9.1,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2244,19 +2243,19 @@
             "tot": 153.6,
             "opp": "T4",
             "proj": 129.78,
-            "maxPot": 172.0,
+            "maxPot": 153.6,
             "starters": {
-                "QB": 46.1,
-                "RB": 39.9,
-                "WR": 43.0,
-                "TE": 13.8,
-                "DST": 10.8
+                "QB": 32.9,
+                "RB": 47.7,
+                "WR": 55.7,
+                "TE": 7.3,
+                "DST": 10.0
             },
             "bench": {
-                "QB": 16.1,
-                "RB": 19.9,
-                "WR": 19.4,
-                "TE": 5.5,
+                "QB": 0.0,
+                "RB": 6.4,
+                "WR": 4.2,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2268,19 +2267,19 @@
             "tot": 132.7,
             "opp": "T7",
             "proj": 134.19,
-            "maxPot": 148.6,
+            "maxPot": 139.2,
             "starters": {
-                "QB": 39.8,
-                "RB": 34.5,
-                "WR": 37.2,
-                "TE": 11.9,
-                "DST": 9.3
+                "QB": 39.1,
+                "RB": 44.1,
+                "WR": 46.5,
+                "TE": 0.0,
+                "DST": 3.0
             },
             "bench": {
-                "QB": 13.9,
-                "RB": 17.2,
-                "WR": 16.7,
-                "TE": 4.8,
+                "QB": 0.52,
+                "RB": 13.9,
+                "WR": 7.3,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2290,19 +2289,19 @@
             "tot": 139.46,
             "opp": "T5",
             "proj": 134.79,
-            "maxPot": 156.2,
+            "maxPot": 150.66,
             "starters": {
-                "QB": 41.8,
-                "RB": 36.3,
-                "WR": 39.0,
-                "TE": 12.6,
-                "DST": 9.8
+                "QB": 58.76,
+                "RB": 34.3,
+                "WR": 37.6,
+                "TE": 0.8,
+                "DST": 8.0
             },
             "bench": {
-                "QB": 14.6,
-                "RB": 18.1,
-                "WR": 17.6,
-                "TE": 5.0,
+                "QB": 0.0,
+                "RB": 4.5,
+                "WR": 12.0,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2312,19 +2311,19 @@
             "tot": 124.8,
             "opp": "T6",
             "proj": 135.92,
-            "maxPot": 139.8,
+            "maxPot": 137.52,
             "starters": {
-                "QB": 37.4,
-                "RB": 32.4,
-                "WR": 34.9,
-                "TE": 11.2,
-                "DST": 8.9
+                "QB": 36.3,
+                "RB": 38.1,
+                "WR": 31.3,
+                "TE": 5.1,
+                "DST": 14.0
             },
             "bench": {
-                "QB": 13.1,
-                "RB": 16.2,
-                "WR": 15.7,
-                "TE": 4.5,
+                "QB": 29.66,
+                "RB": 1.7,
+                "WR": 11.9,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2334,19 +2333,19 @@
             "tot": 114.78,
             "opp": "T2",
             "proj": 134.45,
-            "maxPot": 128.6,
+            "maxPot": 133.68,
             "starters": {
-                "QB": 34.4,
-                "RB": 29.8,
-                "WR": 32.1,
-                "TE": 10.3,
-                "DST": 8.2
+                "QB": 37.48,
+                "RB": 44.4,
+                "WR": 22.2,
+                "TE": 8.7,
+                "DST": 2.0
             },
             "bench": {
-                "QB": 12.0,
-                "RB": 14.9,
-                "WR": 14.4,
-                "TE": 4.1,
+                "QB": 14.32,
+                "RB": 10.3,
+                "WR": 28.5,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2356,19 +2355,19 @@
             "tot": 115.34,
             "opp": "T1",
             "proj": 135.4,
-            "maxPot": 129.2,
+            "maxPot": 119.04,
             "starters": {
-                "QB": 34.6,
-                "RB": 30.0,
-                "WR": 32.3,
-                "TE": 10.4,
-                "DST": 8.0
+                "QB": 39.24,
+                "RB": 25.7,
+                "WR": 35.5,
+                "TE": 2.9,
+                "DST": 12.0
             },
             "bench": {
-                "QB": 12.1,
-                "RB": 15.0,
-                "WR": 14.5,
-                "TE": 4.2,
+                "QB": 0.0,
+                "RB": 4.4,
+                "WR": 0.0,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2378,19 +2377,19 @@
             "tot": 141.0,
             "opp": "T10",
             "proj": 109.95,
-            "maxPot": 157.9,
+            "maxPot": 141.0,
             "starters": {
-                "QB": 42.3,
-                "RB": 36.7,
-                "WR": 39.5,
-                "TE": 12.7,
-                "DST": 9.8
+                "QB": 24.5,
+                "RB": 54.1,
+                "WR": 34.9,
+                "TE": 15.5,
+                "DST": 12.0
             },
             "bench": {
-                "QB": 14.8,
-                "RB": 18.4,
-                "WR": 17.8,
-                "TE": 5.1,
+                "QB": 0.0,
+                "RB": 6.8,
+                "WR": 4.9,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2400,19 +2399,19 @@
             "tot": 136.52,
             "opp": "T3",
             "proj": 128.43,
-            "maxPot": 152.9,
+            "maxPot": 149.0,
             "starters": {
-                "QB": 41.0,
-                "RB": 35.5,
-                "WR": 38.2,
-                "TE": 12.3,
-                "DST": 9.5
+                "QB": 26.02,
+                "RB": 49.6,
+                "WR": 40.5,
+                "TE": 16.4,
+                "DST": 4.0
             },
             "bench": {
-                "QB": 14.3,
-                "RB": 17.8,
-                "WR": 17.2,
-                "TE": 4.9,
+                "QB": 14.98,
+                "RB": 11.6,
+                "WR": 3.8,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2424,19 +2423,19 @@
             "tot": 144.8,
             "opp": "T6",
             "proj": 135.62,
-            "maxPot": 162.2,
+            "maxPot": 169.6,
             "starters": {
-                "QB": 43.4,
-                "RB": 37.6,
-                "WR": 40.5,
-                "TE": 13.0,
-                "DST": 10.3
+                "QB": 41.6,
+                "RB": 47.4,
+                "WR": 32.8,
+                "TE": 20.0,
+                "DST": 3.0
             },
             "bench": {
-                "QB": 15.2,
-                "RB": 18.8,
-                "WR": 18.2,
-                "TE": 5.2,
+                "QB": 11.7,
+                "RB": 19.4,
+                "WR": 25.6,
+                "TE": 15.5,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2446,19 +2445,19 @@
             "tot": 154.74,
             "opp": "T4",
             "proj": 139.83,
-            "maxPot": 173.3,
+            "maxPot": 167.14,
             "starters": {
-                "QB": 46.4,
-                "RB": 40.2,
-                "WR": 43.3,
-                "TE": 13.9,
-                "DST": 10.9
+                "QB": 52.14,
+                "RB": 28.3,
+                "WR": 38.2,
+                "TE": 33.1,
+                "DST": 3.0
             },
             "bench": {
-                "QB": 16.2,
-                "RB": 20.1,
-                "WR": 19.5,
-                "TE": 5.6,
+                "QB": 0.0,
+                "RB": 20.4,
+                "WR": 12.4,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2468,19 +2467,19 @@
             "tot": 138.94,
             "opp": "T2",
             "proj": 142.08,
-            "maxPot": 155.6,
+            "maxPot": 162.74,
             "starters": {
-                "QB": 41.7,
-                "RB": 36.1,
-                "WR": 38.9,
-                "TE": 12.5,
-                "DST": 9.7
+                "QB": 45.74,
+                "RB": 49.8,
+                "WR": 27.6,
+                "TE": 15.8,
+                "DST": 0.0
             },
             "bench": {
-                "QB": 14.6,
-                "RB": 18.1,
-                "WR": 17.5,
-                "TE": 5.0,
+                "QB": 0.0,
+                "RB": 10.6,
+                "WR": 35.7,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2490,19 +2489,19 @@
             "tot": 116.14,
             "opp": "T1",
             "proj": 133.77,
-            "maxPot": 130.1,
+            "maxPot": 158.74,
             "starters": {
-                "QB": 34.8,
-                "RB": 30.2,
-                "WR": 32.5,
-                "TE": 10.5,
-                "DST": 8.1
+                "QB": 34.04,
+                "RB": 21.4,
+                "WR": 49.1,
+                "TE": 6.6,
+                "DST": 5.0
             },
             "bench": {
-                "QB": 12.2,
-                "RB": 15.1,
-                "WR": 14.6,
-                "TE": 4.2,
+                "QB": 0.0,
+                "RB": 33.7,
+                "WR": 28.9,
+                "TE": 1.2,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2512,19 +2511,19 @@
             "tot": 111.86,
             "opp": "T10",
             "proj": 145.16,
-            "maxPot": 125.3,
+            "maxPot": 132.22,
             "starters": {
-                "QB": 33.6,
-                "RB": 29.1,
-                "WR": 31.3,
-                "TE": 10.1,
-                "DST": 7.8
+                "QB": 16.48,
+                "RB": 39.5,
+                "WR": 33.78,
+                "TE": 17.1,
+                "DST": 5.0
             },
             "bench": {
-                "QB": 11.8,
-                "RB": 14.6,
-                "WR": 14.1,
-                "TE": 4.0,
+                "QB": 0.0,
+                "RB": 23.5,
+                "WR": 7.0,
+                "TE": 3.2,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2534,19 +2533,19 @@
             "tot": 113.28,
             "opp": "T3",
             "proj": 123.34,
-            "maxPot": 126.9,
+            "maxPot": 120.28,
             "starters": {
-                "QB": 34.0,
-                "RB": 29.5,
-                "WR": 31.7,
-                "TE": 10.2,
-                "DST": 7.9
+                "QB": 39.98,
+                "RB": 20.1,
+                "WR": 42.4,
+                "TE": 8.8,
+                "DST": 2.0
             },
             "bench": {
-                "QB": 11.9,
-                "RB": 14.8,
-                "WR": 14.3,
-                "TE": 4.1,
+                "QB": 0.0,
+                "RB": 5.2,
+                "WR": 12.2,
+                "TE": 7.3,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2556,19 +2555,19 @@
             "tot": 131.5,
             "opp": "T8",
             "proj": 136.12,
-            "maxPot": 147.3,
+            "maxPot": 133.9,
             "starters": {
-                "QB": 39.4,
-                "RB": 34.2,
-                "WR": 36.8,
-                "TE": 11.8,
-                "DST": 9.3
+                "QB": 38.1,
+                "RB": 38.2,
+                "WR": 37.1,
+                "TE": 22.1,
+                "DST": -4.0
             },
             "bench": {
-                "QB": 13.8,
-                "RB": 17.1,
-                "WR": 16.6,
-                "TE": 4.7,
+                "QB": 0.0,
+                "RB": 15.4,
+                "WR": 9.7,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2580,20 +2579,20 @@
             "tot": 127.48,
             "opp": "T5",
             "proj": 115.6,
-            "maxPot": 142.8,
+            "maxPot": 135.3,
             "starters": {
-                "QB": 38.2,
-                "RB": 33.1,
-                "WR": 35.7,
-                "TE": 11.5,
-                "DST": 9.0
+                "QB": 27.98,
+                "RB": 53.4,
+                "WR": 19.5,
+                "TE": 8.6,
+                "DST": 18.0
             },
             "bench": {
-                "QB": 13.4,
-                "RB": 16.6,
-                "WR": 16.1,
-                "TE": 4.6,
-                "DST": 0.0
+                "QB": 14.64,
+                "RB": 9.3,
+                "WR": 15.7,
+                "TE": 0.0,
+                "DST": -2.0
             },
             "ir": 0.0
         },
@@ -2602,20 +2601,20 @@
             "tot": 98.8,
             "opp": "T3",
             "proj": 124.54,
-            "maxPot": 110.7,
+            "maxPot": 115.66,
             "starters": {
-                "QB": 29.6,
-                "RB": 25.7,
-                "WR": 27.7,
-                "TE": 8.9,
-                "DST": 6.9
+                "QB": 25.2,
+                "RB": 36.4,
+                "WR": 14.6,
+                "TE": 20.6,
+                "DST": 2.0
             },
             "bench": {
-                "QB": 10.4,
-                "RB": 12.8,
-                "WR": 12.5,
-                "TE": 3.6,
-                "DST": 0.0
+                "QB": 13.18,
+                "RB": 0.0,
+                "WR": 20.2,
+                "TE": 0.0,
+                "DST": 6.0
             },
             "ir": 0.0
         },
@@ -2624,41 +2623,41 @@
             "tot": 119.34,
             "opp": "T4",
             "proj": 119.65,
-            "maxPot": 133.7,
+            "maxPot": 120.14,
             "starters": {
-                "QB": 35.8,
-                "RB": 31.0,
-                "WR": 33.4,
-                "TE": 10.7,
-                "DST": 8.4
+                "QB": 30.34,
+                "RB": 45.9,
+                "WR": 19.2,
+                "TE": 12.9,
+                "DST": 11.0
             },
             "bench": {
-                "QB": 12.5,
-                "RB": 15.5,
-                "WR": 15.0,
-                "TE": 4.3,
+                "QB": 0.0,
+                "RB": 1.4,
+                "WR": 18.1,
+                "TE": 0.0,
                 "DST": 0.0
             },
-            "ir": 0.0
+            "ir": 12.28
         },
         {
             "wk": 4,
             "tot": 136.58,
             "opp": "T8",
             "proj": 122.98,
-            "maxPot": 153.0,
+            "maxPot": 152.78,
             "starters": {
-                "QB": 41.0,
-                "RB": 35.5,
-                "WR": 38.2,
-                "TE": 12.3,
-                "DST": 9.6
+                "QB": 53.88,
+                "RB": 63.0,
+                "WR": 13.2,
+                "TE": 2.5,
+                "DST": 4.0
             },
             "bench": {
-                "QB": 14.3,
-                "RB": 17.8,
-                "WR": 17.2,
-                "TE": 4.9,
+                "QB": 12.72,
+                "RB": 0.0,
+                "WR": 23.9,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2668,20 +2667,20 @@
             "tot": 146.86,
             "opp": "T2",
             "proj": 126.33,
-            "maxPot": 164.5,
+            "maxPot": 151.26,
             "starters": {
-                "QB": 44.1,
-                "RB": 38.2,
-                "WR": 41.1,
-                "TE": 13.2,
-                "DST": 10.3
+                "QB": 64.06,
+                "RB": 44.3,
+                "WR": 22.3,
+                "TE": 1.2,
+                "DST": 15.0
             },
             "bench": {
-                "QB": 15.4,
-                "RB": 19.1,
-                "WR": 18.5,
-                "TE": 5.3,
-                "DST": 0.0
+                "QB": 14.4,
+                "RB": 0.0,
+                "WR": 5.5,
+                "TE": 0.0,
+                "DST": 9.0
             },
             "ir": 0.0
         },
@@ -2690,20 +2689,20 @@
             "tot": 127.6,
             "opp": "T9",
             "proj": 129.02,
-            "maxPot": 142.9,
+            "maxPot": 129.7,
             "starters": {
-                "QB": 38.3,
-                "RB": 33.2,
-                "WR": 35.7,
-                "TE": 11.5,
-                "DST": 8.9
+                "QB": 47.9,
+                "RB": 47.5,
+                "WR": 9.9,
+                "TE": 7.3,
+                "DST": 15.0
             },
             "bench": {
-                "QB": 13.4,
-                "RB": 16.6,
-                "WR": 16.1,
-                "TE": 4.6,
-                "DST": 0.0
+                "QB": 0.0,
+                "RB": 0.0,
+                "WR": 5.7,
+                "TE": 0.0,
+                "DST": 1.0
             },
             "ir": 0.0
         },
@@ -2712,22 +2711,22 @@
             "tot": 159.92,
             "opp": "T1",
             "proj": 123.18,
-            "maxPot": 179.1,
+            "maxPot": 159.92,
             "starters": {
-                "QB": 48.0,
-                "RB": 41.6,
-                "WR": 44.8,
-                "TE": 14.4,
-                "DST": 11.1
+                "QB": 57.32,
+                "RB": 49.4,
+                "WR": 43.8,
+                "TE": 6.4,
+                "DST": 3.0
             },
             "bench": {
-                "QB": 16.8,
-                "RB": 20.8,
-                "WR": 20.2,
-                "TE": 5.8,
-                "DST": 0.0
+                "QB": 20.42,
+                "RB": 0.0,
+                "WR": 0.0,
+                "TE": 0.0,
+                "DST": 3.0
             },
-            "ir": 0.0
+            "ir": 5.0
         }
     ],
     "T7": [
@@ -2736,19 +2735,19 @@
             "tot": 123.64,
             "opp": "T4",
             "proj": 133.91,
-            "maxPot": 138.5,
+            "maxPot": 135.04,
             "starters": {
-                "QB": 37.1,
-                "RB": 32.1,
-                "WR": 34.6,
-                "TE": 11.1,
-                "DST": 8.7
+                "QB": 15.14,
+                "RB": 46.8,
+                "WR": 27.9,
+                "TE": 23.8,
+                "DST": 10.0
             },
             "bench": {
-                "QB": 13.0,
-                "RB": 16.1,
-                "WR": 15.6,
-                "TE": 4.4,
+                "QB": 0.0,
+                "RB": 4.5,
+                "WR": 24.3,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2758,19 +2757,19 @@
             "tot": 109.4,
             "opp": "T2",
             "proj": 123.66,
-            "maxPot": 122.5,
+            "maxPot": 121.68,
             "starters": {
-                "QB": 32.8,
-                "RB": 28.4,
-                "WR": 30.6,
-                "TE": 9.8,
-                "DST": 7.8
+                "QB": 34.3,
+                "RB": 24.9,
+                "WR": 41.4,
+                "TE": 5.8,
+                "DST": 3.0
             },
             "bench": {
-                "QB": 11.5,
-                "RB": 14.2,
-                "WR": 13.8,
-                "TE": 3.9,
+                "QB": 12.4,
+                "RB": 3.6,
+                "WR": 23.5,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2780,19 +2779,19 @@
             "tot": 110.1,
             "opp": "T1",
             "proj": 123.1,
-            "maxPot": 123.3,
+            "maxPot": 168.72,
             "starters": {
-                "QB": 33.0,
-                "RB": 28.6,
-                "WR": 30.8,
-                "TE": 9.9,
-                "DST": 7.8
+                "QB": 33.8,
+                "RB": 25.2,
+                "WR": 41.8,
+                "TE": 2.3,
+                "DST": 7.0
             },
             "bench": {
-                "QB": 11.5,
-                "RB": 14.3,
-                "WR": 13.9,
-                "TE": 4.0,
+                "QB": 22.22,
+                "RB": 19.1,
+                "WR": 24.4,
+                "TE": 22.6,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2802,19 +2801,19 @@
             "tot": 148.2,
             "opp": "T10",
             "proj": 140.97,
-            "maxPot": 166.0,
+            "maxPot": 177.18,
             "starters": {
-                "QB": 44.5,
-                "RB": 38.5,
-                "WR": 41.5,
-                "TE": 13.3,
-                "DST": 10.4
+                "QB": 21.6,
+                "RB": 56.5,
+                "WR": 45.5,
+                "TE": 17.6,
+                "DST": 7.0
             },
             "bench": {
-                "QB": 15.6,
-                "RB": 19.2,
-                "WR": 18.7,
-                "TE": 5.3,
+                "QB": 23.6,
+                "RB": 5.5,
+                "WR": 22.6,
+                "TE": 10.1,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2824,19 +2823,19 @@
             "tot": 155.04,
             "opp": "T3",
             "proj": 140.94,
-            "maxPot": 173.6,
+            "maxPot": 177.44,
             "starters": {
-                "QB": 46.5,
-                "RB": 40.3,
-                "WR": 43.4,
-                "TE": 14.0,
-                "DST": 10.8
+                "QB": 41.04,
+                "RB": 53.5,
+                "WR": 38.5,
+                "TE": 20.0,
+                "DST": 2.0
             },
             "bench": {
-                "QB": 16.3,
-                "RB": 20.1,
-                "WR": 19.5,
-                "TE": 5.6,
+                "QB": 11.08,
+                "RB": 1.6,
+                "WR": 6.2,
+                "TE": 26.9,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2846,41 +2845,41 @@
             "tot": 125.8,
             "opp": "T8",
             "proj": 136.44,
-            "maxPot": 140.9,
+            "maxPot": 125.8,
             "starters": {
-                "QB": 37.7,
-                "RB": 32.7,
-                "WR": 35.2,
-                "TE": 11.3,
-                "DST": 8.9
+                "QB": 36.4,
+                "RB": 20.8,
+                "WR": 37.7,
+                "TE": 29.9,
+                "DST": 1.0
             },
             "bench": {
-                "QB": 13.2,
-                "RB": 16.4,
-                "WR": 15.8,
-                "TE": 4.5,
+                "QB": 15.76,
+                "RB": 2.0,
+                "WR": 7.6,
+                "TE": 0.0,
                 "DST": 0.0
             },
-            "ir": 0.0
+            "ir": 6.0
         },
         {
             "wk": 7,
             "tot": 118.26,
             "opp": "T9",
             "proj": 143.83,
-            "maxPot": 132.5,
+            "maxPot": 124.96,
             "starters": {
-                "QB": 35.5,
-                "RB": 30.7,
-                "WR": 33.1,
-                "TE": 10.6,
-                "DST": 8.4
+                "QB": 36.46,
+                "RB": 36.7,
+                "WR": 27.6,
+                "TE": 12.5,
+                "DST": 5.0
             },
             "bench": {
-                "QB": 12.4,
-                "RB": 15.3,
-                "WR": 14.9,
-                "TE": 4.2,
+                "QB": 6.66,
+                "RB": 4.8,
+                "WR": 20.3,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2892,19 +2891,19 @@
             "tot": 114.2,
             "opp": "T1",
             "proj": 130.49,
-            "maxPot": 127.9,
+            "maxPot": 127.68,
             "starters": {
-                "QB": 34.3,
-                "RB": 29.7,
-                "WR": 32.0,
-                "TE": 10.3,
-                "DST": 7.9
+                "QB": 35.9,
+                "RB": 41.2,
+                "WR": 29.1,
+                "TE": 0.0,
+                "DST": 8.0
             },
             "bench": {
-                "QB": 12.0,
-                "RB": 14.8,
-                "WR": 14.4,
-                "TE": 4.1,
+                "QB": 39.18,
+                "RB": 3.7,
+                "WR": 6.2,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2914,19 +2913,19 @@
             "tot": 127.1,
             "opp": "T10",
             "proj": 127.88,
-            "maxPot": 142.4,
+            "maxPot": 147.18,
             "starters": {
-                "QB": 38.1,
-                "RB": 33.0,
-                "WR": 35.6,
-                "TE": 11.4,
-                "DST": 9.0
+                "QB": 14.6,
+                "RB": 36.0,
+                "WR": 50.9,
+                "TE": 8.6,
+                "DST": 17.0
             },
             "bench": {
-                "QB": 13.3,
-                "RB": 16.5,
-                "WR": 16.0,
-                "TE": 4.6,
+                "QB": 12.48,
+                "RB": 21.9,
+                "WR": 1.9,
+                "TE": 2.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2936,19 +2935,19 @@
             "tot": 151.64,
             "opp": "T3",
             "proj": 110.7,
-            "maxPot": 169.8,
+            "maxPot": 163.64,
             "starters": {
-                "QB": 45.5,
-                "RB": 39.4,
-                "WR": 42.5,
-                "TE": 13.6,
-                "DST": 10.6
+                "QB": 19.48,
+                "RB": 23.9,
+                "WR": 70.96,
+                "TE": 20.3,
+                "DST": 17.0
             },
             "bench": {
-                "QB": 15.9,
-                "RB": 19.7,
-                "WR": 19.1,
-                "TE": 5.4,
+                "QB": 18.12,
+                "RB": 2.8,
+                "WR": 5.5,
+                "TE": 1.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2958,19 +2957,19 @@
             "tot": 86.68,
             "opp": "T6",
             "proj": 128.25,
-            "maxPot": 97.1,
+            "maxPot": 92.28,
             "starters": {
-                "QB": 26.0,
-                "RB": 22.5,
-                "WR": 24.3,
-                "TE": 7.8,
-                "DST": 6.1
+                "QB": 17.58,
+                "RB": 25.5,
+                "WR": 26.7,
+                "TE": 8.9,
+                "DST": 8.0
             },
             "bench": {
-                "QB": 9.1,
-                "RB": 11.2,
-                "WR": 10.9,
-                "TE": 3.1,
+                "QB": 0.0,
+                "RB": 8.1,
+                "WR": 0.0,
+                "TE": 6.2,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -2980,19 +2979,19 @@
             "tot": 131.28,
             "opp": "T9",
             "proj": 125.19,
-            "maxPot": 147.0,
+            "maxPot": 171.16,
             "starters": {
-                "QB": 39.4,
-                "RB": 34.1,
-                "WR": 36.8,
-                "TE": 11.8,
-                "DST": 9.2
+                "QB": 31.28,
+                "RB": 49.8,
+                "WR": 35.6,
+                "TE": 3.6,
+                "DST": 11.0
             },
             "bench": {
-                "QB": 13.8,
-                "RB": 17.1,
-                "WR": 16.6,
-                "TE": 4.7,
+                "QB": 22.08,
+                "RB": 17.3,
+                "WR": 10.2,
+                "TE": 12.7,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3002,41 +3001,41 @@
             "tot": 79.32,
             "opp": "T7",
             "proj": 115.55,
-            "maxPot": 88.8,
+            "maxPot": 112.36,
             "starters": {
-                "QB": 23.8,
-                "RB": 20.6,
-                "WR": 22.2,
-                "TE": 7.1,
-                "DST": 5.6
+                "QB": 29.72,
+                "RB": 11.8,
+                "WR": 32.8,
+                "TE": 0.0,
+                "DST": 5.0
             },
             "bench": {
-                "QB": 8.3,
-                "RB": 10.3,
-                "WR": 10.0,
-                "TE": 2.8,
+                "QB": 17.32,
+                "RB": 4.7,
+                "WR": 0.0,
+                "TE": 20.5,
                 "DST": 0.0
             },
-            "ir": 0.0
+            "ir": 19.3
         },
         {
             "wk": 7,
             "tot": 153.38,
             "opp": "T5",
             "proj": 119.12,
-            "maxPot": 171.8,
+            "maxPot": 164.48,
             "starters": {
-                "QB": 46.0,
-                "RB": 39.9,
-                "WR": 42.9,
-                "TE": 13.8,
-                "DST": 10.8
+                "QB": 30.58,
+                "RB": 39.2,
+                "WR": 62.9,
+                "TE": 10.7,
+                "DST": 10.0
             },
             "bench": {
-                "QB": 16.1,
-                "RB": 19.9,
-                "WR": 19.3,
-                "TE": 5.5,
+                "QB": 6.4,
+                "RB": 26.8,
+                "WR": 0.0,
+                "TE": 1.2,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3048,19 +3047,19 @@
             "tot": 103.68,
             "opp": "T2",
             "proj": 115.47,
-            "maxPot": 116.1,
+            "maxPot": 130.18,
             "starters": {
-                "QB": 31.1,
-                "RB": 27.0,
-                "WR": 29.0,
-                "TE": 9.3,
-                "DST": 7.3
+                "QB": 50.68,
+                "RB": 30.9,
+                "WR": 13.9,
+                "TE": 2.2,
+                "DST": 6.0
             },
             "bench": {
-                "QB": 10.9,
-                "RB": 13.5,
-                "WR": 13.1,
-                "TE": 3.7,
+                "QB": 0.0,
+                "RB": 13.0,
+                "WR": 20.5,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3070,19 +3069,19 @@
             "tot": 103.86,
             "opp": "T1",
             "proj": 121.35,
-            "maxPot": 116.3,
+            "maxPot": 114.76,
             "starters": {
-                "QB": 31.2,
-                "RB": 27.0,
-                "WR": 29.1,
-                "TE": 9.3,
-                "DST": 7.3
+                "QB": 33.96,
+                "RB": 27.5,
+                "WR": 23.4,
+                "TE": 16.0,
+                "DST": 3.0
             },
             "bench": {
-                "QB": 10.9,
-                "RB": 13.5,
-                "WR": 13.1,
-                "TE": 3.7,
+                "QB": 0.0,
+                "RB": 1.3,
+                "WR": 19.6,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3092,19 +3091,19 @@
             "tot": 109.86,
             "opp": "T10",
             "proj": 126.56,
-            "maxPot": 123.0,
+            "maxPot": 128.96,
             "starters": {
-                "QB": 33.0,
-                "RB": 28.6,
-                "WR": 30.8,
-                "TE": 9.9,
-                "DST": 7.6
+                "QB": 34.06,
+                "RB": 18.7,
+                "WR": 28.9,
+                "TE": 23.2,
+                "DST": 5.0
             },
             "bench": {
-                "QB": 11.5,
-                "RB": 14.3,
-                "WR": 13.9,
-                "TE": 4.0,
+                "QB": 0.0,
+                "RB": 14.8,
+                "WR": 18.8,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3114,19 +3113,19 @@
             "tot": 127.0,
             "opp": "T3",
             "proj": 123.24,
-            "maxPot": 142.2,
+            "maxPot": 132.4,
             "starters": {
-                "QB": 38.1,
-                "RB": 33.0,
-                "WR": 35.6,
-                "TE": 11.4,
-                "DST": 8.9
+                "QB": 32.4,
+                "RB": 20.8,
+                "WR": 54.8,
+                "TE": 15.0,
+                "DST": 4.0
             },
             "bench": {
-                "QB": 13.3,
-                "RB": 16.5,
-                "WR": 16.0,
-                "TE": 4.6,
+                "QB": 0.0,
+                "RB": 10.6,
+                "WR": 17.7,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3136,19 +3135,19 @@
             "tot": 136.7,
             "opp": "T8",
             "proj": 113.35,
-            "maxPot": 153.1,
+            "maxPot": 137.0,
             "starters": {
-                "QB": 41.0,
-                "RB": 35.5,
-                "WR": 38.3,
-                "TE": 12.3,
-                "DST": 9.6
+                "QB": 35.0,
+                "RB": 32.4,
+                "WR": 36.5,
+                "TE": 16.8,
+                "DST": 16.0
             },
             "bench": {
-                "QB": 14.3,
-                "RB": 17.8,
-                "WR": 17.2,
-                "TE": 4.9,
+                "QB": 0.0,
+                "RB": 5.7,
+                "WR": 2.5,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3158,19 +3157,19 @@
             "tot": 108.72,
             "opp": "T6",
             "proj": 99.17,
-            "maxPot": 121.8,
+            "maxPot": 108.72,
             "starters": {
-                "QB": 32.6,
-                "RB": 28.3,
-                "WR": 30.4,
-                "TE": 9.8,
-                "DST": 7.6
+                "QB": 30.42,
+                "RB": 8.4,
+                "WR": 37.7,
+                "TE": 28.2,
+                "DST": 4.0
             },
             "bench": {
-                "QB": 11.4,
-                "RB": 14.2,
-                "WR": 13.7,
-                "TE": 3.9,
+                "QB": 0.0,
+                "RB": 0.0,
+                "WR": 0.0,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3180,19 +3179,19 @@
             "tot": 74.1,
             "opp": "T7",
             "proj": 108.96,
-            "maxPot": 83.0,
+            "maxPot": 83.6,
             "starters": {
-                "QB": 22.2,
-                "RB": 19.3,
-                "WR": 20.7,
-                "TE": 6.7,
-                "DST": 5.2
+                "QB": 29.2,
+                "RB": 3.1,
+                "WR": 29.0,
+                "TE": 11.8,
+                "DST": 1.0
             },
             "bench": {
-                "QB": 7.8,
-                "RB": 9.7,
-                "WR": 9.3,
-                "TE": 2.7,
+                "QB": 0.0,
+                "RB": 8.8,
+                "WR": 3.3,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3204,19 +3203,19 @@
             "tot": 125.86,
             "opp": "T3",
             "proj": 132.46,
-            "maxPot": 141.0,
+            "maxPot": 149.08,
             "starters": {
-                "QB": 37.8,
-                "RB": 32.7,
-                "WR": 35.2,
-                "TE": 11.3,
-                "DST": 8.9
+                "QB": 8.06,
+                "RB": 76.7,
+                "WR": 36.0,
+                "TE": 3.1,
+                "DST": 2.0
             },
             "bench": {
-                "QB": 13.2,
-                "RB": 16.4,
-                "WR": 15.8,
-                "TE": 4.5,
+                "QB": 12.54,
+                "RB": 3.4,
+                "WR": 17.1,
+                "TE": 6.9,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3226,19 +3225,19 @@
             "tot": 112.6,
             "opp": "T8",
             "proj": 124.94,
-            "maxPot": 126.1,
+            "maxPot": 136.2,
             "starters": {
-                "QB": 33.8,
-                "RB": 29.3,
-                "WR": 31.5,
-                "TE": 10.1,
-                "DST": 7.9
+                "QB": 21.1,
+                "RB": 56.8,
+                "WR": 15.8,
+                "TE": 7.9,
+                "DST": 11.0
             },
             "bench": {
-                "QB": 11.8,
-                "RB": 14.7,
-                "WR": 14.2,
-                "TE": 4.0,
+                "QB": 15.58,
+                "RB": 4.7,
+                "WR": 19.2,
+                "TE": 10.6,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3248,19 +3247,19 @@
             "tot": 102.86,
             "opp": "T9",
             "proj": 120.64,
-            "maxPot": 115.2,
+            "maxPot": 148.28,
             "starters": {
-                "QB": 30.9,
-                "RB": 26.7,
-                "WR": 28.8,
-                "TE": 9.3,
-                "DST": 7.2
+                "QB": 36.56,
+                "RB": 46.5,
+                "WR": 12.9,
+                "TE": 3.9,
+                "DST": 3.0
             },
             "bench": {
-                "QB": 10.8,
-                "RB": 13.3,
-                "WR": 13.0,
-                "TE": 3.7,
+                "QB": 37.48,
+                "RB": 4.6,
+                "WR": 5.3,
+                "TE": 40.6,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3270,19 +3269,19 @@
             "tot": 111.94,
             "opp": "T7",
             "proj": 132.8,
-            "maxPot": 125.4,
+            "maxPot": 130.06,
             "starters": {
-                "QB": 33.6,
-                "RB": 29.1,
-                "WR": 31.3,
-                "TE": 10.1,
-                "DST": 7.8
+                "QB": 25.04,
+                "RB": 63.4,
+                "WR": 8.3,
+                "TE": 10.2,
+                "DST": 5.0
             },
             "bench": {
-                "QB": 11.8,
-                "RB": 14.6,
-                "WR": 14.1,
-                "TE": 4.0,
+                "QB": 22.18,
+                "RB": 37.3,
+                "WR": 0.0,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3292,19 +3291,19 @@
             "tot": 141.68,
             "opp": "T5",
             "proj": 129.57,
-            "maxPot": 158.7,
+            "maxPot": 143.74,
             "starters": {
-                "QB": 42.5,
-                "RB": 36.8,
-                "WR": 39.7,
-                "TE": 12.8,
-                "DST": 9.9
+                "QB": 27.18,
+                "RB": 53.4,
+                "WR": 59.2,
+                "TE": 0.9,
+                "DST": 1.0
             },
             "bench": {
-                "QB": 14.9,
-                "RB": 18.4,
-                "WR": 17.9,
-                "TE": 5.1,
+                "QB": 10.98,
+                "RB": 13.1,
+                "WR": 9.5,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3314,19 +3313,19 @@
             "tot": 85.18,
             "opp": "T4",
             "proj": 122.04,
-            "maxPot": 95.4,
+            "maxPot": 113.5,
             "starters": {
-                "QB": 25.6,
-                "RB": 22.1,
-                "WR": 23.9,
-                "TE": 7.7,
-                "DST": 5.9
+                "QB": 17.08,
+                "RB": 38.4,
+                "WR": 25.3,
+                "TE": 1.4,
+                "DST": 3.0
             },
             "bench": {
-                "QB": 9.0,
-                "RB": 11.1,
-                "WR": 10.8,
-                "TE": 3.1,
+                "QB": 0.0,
+                "RB": 0.0,
+                "WR": 37.6,
+                "TE": 2.1,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -3336,19 +3335,19 @@
             "tot": 150.98,
             "opp": "T2",
             "proj": 141.6,
-            "maxPot": 169.1,
+            "maxPot": 155.28,
             "starters": {
-                "QB": 45.3,
-                "RB": 39.3,
-                "WR": 42.3,
-                "TE": 13.6,
-                "DST": 10.5
+                "QB": 40.08,
+                "RB": 73.6,
+                "WR": 24.2,
+                "TE": 11.1,
+                "DST": 2.0
             },
             "bench": {
-                "QB": 15.9,
-                "RB": 19.6,
-                "WR": 19.0,
-                "TE": 5.4,
+                "QB": 11.54,
+                "RB": 9.7,
+                "WR": 4.7,
+                "TE": 0.0,
                 "DST": 0.0
             },
             "ir": 0.0
@@ -5688,7 +5687,7 @@
         "team": "The Slithering Eels",
         "player": "Germie Bernard",
         "pos": "WR",
-        "acquired": "Waivers ($3)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 12.2,
@@ -5712,7 +5711,7 @@
         "team": "The Slithering Eels",
         "player": "Malik Willis",
         "pos": "QB",
-        "acquired": "Waivers ($6)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Jonah Goldfinger",
         "draftRd": 9,
         "ppg": 13.5,
@@ -5748,7 +5747,7 @@
         "team": "The Slithering Eels",
         "player": "Woody Marks",
         "pos": "RB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 7.9,
@@ -5820,7 +5819,7 @@
         "team": "The Slithering Eels",
         "player": "Bengals",
         "pos": "DEF",
-        "acquired": "Waivers ($1)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 9.5,
@@ -5832,7 +5831,7 @@
         "team": "MartiniShot",
         "player": "Cam Ward",
         "pos": "QB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Chad Persky",
         "draftRd": 11,
         "ppg": 9.4,
@@ -5928,7 +5927,7 @@
         "team": "MartiniShot",
         "player": "Kirk Cousins",
         "pos": "QB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 19.9,
@@ -5940,7 +5939,7 @@
         "team": "MartiniShot",
         "player": "J.J. McCarthy",
         "pos": "QB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 6.9,
@@ -5952,7 +5951,7 @@
         "team": "MartiniShot",
         "player": "Chase Brown",
         "pos": "RB",
-        "acquired": "Trade / Waivers",
+        "acquired": "Trade",
         "draftedBy": "Reuben Posner",
         "draftRd": 2,
         "ppg": 8.8,
@@ -5964,7 +5963,7 @@
         "team": "MartiniShot",
         "player": "Juwan Johnson",
         "pos": "TE",
-        "acquired": "Waivers ($5)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 7.1,
@@ -5976,7 +5975,7 @@
         "team": "MartiniShot",
         "player": "Ty Johnson",
         "pos": "RB",
-        "acquired": "Waivers ($1)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 1.9,
@@ -5988,7 +5987,7 @@
         "team": "MartiniShot",
         "player": "Alvin Kamara",
         "pos": "RB",
-        "acquired": "Trade / Waivers",
+        "acquired": "Trade",
         "draftedBy": "Chad Persky",
         "draftRd": 16,
         "ppg": 7.8,
@@ -6000,7 +5999,7 @@
         "team": "MartiniShot",
         "player": "Stefon Diggs",
         "pos": "WR",
-        "acquired": "Trade / Waivers",
+        "acquired": "Trade",
         "draftedBy": "Keith Green",
         "draftRd": 10,
         "ppg": 8.2,
@@ -6120,7 +6119,7 @@
         "team": "Stan Kroenke's Toupee",
         "player": "KC Concepcion Jr.",
         "pos": "WR",
-        "acquired": "Waivers ($11)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Jonathan Paull",
         "draftRd": 11,
         "ppg": 5.0,
@@ -6144,7 +6143,7 @@
         "team": "Stan Kroenke's Toupee",
         "player": "Devaughn Vele",
         "pos": "WR",
-        "acquired": "Waivers ($5)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 8.8,
@@ -6156,7 +6155,7 @@
         "team": "Stan Kroenke's Toupee",
         "player": "Michael Penix Jr.",
         "pos": "QB",
-        "acquired": "Waivers ($1)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 17.9,
@@ -6168,7 +6167,7 @@
         "team": "Stan Kroenke's Toupee",
         "player": "Antonio Williams",
         "pos": "WR",
-        "acquired": "Waivers ($5)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 1.9,
@@ -6204,7 +6203,7 @@
         "team": "Stan Kroenke's Toupee",
         "player": "Dameon Pierce",
         "pos": "RB",
-        "acquired": "Waivers ($6)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 12.2,
@@ -6216,7 +6215,7 @@
         "team": "Stan Kroenke's Toupee",
         "player": "Patriots",
         "pos": "DEF",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 0.0,
@@ -6228,7 +6227,7 @@
         "team": "Stan Kroenke's Toupee",
         "player": "Chiefs",
         "pos": "DEF",
-        "acquired": "Waivers ($6)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 8.7,
@@ -6240,7 +6239,7 @@
         "team": "Babby's Bashers",
         "player": "Aaron Rodgers",
         "pos": "QB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 14.1,
@@ -6252,7 +6251,7 @@
         "team": "Babby's Bashers",
         "player": "Aaron Jones Sr.",
         "pos": "RB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 9.8,
@@ -6324,7 +6323,7 @@
         "team": "Babby's Bashers",
         "player": "Malik Washington",
         "pos": "WR",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 4.7,
@@ -6336,7 +6335,7 @@
         "team": "Babby's Bashers",
         "player": "Tyler Huntley",
         "pos": "QB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 14.8,
@@ -6360,7 +6359,7 @@
         "team": "Babby's Bashers",
         "player": "Kenny Gainwell",
         "pos": "RB",
-        "acquired": "Waivers ($15)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Lee Singer",
         "draftRd": 12,
         "ppg": 4.8,
@@ -6432,7 +6431,7 @@
         "team": "Babby's Bashers",
         "player": "Deebo Samuel Sr.",
         "pos": "WR",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 7.6,
@@ -6444,7 +6443,7 @@
         "team": "Babby's Bashers",
         "player": "Jets",
         "pos": "DEF",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 7.0,
@@ -6540,7 +6539,7 @@
         "team": "The Poe-rental Units",
         "player": "Rachaad White",
         "pos": "RB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Jonathan Paull",
         "draftRd": 12,
         "ppg": 7.0,
@@ -6552,7 +6551,7 @@
         "team": "The Poe-rental Units",
         "player": "Jordan Love",
         "pos": "QB",
-        "acquired": "Trade / Waivers",
+        "acquired": "Trade",
         "draftedBy": "Jonah Goldfinger",
         "draftRd": 12,
         "ppg": 19.0,
@@ -6576,7 +6575,7 @@
         "team": "The Poe-rental Units",
         "player": "Isaiah Likely",
         "pos": "TE",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Keith Green",
         "draftRd": 16,
         "ppg": 13.1,
@@ -6600,7 +6599,7 @@
         "team": "The Poe-rental Units",
         "player": "Ja'Kobi Lane",
         "pos": "WR",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 5.0,
@@ -6612,7 +6611,7 @@
         "team": "The Poe-rental Units",
         "player": "Baker Mayfield",
         "pos": "QB",
-        "acquired": "Waivers ($5)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Adam Paull",
         "draftRd": 13,
         "ppg": 6.7,
@@ -6636,7 +6635,7 @@
         "team": "The Poe-rental Units",
         "player": "Tank Bigsby",
         "pos": "RB",
-        "acquired": "Waivers ($6)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Andy Babitz",
         "draftRd": 16,
         "ppg": 1.1,
@@ -6648,7 +6647,7 @@
         "team": "The Poe-rental Units",
         "player": "Jaguars",
         "pos": "DEF",
-        "acquired": "Waivers ($3)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Brandon Pevnick",
         "draftRd": 16,
         "ppg": 5.3,
@@ -6780,7 +6779,7 @@
         "team": "Badgerers",
         "player": "Keon Coleman",
         "pos": "WR",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 7.0,
@@ -6816,7 +6815,7 @@
         "team": "Badgerers",
         "player": "Keaton Mitchell",
         "pos": "RB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 2.9,
@@ -6828,7 +6827,7 @@
         "team": "Badgerers",
         "player": "DeMario Douglas",
         "pos": "WR",
-        "acquired": "Waivers ($0)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 3.8,
@@ -6924,7 +6923,7 @@
         "team": "Brandon's Dynasty",
         "player": "Tre Tucker",
         "pos": "WR",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 24.2,
@@ -6996,7 +6995,7 @@
         "team": "Brandon's Dynasty",
         "player": "Emanuel Wilson",
         "pos": "RB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 12.7,
@@ -7008,7 +7007,7 @@
         "team": "Brandon's Dynasty",
         "player": "Deshaun Watson",
         "pos": "QB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 15.4,
@@ -7044,7 +7043,7 @@
         "team": "Brandon's Dynasty",
         "player": "Kaelon Black",
         "pos": "RB",
-        "acquired": "Waivers ($13)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 3.8,
@@ -7080,7 +7079,7 @@
         "team": "Brandon's Dynasty",
         "player": "Steelers",
         "pos": "DEF",
-        "acquired": "Waivers ($1)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 8.6,
@@ -7116,7 +7115,7 @@
         "team": "Jahmyracle Workers",
         "player": "J.K. Dobbins",
         "pos": "RB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Reuben Posner",
         "draftRd": 11,
         "ppg": 7.7,
@@ -7140,7 +7139,7 @@
         "team": "Jahmyracle Workers",
         "player": "Michael Wilson",
         "pos": "WR",
-        "acquired": "Waivers ($10)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Brandon Pevnick",
         "draftRd": 13,
         "ppg": 9.1,
@@ -7200,7 +7199,7 @@
         "team": "Jahmyracle Workers",
         "player": "Kendre Miller",
         "pos": "RB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 4.7,
@@ -7236,7 +7235,7 @@
         "team": "Jahmyracle Workers",
         "player": "Ryan Flournoy",
         "pos": "WR",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 9.0,
@@ -7296,7 +7295,7 @@
         "team": "Jahmyracle Workers",
         "player": "Eagles",
         "pos": "DEF",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 2.0,
@@ -7332,7 +7331,7 @@
         "team": "The Machine",
         "player": "Ollie Gordon II",
         "pos": "RB",
-        "acquired": "Waivers ($58)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 12.2,
@@ -7344,7 +7343,7 @@
         "team": "The Machine",
         "player": "Puka Nacua",
         "pos": "WR",
-        "acquired": "Trade / Waivers",
+        "acquired": "Trade",
         "draftedBy": "Jonathan Paull",
         "draftRd": 4,
         "ppg": 13.0,
@@ -7380,7 +7379,7 @@
         "team": "The Machine",
         "player": "Tony Pollard",
         "pos": "RB",
-        "acquired": "Trade / Waivers",
+        "acquired": "Trade",
         "draftedBy": "Jonathan Paull",
         "draftRd": 3,
         "ppg": 11.8,
@@ -7392,7 +7391,7 @@
         "team": "The Machine",
         "player": "Braelon Allen",
         "pos": "RB",
-        "acquired": "Waivers ($17)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 13.4,
@@ -7428,7 +7427,7 @@
         "team": "The Machine",
         "player": "Tanner McKee",
         "pos": "QB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 12.1,
@@ -7440,7 +7439,7 @@
         "team": "The Machine",
         "player": "Christian Kirk",
         "pos": "WR",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 0.0,
@@ -7452,7 +7451,7 @@
         "team": "The Machine",
         "player": "Chris Godwin Jr.",
         "pos": "WR",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Adam Paull",
         "draftRd": 11,
         "ppg": 5.7,
@@ -7464,7 +7463,7 @@
         "team": "The Machine",
         "player": "Cam Skattebo",
         "pos": "RB",
-        "acquired": "Trade / Waivers",
+        "acquired": "Trade",
         "draftedBy": "Jonah Goldfinger",
         "draftRd": 3,
         "ppg": 9.4,
@@ -7476,7 +7475,7 @@
         "team": "The Machine",
         "player": "Devin Singletary",
         "pos": "RB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 0.0,
@@ -7524,7 +7523,7 @@
         "team": "Jonny Woo Jew",
         "player": "Jonathan Taylor",
         "pos": "RB",
-        "acquired": "Trade / Waivers",
+        "acquired": "Trade",
         "draftedBy": "Keith Green",
         "draftRd": 2,
         "ppg": 18.7,
@@ -7536,7 +7535,7 @@
         "team": "Jonny Woo Jew",
         "player": "Quinshon Judkins",
         "pos": "RB",
-        "acquired": "Trade / Waivers",
+        "acquired": "Trade",
         "draftedBy": "Keith Green",
         "draftRd": 8,
         "ppg": 10.0,
@@ -7656,7 +7655,7 @@
         "team": "Jonny Woo Jew",
         "player": "Denzel Boston",
         "pos": "WR",
-        "acquired": "Waivers ($11)",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 7.3,
@@ -7668,7 +7667,7 @@
         "team": "Jonny Woo Jew",
         "player": "Ladd McConkey",
         "pos": "WR",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Reuben Posner",
         "draftRd": 6,
         "ppg": 4.6,
@@ -7680,7 +7679,7 @@
         "team": "Jonny Woo Jew",
         "player": "Seth McGowan",
         "pos": "RB",
-        "acquired": "Free Agent",
+        "acquired": "Free Agent / Waivers",
         "draftedBy": "Undrafted",
         "draftRd": null,
         "ppg": 0.0,
@@ -8254,44 +8253,105 @@
         });
       }
 
-      // 4. Render Main Team Performance Table
-      const perfRows = Object.values(statsMap).sort((a, b) => {
+      // 4. Pre-compute seed rank and simulation metrics for each team
+      const baseSorted = Object.values(statsMap).sort((a, b) => {
         if (b.wins !== a.wins) return b.wins - a.wins;
         return tiebreaker === "pf" ? (b.pf - a.pf) : (b.h2hTiebreak - a.h2hTiebreak);
       });
 
-      const perfBody = document.getElementById("performanceTableBody");
-      perfBody.innerHTML = perfRows.map((r, idx) => {
-        const allPlayPct = (r.allPlayW / (r.allPlayW + r.allPlayL)) * 100;
-        const playoffPct = (r.playoffHits / NUM_SIMS) * 100;
-        const seed1Pct = (r.seed1Hits / NUM_SIMS) * 100;
-        const projW = r.projWinsSum / NUM_SIMS;
-        const projL = 15 - projW;
-        return `
-          <tr>
-            <td><span class="badge ${idx < 4 ? 'badge-emerald' : 'badge-blue'}">#${idx + 1}</span></td>
-            <td><strong>${r.owner}</strong> <span style="color:var(--text-secondary); font-size:12px;">(${r.team})</span></td>
-            <td class="center"><strong>${r.wins}-${r.losses}</strong></td>
-            <td class="num">${r.pf.toFixed(1)}</td>
-            <td class="num" style="color:var(--text-secondary)">${r.mean.toFixed(1)} ± ${r.sd.toFixed(1)}</td>
-            <td class="center"><strong>${r.allPlayW}-${r.allPlayL}</strong></td>
-            <td class="num">${allPlayPct.toFixed(1)}%</td>
-            <td class="center">${r.weeklyWinsCount > 0 ? `<span class="badge badge-amber">🏆 ${r.weeklyWinsCount}x</span>` : '<span style="color:var(--text-muted)">0</span>'}</td>
-            <td class="num">${projW.toFixed(1)}-${projL.toFixed(1)}</td>
-            <td class="num">
-              <div class="progress-bar-wrap">
-                <div class="progress-bar-fill" style="width:${playoffPct}%; background:${playoffPct >= 50 ? 'var(--emerald)' : 'var(--amber)'}"></div>
-              </div>
-              <strong>${playoffPct.toFixed(1)}%</strong>
-            </td>
-            <td class="num">${seed1Pct.toFixed(1)}%</td>
-          </tr>
-        `;
-      }).join("");
+      baseSorted.forEach((r, idx) => {
+        r.seed = idx + 1;
+        r.allPlayPct = (r.allPlayW / (r.allPlayW + r.allPlayL)) * 100;
+        r.playoffPct = (r.playoffHits / NUM_SIMS) * 100;
+        r.seed1Pct = (r.seed1Hits / NUM_SIMS) * 100;
+        r.projW = r.projWinsSum / NUM_SIMS;
+        r.projL = 15 - r.projW;
+        r.eff = r.maxPot > 0 ? (r.pf / r.maxPot) * 100 : 0.0;
+        r.leftOnBench = Math.max(0, r.maxPot - r.pf);
+      });
 
-      // 5. Render Weekly All-Play Table
+      // Compute default efficiency rank
+      const effBaseSorted = [...baseSorted].sort((a, b) => b.eff - a.eff);
+      effBaseSorted.forEach((r, idx) => { r.effRank = idx + 1; });
+
+      window._lastPerfRows = baseSorted;
+      renderPerformanceTables();
+    }
+
+    let currentPerfSortKey = "seed";
+    let currentPerfSortAsc = true;
+    let currentEffSortKey = "eff";
+    let currentEffSortAsc = false;
+
+    function sortPerfTable(key) {
+      if (currentPerfSortKey === key) {
+        currentPerfSortAsc = !currentPerfSortAsc;
+      } else {
+        currentPerfSortKey = key;
+        currentPerfSortAsc = ["seed", "owner"].includes(key);
+      }
+      renderPerformanceTables();
+    }
+
+    function sortEffTable(key) {
+      if (currentEffSortKey === key) {
+        currentEffSortAsc = !currentEffSortAsc;
+      } else {
+        currentEffSortKey = key;
+        currentEffSortAsc = ["rank", "owner"].includes(key);
+      }
+      renderPerformanceTables();
+    }
+
+    function renderPerformanceTables() {
+      const rows = window._lastPerfRows || [];
+      if (!rows.length) return;
+
+      // 1. Sort & Render Main Team Performance Table
+      const perfRows = [...rows].sort((a, b) => {
+        let va, vb;
+        if (currentPerfSortKey === "owner") {
+          va = a.owner.toLowerCase();
+          vb = b.owner.toLowerCase();
+          return currentPerfSortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+        }
+        va = a[currentPerfSortKey] !== undefined ? a[currentPerfSortKey] : a.seed;
+        vb = b[currentPerfSortKey] !== undefined ? b[currentPerfSortKey] : b.seed;
+        if (va !== vb) return currentPerfSortAsc ? va - vb : vb - va;
+        return a.seed - b.seed;
+      });
+
+      const perfSortKeys = ["seed", "owner", "wins", "pf", "mean", "allPlayW", "allPlayPct", "weeklyWinsCount", "projW", "playoffPct", "seed1Pct"];
+      perfSortKeys.forEach(k => {
+        const el = document.getElementById("sort-perf-" + k);
+        if (el) el.textContent = currentPerfSortKey === k ? (currentPerfSortAsc ? " ↑" : " ↓") : "";
+      });
+
+      const perfBody = document.getElementById("performanceTableBody");
+      perfBody.innerHTML = perfRows.map(r => `
+        <tr>
+          <td><span class="badge ${r.seed <= 4 ? 'badge-emerald' : 'badge-blue'}">#${r.seed}</span></td>
+          <td><strong>${r.owner}</strong> <span style="color:var(--text-secondary); font-size:12px;">(${r.team})</span></td>
+          <td class="center"><strong>${r.wins}-${r.losses}</strong></td>
+          <td class="num">${r.pf.toFixed(1)}</td>
+          <td class="num" style="color:var(--text-secondary)">${r.mean.toFixed(1)} ± ${r.sd.toFixed(1)}</td>
+          <td class="center"><strong>${r.allPlayW}-${r.allPlayL}</strong></td>
+          <td class="num">${r.allPlayPct.toFixed(1)}%</td>
+          <td class="center">${r.weeklyWinsCount > 0 ? `<span class="badge badge-amber">🏆 ${r.weeklyWinsCount}x</span>` : '<span style="color:var(--text-muted)">0</span>'}</td>
+          <td class="num">${r.projW.toFixed(1)}-${r.projL.toFixed(1)}</td>
+          <td class="num">
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" style="width:${r.playoffPct}%; background:${r.playoffPct >= 50 ? 'var(--emerald)' : 'var(--amber)'}"></div>
+            </div>
+            <strong>${r.playoffPct.toFixed(1)}%</strong>
+          </td>
+          <td class="num">${r.seed1Pct.toFixed(1)}%</td>
+        </tr>
+      `).join("");
+
+      // 2. Render Weekly All-Play Table (in seed order)
       const weeklyApBody = document.getElementById("weeklyAllPlayBody");
-      weeklyApBody.innerHTML = perfRows.map(r => `
+      weeklyApBody.innerHTML = rows.map(r => `
         <tr>
           <td><strong>${r.owner}</strong></td>
           ${[1,2,3,4,5,6,7].map(wk => {
@@ -8303,22 +8363,34 @@
         </tr>
       `).join("");
 
-      // 6. Render Lineup Optimization / Coaching Efficiency Table
-      const effRows = Object.values(statsMap).map(r => {
-        const eff = (r.pf / r.maxPot) * 100;
-        const leftOnBench = r.maxPot - r.pf;
-        return { ...r, eff, leftOnBench };
-      }).sort((a, b) => b.eff - a.eff);
+      // 3. Sort & Render Lineup Optimization / Coaching Efficiency Table
+      const effRows = [...rows].sort((a, b) => {
+        if (currentEffSortKey === "owner") {
+          return currentEffSortAsc ? a.owner.toLowerCase().localeCompare(b.owner.toLowerCase()) : b.owner.toLowerCase().localeCompare(a.owner.toLowerCase());
+        }
+        const keyMap = { rank: "effRank", pf: "pf", maxPot: "maxPot", leftOnBench: "leftOnBench", eff: "eff" };
+        const prop = keyMap[currentEffSortKey] || "eff";
+        const va = a[prop];
+        const vb = b[prop];
+        if (va !== vb) return currentEffSortAsc ? va - vb : vb - va;
+        return a.effRank - b.effRank;
+      });
+
+      const effSortKeys = ["rank", "owner", "pf", "maxPot", "leftOnBench", "eff"];
+      effSortKeys.forEach(k => {
+        const el = document.getElementById("sort-eff-" + k);
+        if (el) el.textContent = currentEffSortKey === k ? (currentEffSortAsc ? " ↑" : " ↓") : "";
+      });
 
       const effBody = document.getElementById("efficiencyTableBody");
-      effBody.innerHTML = effRows.map((r, idx) => `
+      effBody.innerHTML = effRows.map(r => `
         <tr>
-          <td><span class="badge badge-blue">#${idx + 1}</span></td>
+          <td><span class="badge badge-blue">#${r.effRank}</span></td>
           <td><strong>${r.owner}</strong></td>
           <td class="num">${r.pf.toFixed(1)}</td>
           <td class="num">${r.maxPot.toFixed(1)}</td>
           <td class="num" style="color:var(--rose)">-${r.leftOnBench.toFixed(1)}</td>
-          <td class="num"><span class="badge ${r.eff >= 92 ? 'badge-emerald' : 'badge-amber'}">${r.eff.toFixed(1)}%</span></td>
+          <td class="num"><span class="badge ${r.eff >= 90 ? 'badge-emerald' : 'badge-amber'}">${r.eff.toFixed(1)}%</span></td>
         </tr>
       `).join("");
     }
@@ -8612,11 +8684,25 @@
       renderKeepersTab();
     }
 
+    let currentKeeperSortKey = "owner";
+    let currentKeeperSortAsc = true;
+
+    function sortKeepersTable(key) {
+      if (currentKeeperSortKey === key) {
+        currentKeeperSortAsc = !currentKeeperSortAsc;
+      } else {
+        currentKeeperSortKey = key;
+        currentKeeperSortAsc = key !== "locked";
+      }
+      renderKeepersTab();
+    }
+
     function renderKeepersTab() {
       const ownerVal = document.getElementById("keeperOwnerFilter").value;
       const ruleVal = document.getElementById("keeperRuleFilter").value;
 
       const rows = KEEPERS_DATA.filter(k => {
+        if (!k.player || k.player.toLowerCase() === "player_name" || k.owner.toLowerCase() === "owner_team") return false;
         if (ownerVal !== "ALL" && k.owner !== ownerVal) return false;
         const info = computeKeeperInfo(k);
         if (ruleVal === "ELIGIBLE" && !info.eligible) return false;
@@ -8627,10 +8713,54 @@
         return true;
       });
 
+      rows.sort((a, b) => {
+        const infoA = computeKeeperInfo(a);
+        const infoB = computeKeeperInfo(b);
+        if (currentKeeperSortKey === "owner") {
+          const cmp = a.owner.toLowerCase().localeCompare(b.owner.toLowerCase());
+          if (cmp !== 0) return currentKeeperSortAsc ? cmp : -cmp;
+          return (a.draftRd || 17) - (b.draftRd || 17);
+        } else if (currentKeeperSortKey === "player") {
+          const cmp = a.player.toLowerCase().localeCompare(b.player.toLowerCase());
+          return currentKeeperSortAsc ? cmp : -cmp;
+        } else if (currentKeeperSortKey === "pos") {
+          const cmp = a.pos.localeCompare(b.pos);
+          return currentKeeperSortAsc ? cmp : -cmp;
+        } else if (currentKeeperSortKey === "acquired") {
+          const cmp = a.acquired.localeCompare(b.acquired);
+          return currentKeeperSortAsc ? cmp : -cmp;
+        } else if (currentKeeperSortKey === "draftedBy") {
+          const cmp = a.draftedBy.toLowerCase().localeCompare(b.draftedBy.toLowerCase());
+          return currentKeeperSortAsc ? cmp : -cmp;
+        } else if (currentKeeperSortKey === "draftRd") {
+          const ra = a.draftRd === null ? 17 : a.draftRd;
+          const rb = b.draftRd === null ? 17 : b.draftRd;
+          if (ra !== rb) return currentKeeperSortAsc ? ra - rb : rb - ra;
+          return a.player.localeCompare(b.player);
+        } else if (currentKeeperSortKey === "costRd") {
+          const ca = infoA.costRd === null ? 99 : infoA.costRd;
+          const cb = infoB.costRd === null ? 99 : infoB.costRd;
+          if (ca !== cb) return currentKeeperSortAsc ? ca - cb : cb - ca;
+          return (a.draftRd || 17) - (b.draftRd || 17);
+        } else if (currentKeeperSortKey === "locked") {
+          const la = a.locked ? 1 : 0;
+          const lb = b.locked ? 1 : 0;
+          if (la !== lb) return currentKeeperSortAsc ? la - lb : lb - la;
+          return a.owner.localeCompare(b.owner);
+        }
+        return 0;
+      });
+
+      const keepSortKeys = ["owner", "player", "pos", "acquired", "draftedBy", "draftRd", "costRd", "locked"];
+      keepSortKeys.forEach(k => {
+        const el = document.getElementById("sort-keep-" + k);
+        if (el) el.textContent = currentKeeperSortKey === k ? (currentKeeperSortAsc ? " ↑" : " ↓") : "";
+      });
+
       const tbody = document.getElementById("keepersTableBody");
       tbody.innerHTML = rows.map(k => {
         const info = computeKeeperInfo(k);
-        const draftDisplay = k.draftRd === null ? "Undrafted (Rd 17 Base)" : `Round ${k.draftRd}`;
+        const draftDisplay = k.draftRd === null ? "Undrafted" : `Round ${k.draftRd}`;
         const diffDraftOwner = k.draftRd !== null && k.draftedBy !== k.owner;
         return `
           <tr>
@@ -8644,7 +8774,6 @@
             </td>
             <td class="center">${draftDisplay}</td>
             <td class="center"><span class="badge ${info.badge}">${info.label}</span></td>
-            <td class="num">${k.ppg.toFixed(1)}</td>
             <td class="center">
               ${info.eligible ? `
                 <button class="btn ${k.locked ? 'btn-primary' : ''}" style="padding:4px 10px; font-size:11.5px;" onclick="toggleKeeperLock(${k.id})">
@@ -8975,7 +9104,7 @@
                 const team = normKey(c[0] && c[0].v ? c[0].v : "");
                 const pName = normKey(c[1] && c[1].v ? c[1].v : "");
                 const slot = normStr(c[3] && c[3].v ? c[3].v : "BN");
-                if (team && pName) {
+                if (team && pName && team !== "owner_team" && pName !== "player_name") {
                   liveRosterMap.set(team + "_" + pName, slot);
                 }
               });
@@ -9224,12 +9353,94 @@
         console.warn("Transactions feed notice:", e);
       }
 
-      // 6. Dynamically Build Full Keepers Table from Live Rosters & Yahoo_2026_Draft_Results
+      // 5b. Compute Exact Weekly Optimal Lineups & Coaching Efficiency from Yahoo_2026_Player_Scores
+      if (playerWeeklyList.length > 0) {
+        const rosterByTeamWk = new Map();
+        playerWeeklyList.forEach(rec => {
+          if (isNaN(rec.wk) || rec.wk <= 0) return;
+          const targetOwner = OWNERS.find(o =>
+            normKey(o.team) === normKey(rec.teamName) ||
+            normKey(o.team).includes(normKey(rec.teamName)) ||
+            (rec.mgrName && normKey(o.owner).includes(normKey(rec.mgrName)))
+          );
+          if (!targetOwner) return;
+          const key = targetOwner.id + "_" + rec.wk;
+          if (!rosterByTeamWk.has(key)) rosterByTeamWk.set(key, []);
+          rosterByTeamWk.get(key).push(rec);
+        });
+
+        function solveOptimalSuperflex(players) {
+          const pool = players.filter(p => p.slot !== "IR");
+          const qbs = pool.filter(p => p.pos === "QB").sort((a, b) => b.pts - a.pts);
+          const rbs = pool.filter(p => p.pos === "RB").sort((a, b) => b.pts - a.pts);
+          const wrs = pool.filter(p => p.pos === "WR").sort((a, b) => b.pts - a.pts);
+          const tes = pool.filter(p => p.pos === "TE").sort((a, b) => b.pts - a.pts);
+          const dsts = pool.filter(p => p.pos === "DEF" || p.pos === "DST").sort((a, b) => b.pts - a.pts);
+
+          const used = new Set();
+          let optTotal = 0.0;
+          function takeTop(cands, cnt) {
+            let taken = 0;
+            for (const c of cands) {
+              if (!used.has(c) && taken < cnt) {
+                used.add(c);
+                optTotal += c.pts;
+                taken++;
+              }
+            }
+          }
+          takeTop(qbs, 1);
+          takeTop(rbs, 2);
+          takeTop(wrs, 2);
+          takeTop(tes, 1);
+          takeTop(dsts, 1);
+
+          const flexPool = pool.filter(p => (p.pos === "RB" || p.pos === "WR" || p.pos === "TE") && !used.has(p)).sort((a, b) => b.pts - a.pts);
+          takeTop(flexPool, 2);
+
+          const sflexPool = pool.filter(p => (p.pos === "QB" || p.pos === "RB" || p.pos === "WR" || p.pos === "TE") && !used.has(p)).sort((a, b) => b.pts - a.pts);
+          takeTop(sflexPool, 1);
+
+          return Math.round(optTotal * 100) / 100;
+        }
+
+        OWNERS.forEach(o => {
+          const weeksArr = WEEKLY_DATA[o.id] || [];
+          weeksArr.forEach(wObj => {
+            const plist = rosterByTeamWk.get(o.id + "_" + wObj.wk);
+            if (plist && plist.length > 0) {
+              const stDict = { QB: 0, RB: 0, WR: 0, TE: 0, DST: 0 };
+              const bnDict = { QB: 0, RB: 0, WR: 0, TE: 0, DST: 0 };
+              let irPts = 0;
+              let actTot = 0;
+              plist.forEach(p => {
+                const posKey = (p.pos === "DEF" || p.pos === "DST") ? "DST" : (stDict[p.pos] !== undefined ? p.pos : "WR");
+                if (p.slot === "IR") {
+                  irPts = Math.round((irPts + p.pts) * 100) / 100;
+                } else if (p.isStarter) {
+                  stDict[posKey] = Math.round((stDict[posKey] + p.pts) * 100) / 100;
+                  actTot = Math.round((actTot + p.pts) * 100) / 100;
+                } else {
+                  bnDict[posKey] = Math.round((bnDict[posKey] + p.pts) * 100) / 100;
+                }
+              });
+              const optTot = Math.max(actTot, solveOptimalSuperflex(plist));
+              wObj.tot = actTot;
+              wObj.maxPot = optTot;
+              wObj.starters = stDict;
+              wObj.bench = bnDict;
+              wObj.ir = irPts;
+            }
+          });
+        });
+      }
+
+      // 6. Dynamically Build Full Keepers Table from Live Rosters, Draft Results & Keeper_Overrides
       try {
         const draftMap = new Map();
-        // Seed known draft rounds as baseline fallback before Yahoo_2026_Draft_Results tab is synced
+        // Seed known draft rounds as baseline fallback
         KEEPERS_DATA.forEach(k => {
-          if (k.draftRd !== null) {
+          if (k.draftRd !== null && k.player && normKey(k.player) !== "player_name") {
             draftMap.set(normKey(k.player), { rd: k.draftRd, draftedBy: k.draftedBy });
           }
         });
@@ -9251,7 +9462,7 @@
                 const tName = normStr(c[3] && c[3].v ? c[3].v : "");
                 const mName = normStr(c[4] && c[4].v ? c[4].v : "");
                 const pName = normStr(c[6] && c[6].v ? c[6].v : "");
-                if (!pName || isNaN(rd) || rd <= 0) return;
+                if (!pName || normKey(pName) === "player_name" || isNaN(rd) || rd <= 0) return;
 
                 const targetOwner = OWNERS.find(o =>
                   (tName && normKey(o.team) === normKey(tName)) ||
@@ -9263,6 +9474,35 @@
               });
             }
           }
+        }
+
+        // Also check Keeper_Overrides tab in Commissioner Google Sheet for locked keepers
+        const lockedOverrides = new Set();
+        try {
+          const urlKo = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/gviz/tq?tqx=out:json&sheet=Keeper_Overrides&_t=" + Date.now();
+          const resKo = await fetch(urlKo);
+          if (resKo.ok) {
+            const rawKo = await resKo.text();
+            const jS = rawKo.indexOf("{");
+            const jE = rawKo.lastIndexOf("}");
+            if (jS !== -1 && jE !== -1) {
+              const dataKo = JSON.parse(rawKo.substring(jS, jE + 1));
+              const rowsKo = dataKo.table && dataKo.table.rows;
+              if (rowsKo && rowsKo.length > 0) {
+                rowsKo.forEach(r => {
+                  const c = r.c;
+                  if (!c) return;
+                  const pName = normKey(c[0] && c[0].v ? c[0].v : "");
+                  const isLocked = c[6] && (c[6].v === true || normKey(c[6].v) === "true" || normKey(c[6].v) === "yes" || c[6].v === 1);
+                  if (pName && pName !== "player_name" && isLocked) {
+                    lockedOverrides.add(pName);
+                  }
+                });
+              }
+            }
+          }
+        } catch (koErr) {
+          console.warn("Keeper overrides fetch notice:", koErr);
         }
 
         // Rebuild KEEPERS_DATA from full live Yahoo_2026_Rosters if available
@@ -9279,13 +9519,11 @@
               const newKeepers = [];
               let nextId = 1;
 
-              // Index latest pickup method by (team_key, player_key)
-              const latestPickupMap = new Map();
+              // Index pickup history by (team_key, player_key)
+              const pickupSet = new Set();
               FAAB_BIDS.forEach(b => {
                 const k = normKey(b.team) + "_" + normKey(b.player);
-                if (!latestPickupMap.has(k)) {
-                  latestPickupMap.set(k, b.type === "FAAB Bid" ? ("Waivers ($" + b.bid + ")") : "Free Agent");
-                }
+                pickupSet.add(k);
               });
 
               rowsRF.forEach(r => {
@@ -9295,7 +9533,8 @@
                 const pName = normStr(c[1] && c[1].v ? c[1].v : "");
                 let pos = normStr(c[2] && c[2].v ? c[2].v : "FLEX");
                 if (pos === "DST") pos = "DEF";
-                if (!tName || !pName) return;
+                // Skip sheet header row if Google Visualization API returns row 1 as data
+                if (!tName || !pName || normKey(tName) === "owner_team" || normKey(pName) === "player_name" || normKey(pos) === "primary_position") return;
 
                 const targetOwner = OWNERS.find(o =>
                   normKey(o.team) === normKey(tName) || normKey(o.team).includes(normKey(tName))
@@ -9310,12 +9549,12 @@
 
                 const rosterKey = normKey(resolvedTeam) + "_" + pKey;
                 let acquired = "Drafted";
-                if (latestPickupMap.has(rosterKey)) {
-                  acquired = latestPickupMap.get(rosterKey);
+                if (pickupSet.has(rosterKey)) {
+                  acquired = "Free Agent / Waivers";
                 } else if (dInfo.rd !== null && dInfo.draftedBy !== ownerName) {
-                  acquired = "Trade / Waivers";
+                  acquired = "Trade";
                 } else if (dInfo.rd === null) {
-                  acquired = "Free Agent";
+                  acquired = "Free Agent / Waivers";
                 }
 
                 newKeepers.push({
@@ -9328,7 +9567,7 @@
                   draftedBy: dInfo.draftedBy,
                   draftRd: dInfo.rd,
                   ppg: ppg,
-                  locked: false
+                  locked: lockedOverrides.has(pKey)
                 });
               });
 
