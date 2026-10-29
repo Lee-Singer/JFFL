@@ -729,7 +729,7 @@
     <div class="tab-panel active" id="tab-performance">
       <div class="rule-banner">
         <div>
-          <strong>🎲 Playoff Simulation Engine (4 of 10 Teams Make Playoffs • Weeks 16–17):</strong> Runs 10,000 Monte Carlo simulations of Regular Season Weeks 8–15 using each team's 2026 scoring mean &amp; standard deviation.
+          <strong>🎲 Playoff Simulation Engine (4 of 10 Teams Make Playoffs • Weeks 16–17):</strong> Runs 10,000 Monte Carlo simulations of remaining regular season weeks using each team's 2026 scoring mean &amp; standard deviation.
         </div>
 
       </div>
@@ -749,7 +749,7 @@
                 <th onclick="sortPerfTable('owner')">Owner / Team <span id="sort-perf-owner"></span></th>
                 <th class="center" onclick="sortPerfTable('wins')">Actual Rec <span id="sort-perf-wins"></span></th>
                 <th class="num" onclick="sortPerfTable('pf')">Points For <span id="sort-perf-pf"></span></th>
-                <th class="num" onclick="sortPerfTable('mean')">Avg Pts/Wk <span id="sort-perf-mean"></span></th>
+                <th class="num" onclick="sortPerfTable('mean')">Pts/Wk <span id="sort-perf-mean"></span></th>
                 <th class="center" onclick="sortPerfTable('allPlayW')">Overall All-Play <span id="sort-perf-allPlayW"></span></th>
                 <th class="num" onclick="sortPerfTable('allPlayPct')">All-Play % <span id="sort-perf-allPlayPct"></span></th>
                 <th class="center" onclick="sortPerfTable('weeklyWinsCount')">🏆 Wkly High Wins <span id="sort-perf-weeklyWinsCount"></span></th>
@@ -922,14 +922,14 @@
           <table>
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Owner / Team</th>
-                <th class="num">Yahoo Projected Pts</th>
-                <th class="num">Actual Scored Pts</th>
-                <th class="num">Net Differential (Act - Proj)</th>
-                <th class="num">Avg Weekly Diff</th>
-                <th class="center">Weeks Beat Proj</th>
-                <th class="num">% vs. Projection</th>
+                <th onclick="sortProjTable('diff')">Rank <span id="sort-proj-rank"></span></th>
+                <th onclick="sortProjTable('owner')">Owner / Team <span id="sort-proj-owner"></span></th>
+                <th class="num" onclick="sortProjTable('projSum')">Yahoo Projected Pts <span id="sort-proj-projSum"></span></th>
+                <th class="num" onclick="sortProjTable('actSum')">Actual Scored Pts <span id="sort-proj-actSum"></span></th>
+                <th class="num" onclick="sortProjTable('diff')">Net Differential (Act - Proj) <span id="sort-proj-diff"></span></th>
+                <th class="num" onclick="sortProjTable('avgDiff')">Avg Weekly Diff <span id="sort-proj-avgDiff"></span></th>
+                <th class="center" onclick="sortProjTable('beatCount')">Weeks Beat Proj <span id="sort-proj-beatCount"></span></th>
+                <th class="num" onclick="sortProjTable('pct')">% vs. Projection <span id="sort-proj-pct"></span></th>
               </tr>
             </thead>
             <tbody id="projSummaryBody"></tbody>
@@ -1019,12 +1019,7 @@
     <!-- TAB 8: TRADE RECAPS TAB -->
     <!-- ================================================================= -->
     <div class="tab-panel" id="tab-trades">
-      <div class="rule-banner">
-        <div>
-          <strong>🤝 League Trade Log + Commissioner Draft Pick Supplement:</strong> Yahoo's API provides the players and trade date automatically, while any traded future draft picks (e.g., <em>2027 8th Round Pick</em>) are merged from the <code>Trade_Notes</code> tab of your Commissioner Google Sheet.
-        </div>
 
-      </div>
 
       <div id="tradesContainer"></div>
     </div>
@@ -1036,9 +1031,8 @@
       <div class="rule-banner">
         <div>
           <strong>🔒 JFFL 2027 Keeper Eligibility Preview (No Keepers in 2026 — Full Redraft for 3 New Owners):</strong>
-          16-Round Draft • 2027 Cost = <strong>2026 Draft Round minus 2</strong> • <strong>Rounds 1–2 Picks Ineligible</strong> (e.g., Jahmyr Gibbs #1 Overall to Chad Persky) • <strong>Undrafted</strong> = <strong>Round 15 pick</strong> (Rd 17 − 2) • <strong>Dropped Drafted Players</strong> retain original 2026 draft round!
+          16-Round Draft • 2027 Cost = <strong>2026 Draft Round minus 2</strong> • <strong>Rounds 1–2 Picks Ineligible</strong> • <strong>Undrafted / Free Agents</strong> = <strong>Round 15 pick</strong> (Rd 17 − 2) • <strong>Dropped Drafted Players</strong> retain original 2026 draft round • <em>Multiple keepers with the same round cost (e.g., two free agents) escalate: the second player costs the round above (Round 14).</em>
         </div>
-
       </div>
 
       <div class="card">
@@ -8696,6 +8690,19 @@
     // =========================================================================
     // 7. RENDER TAB 6: PROJECTIONS VS. ACTUAL
     // =========================================================================
+    let currentProjSortKey = "diff";
+    let currentProjSortAsc = false;
+
+    function sortProjTable(key) {
+      if (currentProjSortKey === key) {
+        currentProjSortAsc = !currentProjSortAsc;
+      } else {
+        currentProjSortKey = key;
+        currentProjSortAsc = (key === "owner");
+      }
+      renderProjectionsTab();
+    }
+
     function renderProjectionsTab() {
       const wkFilter = document.getElementById("projWeekFilter").value;
 
@@ -8731,7 +8738,23 @@
           pct,
           wkDiffs
         };
-      }).sort((a, b) => b.diff - a.diff);
+      });
+
+      // Apply dynamic column sorting
+      summaryRows.sort((a, b) => {
+        let valA = a[currentProjSortKey];
+        let valB = b[currentProjSortKey];
+        if (typeof valA === "string") {
+          return currentProjSortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        }
+        return currentProjSortAsc ? valA - valB : valB - valA;
+      });
+
+      const sortKeys = ["rank", "owner", "projSum", "actSum", "diff", "avgDiff", "beatCount", "pct"];
+      sortKeys.forEach(k => {
+        const el = document.getElementById("sort-proj-" + k);
+        if (el) el.textContent = (currentProjSortKey === k || (k === "rank" && currentProjSortKey === "diff")) ? (currentProjSortAsc ? " ↑" : " ↓") : "";
+      });
 
       document.getElementById("projSummaryBody").innerHTML = summaryRows.map((r, idx) => {
         const sign = r.diff >= 0 ? "+" : "";
