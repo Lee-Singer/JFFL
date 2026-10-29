@@ -975,7 +975,7 @@
         <div class="card-header">
           <div>
             <div class="card-title">2026 League Pickups (Waivers &amp; Free Agents)</div>
-            <div class="card-subtitle">Tracks all 135 transactions: Waiver Claims (FAAB Bids &amp; $0 bids) and Free Agent additions. Click any column header to sort!</div>
+            <div class="card-subtitle">Tracks all transactions: Waiver Claims (FAAB Bids &amp; $0 bids) and Free Agent additions. Click any column header to sort!</div>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <select class="filter-select" id="faabOwnerFilter" onchange="renderFaabTab()">
@@ -1039,7 +1039,7 @@
         <div class="card-header">
           <div>
             <div class="card-title">Current Roster Keeper Eligibility &amp; Round Cost Calculator</div>
-            <div class="card-subtitle">Cross-references live rosters with Yahoo's 2026 Draft Results table • Click "Lock Keeper" to test selecting up to 3 keepers per team</div>
+            <div class="card-subtitle">Cross-references live rosters with Yahoo's 2026 Draft Results table</div>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <select class="filter-select" id="keeperOwnerFilter" onchange="renderKeepersTab()">
@@ -1065,7 +1065,7 @@
                 <th onclick="sortKeepersTable('draftedBy')">Originally Drafted By <span id="sort-keep-draftedBy"></span></th>
                 <th class="center" onclick="sortKeepersTable('draftRd')">2026 Draft Rd <span id="sort-keep-draftRd"></span></th>
                 <th class="center" onclick="sortKeepersTable('costRd')">2027 Keeper Cost <span id="sort-keep-costRd"></span></th>
-                <th class="center" onclick="sortKeepersTable('locked')">Commissioner Override / Lock (Max 3) <span id="sort-keep-locked"></span></th>
+                
               </tr>
             </thead>
             <tbody id="keepersTableBody"></tbody>
@@ -1127,33 +1127,7 @@
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div>
-            <div class="card-title">⚔️ All-Time Career Head-to-Head Matchup Explorer (By Human Owner)</div>
-            <div class="card-subtitle">Select any owner to inspect their lifetime record against every current and former JFFL manager</div>
-          </div>
-          <div>
-            <select class="filter-select" id="h2hOwnerSelect" onchange="renderH2HTable()"></select>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Opponent Owner</th>
-                <th>Years Active in JFFL</th>
-                <th class="center">H2H Record</th>
-                <th class="num">Win %</th>
-                <th class="num">Avg Pts For</th>
-                <th class="num">Avg Pts Against</th>
-                <th>Last Meeting</th>
-              </tr>
-            </thead>
-            <tbody id="h2hTableBody"></tbody>
-          </table>
-        </div>
-      </div>
+      
     </div>
 
     </main>
@@ -7891,14 +7865,12 @@
       const oppFilter = document.getElementById("opponentFilter");
       const faabOwner = document.getElementById("faabOwnerFilter");
       const keeperOwner = document.getElementById("keeperOwnerFilter");
-      const h2hSelect = document.getElementById("h2hOwnerSelect");
-
+      
       OWNERS.forEach((o, idx) => {
         if (ownerFilter) ownerFilter.add(new Option(`${o.owner} (${o.team})`, o.id));
         if (oppFilter) oppFilter.add(new Option(`${o.owner} (${o.team})`, o.id));
         if (faabOwner) faabOwner.add(new Option(o.owner, o.owner));
         if (keeperOwner) keeperOwner.add(new Option(o.owner, o.owner));
-        if (h2hSelect) h2hSelect.add(new Option(`${o.owner} (${o.team})`, o.id));
       });
     }
 
@@ -8230,52 +8202,10 @@
         </tr>
       `).join("");
 
-      renderH2HTable();
+      
     }
 
-    function renderH2HTable() {
-      const selectedId = document.getElementById("h2hOwnerSelect").value || "T1";
-      const h2hBody = document.getElementById("h2hTableBody");
-
-      // Deterministic career H2H generator accounting for former owner Dave R. -> Keith Green in 2023
-      const rows = OWNERS.filter(o => o.id !== selectedId).map((opp, idx) => {
-        const seed = (selectedId.charCodeAt(1) * 7 + opp.id.charCodeAt(1) * 13) % 9;
-        const w = 5 + (seed % 5);
-        const l = 3 + ((9 - seed) % 5);
-        const pct = (w / (w + l)) * 100;
-        const avgFor = 128.4 + (seed * 1.9);
-        const avgAg = 124.1 + ((8 - seed) * 1.7);
-        const activeYears = opp.id === "T10" ? "2026 (Took over Slot #10 from Danny Babitz)" : "2010–2026 (JFFL Core / Active)";
-        return {
-          oppOwner: opp.owner,
-          team: opp.team,
-          activeYears,
-          w, l, pct, avgFor, avgAg,
-          lastMeeting: `2026 Wk ${((idx % 6) + 1)}`
-        };
-      });
-
-      // Also include former owner Dave R. (2019-2022) separately so historical owner separation is crystal clear!
-      rows.push({
-        oppOwner: "Danny Babitz (Alumni • 2010–2025)",
-        team: "Primetime",
-        activeYears: "2019–2022 (Retired)",
-        w: 4, l: 3, pct: (4/7)*100, avgFor: 121.8, avgAg: 119.4,
-        lastMeeting: "2022 Wk 12"
-      });
-
-      h2hBody.innerHTML = rows.map(r => `
-        <tr>
-          <td><strong>${r.oppOwner}</strong> <span style="color:var(--text-secondary); font-size:12px;">(${r.team})</span></td>
-          <td style="color:var(--text-secondary)">${r.activeYears}</td>
-          <td class="center"><strong>${r.w}-${r.l}</strong></td>
-          <td class="num"><span class="badge ${r.pct >= 50 ? 'badge-emerald' : 'badge-rose'}">${r.pct.toFixed(1)}%</span></td>
-          <td class="num">${r.avgFor.toFixed(1)}</td>
-          <td class="num">${r.avgAg.toFixed(1)}</td>
-          <td>${r.lastMeeting}</td>
-        </tr>
-      `).join("");
-    }
+    
 
     // =========================================================================
     // 5. RENDER TAB 4: TEAM PERFORMANCE, ALL-PLAY & 10,000 MONTE CARLO SIMS
@@ -8932,13 +8862,7 @@
             </td>
             <td class="center">${draftDisplay}</td>
             <td class="center"><span class="badge ${info.badge}">${info.label}</span></td>
-            <td class="center">
-              ${info.eligible ? `
-                <button class="btn ${k.locked ? 'btn-primary' : ''}" style="padding:4px 10px; font-size:11.5px;" onclick="toggleKeeperLock(${k.id})">
-                  ${k.locked ? '🔒 Locked Keeper' : '☆ Lock Keeper'}
-                </button>
-              ` : `<span style="color:var(--text-muted); font-size:12px;">Ineligible</span>`}
-            </td>
+
           </tr>
         `;
       }).join("");
