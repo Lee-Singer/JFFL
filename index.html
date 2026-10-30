@@ -8534,7 +8534,7 @@
     // =========================================================================
     // 6. RENDER TAB 5: FAAB BIDDING TRACKER
     // =========================================================================
-    let currentPickupSortKey = "bid";
+    let currentPickupSortKey = "date";
     let currentPickupSortAsc = false;
 
     function sortPickupsTable(key) {
@@ -8574,8 +8574,15 @@
           va = a.owner.toLowerCase();
           vb = b.owner.toLowerCase();
         } else if (currentPickupSortKey === "date") {
-          va = a.wk || 0;
-          vb = b.wk || 0;
+          va = (a.date || "").substring(0, 10);
+          vb = (b.date || "").substring(0, 10);
+          if (va !== vb) {
+            return currentPickupSortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+          }
+          if (a.txId !== undefined && b.txId !== undefined && a.txId !== b.txId) {
+            return currentPickupSortAsc ? (a.txId - b.txId) : (b.txId - a.txId);
+          }
+          return (b.bid || 0) - (a.bid || 0);
         } else if (currentPickupSortKey === "type") {
           va = a.type;
           vb = b.type;
@@ -8602,12 +8609,16 @@
         }
 
         if (typeof va === "string") {
-          return currentPickupSortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
-        }
-        if (va !== vb) {
+          const cmp = currentPickupSortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+          if (cmp !== 0) return cmp;
+        } else if (va !== vb) {
           return currentPickupSortAsc ? va - vb : vb - va;
         }
-        return (b.wk || 0) - (a.wk || 0) || (b.bid || 0) - (a.bid || 0);
+        const dateA = (a.date || "").substring(0, 10);
+        const dateB = (b.date || "").substring(0, 10);
+        if (dateA !== dateB) return dateB.localeCompare(dateA);
+        if (a.txId !== undefined && b.txId !== undefined && a.txId !== b.txId) return b.txId - a.txId;
+        return (b.bid || 0) - (a.bid || 0);
       });
 
       const totalSpent = filtered.reduce((s, b) => s + (b.bid || 0), 0);
@@ -9409,6 +9420,8 @@
                 const bidVal = parseInt(c[7] && c[7].v ? c[7].v : 0, 10);
                 const safeBid = isNaN(bidVal) || bidVal < 0 ? 0 : bidVal;
                 const src = normKey(c[9] && c[9].v ? c[9].v : "");
+                const txIdVal = parseInt(c[10] && c[10].v ? c[10].v : 0, 10);
+                const txId = isNaN(txIdVal) ? 0 : txIdVal;
 
                 if (!pName) return;
 
@@ -9430,7 +9443,8 @@
                   teamName: resolvedTeam,
                   ownerName,
                   safeBid,
-                  src
+                  src,
+                  txId
                 });
               });
 
@@ -9498,6 +9512,7 @@
                     team: item.teamName,
                     date: item.dateStr || ("Wk " + item.wk),
                     wk: item.wk,
+                    txId: item.txId || 0,
                     bid: item.safeBid,
                     type: pickupType,
                     source: item.src || (item.safeBid > 0 ? "waivers" : "freeagents"),
