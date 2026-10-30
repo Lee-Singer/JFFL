@@ -767,13 +767,13 @@
         <div class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">📅 All-Play Records by Week (Weeks 1–7)</div>
+              <div class="card-title" id="weeklyAllPlayTitle">📅 All-Play Records by Week (Weeks 1–7)</div>
               <div class="card-subtitle">Weekly record against the entire 10-team field (9-0 = Weekly Top Scorer Prize 🏆)</div>
             </div>
           </div>
           <div class="table-wrap">
             <table>
-              <thead>
+              <thead id="weeklyAllPlayHead">
                 <tr>
                   <th>Owner</th>
                   <th class="center">Wk 1</th>
@@ -946,7 +946,7 @@
         </div>
         <div class="table-wrap">
           <table>
-            <thead>
+            <thead id="projMatrixHead">
               <tr>
                 <th>Owner</th>
                 <th class="num">Wk 1 (Proj → Act)</th>
@@ -7876,8 +7876,46 @@
     // =========================================================================
     // 2. FILTER STATE & HELPER FUNCTIONS
     // =========================================================================
+    let COMPLETED_WEEKS_COUNT = 7;
     let selectedWeeks = new Set([1, 2, 3, 4, 5, 6, 7]);
     let selectedPositions = new Set(["QB", "RB", "WR", "TE", "DST"]);
+
+    function updateCompletedWeeksUI(maxWk) {
+      COMPLETED_WEEKS_COUNT = maxWk;
+      const allWks = [];
+      for (let w = 1; w <= maxWk; w++) allWks.push(w);
+      selectedWeeks = new Set(allWks);
+
+      // Update weekPills container
+      const pillGroup = document.getElementById("weekPills");
+      if (pillGroup) {
+        const last3Start = Math.max(1, maxWk - 2);
+        let html = `<button class="pill-btn" onclick="setWeekPreset('all')">All (1–${maxWk})</button>`;
+        html += `<button class="pill-btn" onclick="setWeekPreset('last3')">Last 3 Wks (${last3Start}–${maxWk})</button>`;
+        allWks.forEach(w => {
+          html += `<button class="pill-btn active" data-week="${w}" onclick="toggleWeek(${w})">Wk ${w}</button>`;
+        });
+        pillGroup.innerHTML = html;
+      }
+
+      // Update projWeekFilter dropdown
+      const projFilter = document.getElementById("projWeekFilter");
+      if (projFilter) {
+        const prevVal = projFilter.value || "ALL";
+        let opts = `<option value="ALL">Cumulative Season (Weeks 1–${maxWk})</option>`;
+        allWks.forEach(w => {
+          opts += `<option value="${w}">Week ${w} Only</option>`;
+        });
+        projFilter.innerHTML = opts;
+        projFilter.value = (prevVal === "ALL" || parseInt(prevVal, 10) <= maxWk) ? prevVal : "ALL";
+      }
+
+      // Update Weekly All-Play Title
+      const apTitle = document.getElementById("weeklyAllPlayTitle");
+      if (apTitle) {
+        apTitle.textContent = `📅 All-Play Records by Week (Weeks 1–${maxWk})`;
+      }
+    }
     let currentSortKey = "total";
     let currentSortAsc = false;
 
@@ -7925,10 +7963,12 @@
     }
 
     function setWeekPreset(preset) {
+      const allWks = [];
+      for (let w = 1; w <= COMPLETED_WEEKS_COUNT; w++) allWks.push(w);
       if (preset === "all") {
-        selectedWeeks = new Set([1, 2, 3, 4, 5, 6, 7]);
+        selectedWeeks = new Set(allWks);
       } else if (preset === "last3") {
-        selectedWeeks = new Set([5, 6, 7]);
+        selectedWeeks = new Set(allWks.slice(-3));
       }
       syncWeekPills();
       refreshScoringViews();
@@ -8242,17 +8282,19 @@
       const tiebreaker = document.getElementById("tiebreakerSelect")?.value || "h2h";
 
       // 1. Compute each team's 2026 actual starter totals, mean, SD, weekly all-play, and max potential points
+      // Strictly filter to completed weeks only (<= COMPLETED_WEEKS_COUNT) so in-progress Thursday/Sunday games never skew stats!
       const statsMap = {};
       OWNERS.forEach(o => {
-        const wkScores = WEEKLY_DATA[o.id].map(w => {
+        const completedWkObjs = (WEEKLY_DATA[o.id] || []).filter(w => w.wk <= COMPLETED_WEEKS_COUNT);
+        const wkScores = completedWkObjs.map(w => {
           const s = w.starters;
           return s.QB + s.RB + s.WR + s.TE + s.DST;
         });
         const pf = wkScores.reduce((a, b) => a + b, 0);
-        const mean = pf / wkScores.length;
-        const variance = wkScores.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / wkScores.length;
+        const mean = wkScores.length > 0 ? pf / wkScores.length : 0;
+        const variance = wkScores.length > 0 ? wkScores.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / wkScores.length : 0;
         const sd = Math.max(Math.sqrt(variance), 8.5);
-        const maxPot = WEEKLY_DATA[o.id].reduce((acc, w) => acc + w.maxPot, 0);
+        const maxPot = completedWkObjs.reduce((acc, w) => acc + w.maxPot, 0);
 
         statsMap[o.id] = {
           ...o,
@@ -8271,14 +8313,14 @@
         };
       });
 
-      // 2. Calculate Weekly All-Play Records (Weeks 1-6) & Weekly Top-Scorer Prize Wins
-      for (let wk = 1; wk <= 7; wk++) {
+      // 2. Calculate Weekly All-Play Records & Weekly Top-Scorer Prize Wins across completed weeks
+      for (let wk = 1; wk <= COMPLETED_WEEKS_COUNT; wk++) {
         OWNERS.forEach(a => {
           let w = 0, l = 0;
-          const scoreA = statsMap[a.id].wkScores[wk - 1];
+          const scoreA = statsMap[a.id].wkScores[wk - 1] || 0;
           OWNERS.forEach(b => {
             if (a.id === b.id) return;
-            const scoreB = statsMap[b.id].wkScores[wk - 1];
+            const scoreB = statsMap[b.id].wkScores[wk - 1] || 0;
             if (scoreA > scoreB) w++;
             else l++;
           });
@@ -8289,7 +8331,7 @@
         });
       }
 
-      // 3. Run 10,000 Monte Carlo Simulations of Weeks 7-15 (Playoffs start Week 16, Top 4 make playoffs)
+      // 3. Run 10,000 Monte Carlo Simulations of Remaining Regular Season Weeks (Playoffs start Week 16, Top 4 make playoffs)
       const NUM_SIMS = 10000;
       for (let sim = 0; sim < NUM_SIMS; sim++) {
         const simTeams = {};
@@ -8302,7 +8344,7 @@
           };
         });
 
-        for (let wk = 8; wk <= 15; wk++) {
+        for (let wk = COMPLETED_WEEKS_COUNT + 1; wk <= 15; wk++) {
           const pairings = SCHEDULE_PAIRINGS[wk];
           pairings.forEach(([idA, idB]) => {
             const stA = statsMap[idA];
@@ -8429,13 +8471,27 @@
         </tr>
       `).join("");
 
-      // 2. Render Weekly All-Play Table (in seed order)
+      // 2. Render Weekly All-Play Table (in seed order) across 1..COMPLETED_WEEKS_COUNT
+      const completedWksArr = [];
+      for (let w = 1; w <= COMPLETED_WEEKS_COUNT; w++) completedWksArr.push(w);
+
+      const weeklyApHead = document.getElementById("weeklyAllPlayHead");
+      if (weeklyApHead) {
+        weeklyApHead.innerHTML = `
+          <tr>
+            <th>Owner</th>
+            ${completedWksArr.map(wk => `<th class="center">Wk ${wk}</th>`).join("")}
+            <th class="center">Total</th>
+          </tr>
+        `;
+      }
+
       const weeklyApBody = document.getElementById("weeklyAllPlayBody");
       weeklyApBody.innerHTML = rows.map(r => `
         <tr>
           <td><strong>${r.owner}</strong></td>
-          ${[1,2,3,4,5,6,7].map(wk => {
-            const rec = r.weeklyAllPlay[wk];
+          ${completedWksArr.map(wk => {
+            const rec = r.weeklyAllPlay[wk] || "—";
             const isTop = rec === "9-0";
             return `<td class="center" style="font-weight:${isTop ? '800' : '500'}; color:${isTop ? 'var(--amber)' : 'var(--text-primary)'}">${rec}${isTop ? ' 🏆' : ''}</td>`;
           }).join("")}
@@ -8657,12 +8713,16 @@
     function renderProjectionsTab() {
       const wkFilter = document.getElementById("projWeekFilter").value;
 
+      const completedWksArr = [];
+      for (let w = 1; w <= COMPLETED_WEEKS_COUNT; w++) completedWksArr.push(w);
+
       const summaryRows = OWNERS.map(o => {
-        const wks = WEEKLY_DATA[o.id].filter(w => wkFilter === "ALL" || w.wk === parseInt(wkFilter, 10));
+        const validWks = (WEEKLY_DATA[o.id] || []).filter(w => w.wk <= COMPLETED_WEEKS_COUNT);
+        const wks = validWks.filter(w => wkFilter === "ALL" || w.wk === parseInt(wkFilter, 10));
         let projSum = 0, actSum = 0, beatCount = 0;
         const wkDiffs = {};
 
-        WEEKLY_DATA[o.id].forEach(w => {
+        validWks.forEach(w => {
           const act = w.starters.QB + w.starters.RB + w.starters.WR + w.starters.TE + w.starters.DST;
           wkDiffs[w.wk] = { proj: w.proj, act, diff: act - w.proj };
         });
@@ -8724,9 +8784,20 @@
         `;
       }).join("");
 
+      const projMatrixHead = document.getElementById("projMatrixHead");
+      if (projMatrixHead) {
+        projMatrixHead.innerHTML = `
+          <tr>
+            <th>Owner</th>
+            ${completedWksArr.map(wk => `<th class="num">Wk ${wk} (Proj → Act)</th>`).join("")}
+            <th class="num">Season Diff</th>
+          </tr>
+        `;
+      }
+
       document.getElementById("projMatrixBody").innerHTML = summaryRows.map(r => {
-        const cells = [1,2,3,4,5,6,7].map(wk => {
-          const d = r.wkDiffs[wk];
+        const cells = completedWksArr.map(wk => {
+          const d = r.wkDiffs[wk] || { proj: 0, act: 0, diff: 0 };
           const sign = d.diff >= 0 ? "+" : "";
           const color = d.diff >= 0 ? "var(--emerald)" : "var(--rose)";
           return `<td class="num">
@@ -9104,9 +9175,12 @@
                 const proj = parseFloat(c[5] && c[5].v);
                 const resVal = (c[8] && c[8].v ? c[8].v : "").toString().trim().toUpperCase();
 
-                // A week is completed ONLY if actual game scores were posted (pts > 25 and result is W/L/T)
-                // This strictly prevents upcoming scheduled matchup rows (e.g. Weeks 8 and 9) from inflating the completed week count!
-                const isGameCompleted = !isNaN(wk) && !isNaN(pts) && pts > 25 && (resVal === "W" || resVal === "L" || resVal === "T" || pts > 40);
+                // A week is completed ONLY when Yahoo posts official final matchup results (Result is W, L, or T)
+                // AND the NFL fantasy week has officially concluded (Tuesday morning after Monday Night Football).
+                // This guarantees Thursday/Sunday in-progress scores NEVER leak into any table mid-week!
+                const wkEndTimestamp = new Date("2026-09-15T08:00:00Z").getTime() + (wk - 1) * 7 * 86400000;
+                const isWeekOfficiallyOver = Date.now() >= wkEndTimestamp;
+                const isGameCompleted = !isNaN(wk) && !isNaN(pts) && pts > 0 && (resVal === "W" || resVal === "L" || resVal === "T") && isWeekOfficiallyOver;
                 if (isGameCompleted && wk > maxCompletedWk) {
                   maxCompletedWk = wk;
                 }
@@ -9160,6 +9234,14 @@
       } catch (e) {
         console.warn("Weekly scores feed notice:", e);
       }
+
+      // Strictly prune any in-progress week (> maxCompletedWk) from WEEKLY_DATA and update UI controls
+      OWNERS.forEach(o => {
+        if (WEEKLY_DATA[o.id]) {
+          WEEKLY_DATA[o.id] = WEEKLY_DATA[o.id].filter(w => w.wk <= maxCompletedWk);
+        }
+      });
+      updateCompletedWeeksUI(maxCompletedWk);
 
       function round1(v) { return Math.round(v * 10) / 10; }
 
@@ -9221,6 +9303,7 @@
                 const c = r.c;
                 if (!c) return;
                 const wk = parseInt(c[0] && c[0].v, 10);
+                if (isNaN(wk) || wk > maxCompletedWk) return;
                 const matchupId = normStr(c[1] && c[1].v ? c[1].v : "");
                 const teamName = normStr(c[2] && c[2].v ? c[2].v : "");
                 const mgrName = normStr(c[3] && c[3].v ? c[3].v : "");
@@ -9857,6 +9940,7 @@
 
       refreshScoringViews();
       runMonteCarloSimulations();
+      renderProjectionsTab();
     }
 
   </script>
