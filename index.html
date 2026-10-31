@@ -7949,6 +7949,11 @@
         } else {
           sharedBar.style.display = "none";
         }
+
+        // Record tab view in private commissioner analytics
+        if (typeof recordAnalyticsTabClick === "function") {
+          recordAnalyticsTabClick(target);
+        }
       });
     });
 
@@ -9956,6 +9961,142 @@
       refreshScoringViews();
       runMonteCarloSimulations();
       renderProjectionsTab();
+
+      // 9. Initialize Silent Private Commissioner Analytics
+      initPrivateAnalytics();
+    }
+
+    // =========================================================================
+    // 11. SILENT COMMISSIONER ANALYTICS (LOGS TO GOOGLE SHEET `Site_Analytics`)
+    // =========================================================================
+    // Optional: You can paste your Apps Script Web App URL directly below, OR leave it blank
+    // and the site will automatically read it from the `Site_Config` tab of your Google Sheet!
+    let ANALYTICS_WEB_APP_URL = "";
+
+    const _jfflAnalytics = {
+      sid: "S-" + Date.now().toString(36) + "-" + Math.random().toString(36).substring(2, 7).toUpperCase(),
+      activeSec: 0,
+      lastTick: Date.now(),
+      clicks: 1,
+      tabs: ["Team Performance"],
+      initialized: false
+    };
+
+    const _tabNameMap = {
+      "tab-performance": "Team Performance",
+      "tab-scoring": "Season Scoring",
+      "tab-weekly": "Weekly Scoring",
+      "tab-projections": "Projections vs Actual",
+      "tab-faab": "Pickups",
+      "tab-trades": "Trades",
+      "tab-keepers": "Keepers",
+      "tab-history": "League History"
+    };
+
+    function getDeviceLabel() {
+      const ua = navigator.userAgent || "";
+      if (/iPhone/i.test(ua)) return "Mobile (iPhone)";
+      if (/iPad/i.test(ua)) return "Tablet (iPad)";
+      if (/Android/i.test(ua)) return "Mobile (Android)";
+      if (/Macintosh|Mac OS X/i.test(ua)) return "Desktop (Mac)";
+      if (/Windows/i.test(ua)) return "Desktop (Windows)";
+      return "Desktop";
+    }
+
+    function updateActiveDuration() {
+      const now = Date.now();
+      if (document.visibilityState !== "hidden") {
+        const delta = Math.round((now - _jfflAnalytics.lastTick) / 1000);
+        if (delta > 0 && delta < 300) {
+          _jfflAnalytics.activeSec += delta;
+        }
+      }
+      _jfflAnalytics.lastTick = now;
+    }
+
+    function sendAnalyticsPing() {
+      if (!ANALYTICS_WEB_APP_URL || !ANALYTICS_WEB_APP_URL.startsWith("https://script.google.com")) return;
+      updateActiveDuration();
+
+      const params = new URLSearchParams({
+        sid: _jfflAnalytics.sid,
+        dur: _jfflAnalytics.activeSec.toString(),
+        clicks: _jfflAnalytics.clicks.toString(),
+        tabs: _jfflAnalytics.tabs.join(" → "),
+        dev: getDeviceLabel(),
+        scr: window.innerWidth + "x" + window.innerHeight,
+        ref: document.referrer ? new URL(document.referrer).hostname : "Direct"
+      });
+
+      const pingUrl = ANALYTICS_WEB_APP_URL + (ANALYTICS_WEB_APP_URL.includes("?") ? "&" : "?") + params.toString();
+      try {
+        fetch(pingUrl, { mode: "no-cors", keepalive: true }).catch(() => {});
+      } catch (e) {}
+    }
+
+    function recordAnalyticsTabClick(tabId) {
+      updateActiveDuration();
+      _jfflAnalytics.clicks += 1;
+      const friendly = _tabNameMap[tabId] || tabId;
+      if (_jfflAnalytics.tabs[_jfflAnalytics.tabs.length - 1] !== friendly) {
+        _jfflAnalytics.tabs.push(friendly);
+      }
+      sendAnalyticsPing();
+    }
+
+    async function initPrivateAnalytics() {
+      if (_jfflAnalytics.initialized) return;
+      _jfflAnalytics.initialized = true;
+
+      // Auto-discover ANALYTICS_WEB_APP_URL from Google Sheet `Site_Config` tab if not hardcoded
+      if (!ANALYTICS_WEB_APP_URL && GOOGLE_SHEET_ID) {
+        try {
+          const urlCfg = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/gviz/tq?tqx=out:json&sheet=Site_Config&_t=" + Date.now();
+          const resCfg = await fetch(urlCfg);
+          if (resCfg.ok) {
+            const rawCfg = await resCfg.text();
+            const jStart = rawCfg.indexOf("{");
+            const jEnd = rawCfg.lastIndexOf("}");
+            if (jStart !== -1 && jEnd !== -1) {
+              const dataCfg = JSON.parse(rawCfg.substring(jStart, jEnd + 1));
+              const rowsCfg = dataCfg.table && dataCfg.table.rows;
+              if (rowsCfg) {
+                rowsCfg.forEach(r => {
+                  const k = (r.c && r.c[0] && r.c[0].v ? r.c[0].v : "").toString().trim();
+                  const v = (r.c && r.c[1] && r.c[1].v ? r.c[1].v : "").toString().trim();
+                  if (k === "ANALYTICS_WEB_APP_URL" && v.startsWith("https://script.google.com")) {
+                    ANALYTICS_WEB_APP_URL = v;
+                  }
+                });
+              }
+            }
+          }
+        } catch (e) {}
+      }
+
+      if (!ANALYTICS_WEB_APP_URL) return;
+
+      // 1. Send initial visit ping after 2 seconds
+      setTimeout(sendAnalyticsPing, 2000);
+
+      // 2. Heartbeat timer: update active time every 15 seconds while tab is visible
+      setInterval(() => {
+        if (document.visibilityState !== "hidden") {
+          sendAnalyticsPing();
+        } else {
+          _jfflAnalytics.lastTick = Date.now();
+        }
+      }, 15000);
+
+      // 3. Flush latest duration when user switches away or closes tab on mobile/desktop
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "hidden") {
+          sendAnalyticsPing();
+        } else {
+          _jfflAnalytics.lastTick = Date.now();
+        }
+      });
+      window.addEventListener("pagehide", sendAnalyticsPing);
     }
 
   </script>
