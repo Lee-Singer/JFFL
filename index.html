@@ -9971,7 +9971,7 @@
     // =========================================================================
     // Optional: You can paste your Apps Script Web App URL directly below, OR leave it blank
     // and the site will automatically read it from the `Site_Config` tab of your Google Sheet!
-    let ANALYTICS_WEB_APP_URL = "";
+    let ANALYTICS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyZloQOYekE9TtacBDR0qWJqYNzJrFAI1F693DCCe76V0ZUdO9rmC57M4pZ4St1JvAXZQ/exec";
 
     const _jfflAnalytics = {
       sid: "S-" + Date.now().toString(36) + "-" + Math.random().toString(36).substring(2, 7).toUpperCase(),
@@ -10028,10 +10028,18 @@
         ref: document.referrer ? new URL(document.referrer).hostname : "Direct"
       });
 
-      const pingUrl = ANALYTICS_WEB_APP_URL + (ANALYTICS_WEB_APP_URL.includes("?") ? "&" : "?") + params.toString();
+      const pingUrl = ANALYTICS_WEB_APP_URL + (ANALYTICS_WEB_APP_URL.includes("?") ? "&" : "?") + params.toString() + "&_t=" + Date.now();
       try {
-        fetch(pingUrl, { mode: "no-cors", keepalive: true }).catch(() => {});
-      } catch (e) {}
+        fetch(pingUrl, { mode: "no-cors", keepalive: true, credentials: "omit" }).catch(() => {
+          const img = new Image();
+          img.src = pingUrl;
+        });
+      } catch (e) {
+        try {
+          const img = new Image();
+          img.src = pingUrl;
+        } catch (err) {}
+      }
     }
 
     function recordAnalyticsTabClick(tabId) {
@@ -10048,27 +10056,16 @@
       if (_jfflAnalytics.initialized) return;
       _jfflAnalytics.initialized = true;
 
-      // Auto-discover ANALYTICS_WEB_APP_URL from Google Sheet `Site_Config` tab if not hardcoded
-      if (!ANALYTICS_WEB_APP_URL && GOOGLE_SHEET_ID) {
+      // Auto-discover ANALYTICS_WEB_APP_URL from Google Sheet `Site_Config` tab if updated
+      if (GOOGLE_SHEET_ID) {
         try {
           const urlCfg = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/gviz/tq?tqx=out:json&sheet=Site_Config&_t=" + Date.now();
           const resCfg = await fetch(urlCfg);
           if (resCfg.ok) {
             const rawCfg = await resCfg.text();
-            const jStart = rawCfg.indexOf("{");
-            const jEnd = rawCfg.lastIndexOf("}");
-            if (jStart !== -1 && jEnd !== -1) {
-              const dataCfg = JSON.parse(rawCfg.substring(jStart, jEnd + 1));
-              const rowsCfg = dataCfg.table && dataCfg.table.rows;
-              if (rowsCfg) {
-                rowsCfg.forEach(r => {
-                  const k = (r.c && r.c[0] && r.c[0].v ? r.c[0].v : "").toString().trim();
-                  const v = (r.c && r.c[1] && r.c[1].v ? r.c[1].v : "").toString().trim();
-                  if (k === "ANALYTICS_WEB_APP_URL" && v.startsWith("https://script.google.com")) {
-                    ANALYTICS_WEB_APP_URL = v;
-                  }
-                });
-              }
+            const mUrl = rawCfg.match(/https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec/);
+            if (mUrl && mUrl[0]) {
+              ANALYTICS_WEB_APP_URL = mUrl[0];
             }
           }
         } catch (e) {}
