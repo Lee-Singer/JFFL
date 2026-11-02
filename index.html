@@ -9103,6 +9103,7 @@
     window.addEventListener("DOMContentLoaded", () => {
       initDropdowns();
       refreshScoringViews();
+      initPrivateAnalytics();
       fetchLiveGoogleSheetData();
       renderHistoryTab();
       runMonteCarloSimulations();
@@ -9967,14 +9968,16 @@
     }
 
     // =========================================================================
-    // 11. SILENT COMMISSIONER ANALYTICS (LOGS TO GOOGLE SHEET `Site_Analytics`)
+    // 11. SILENT COMMISSIONER ANALYTICS (GOOGLE FORM + IP/LOCATION BEACON)
     // =========================================================================
-    // Optional: You can paste your Apps Script Web App URL directly below, OR leave it blank
-    // and the site will automatically read it from the `Site_Config` tab of your Google Sheet!
-    let ANALYTICS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyZloQOYekE9TtacBDR0qWJqYNzJrFAI1F693DCCe76V0ZUdO9rmC57M4pZ4St1JvAXZQ/exec";
+    // Automatically discovers the Google Form endpoint & entry IDs from `Site_Config`
+    // in your Google Sheet and logs every visit's IP, City/State, Time Spent, and Tab Trail!
+    let ANALYTICS_FORM_CONFIG = null;
 
     const _jfflAnalytics = {
-      sid: "S-" + Date.now().toString(36) + "-" + Math.random().toString(36).substring(2, 7).toUpperCase(),
+      sid: "S-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase(),
+      ip: "Detecting...",
+      loc: "Detecting...",
       activeSec: 0,
       lastTick: Date.now(),
       clicks: 1,
@@ -10003,6 +10006,39 @@
       return "Desktop";
     }
 
+    async function fetchVisitorGeoInfo() {
+      // Try ipapi.co first (HTTPS, free, returns city, region, ip)
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        if (res.ok) {
+          const d = await res.json();
+          if (d && d.ip) {
+            _jfflAnalytics.ip = d.ip;
+            const city = d.city || "";
+            const region = d.region_code || d.region || "";
+            const country = d.country_code || "";
+            _jfflAnalytics.loc = [city, region].filter(Boolean).join(", ") || country || "Unknown";
+            return;
+          }
+        }
+      } catch (e) {}
+
+      // Fallback: ipwho.is (HTTPS, free, no API key required)
+      try {
+        const res2 = await fetch("https://ipwho.is/");
+        if (res2.ok) {
+          const d2 = await res2.json();
+          if (d2 && d2.ip) {
+            _jfflAnalytics.ip = d2.ip;
+            const city = d2.city || "";
+            const region = d2.region_code || d2.region || "";
+            _jfflAnalytics.loc = [city, region].filter(Boolean).join(", ") || d2.country_code || "Unknown";
+            return;
+          }
+        }
+      } catch (e) {}
+    }
+
     function updateActiveDuration() {
       const now = Date.now();
       if (document.visibilityState !== "hidden") {
@@ -10014,32 +10050,38 @@
       _jfflAnalytics.lastTick = now;
     }
 
-    function sendAnalyticsPing() {
-      if (!ANALYTICS_WEB_APP_URL || !ANALYTICS_WEB_APP_URL.startsWith("https://script.google.com")) return;
+    function sendAnalyticsPing(isUnload) {
+      if (!ANALYTICS_FORM_CONFIG || !ANALYTICS_FORM_CONFIG.url || !ANALYTICS_FORM_CONFIG.entries) return;
       updateActiveDuration();
 
-      const params = new URLSearchParams({
-        sid: _jfflAnalytics.sid,
-        dur: _jfflAnalytics.activeSec.toString(),
-        clicks: _jfflAnalytics.clicks.toString(),
-        tabs: _jfflAnalytics.tabs.join(" → "),
-        dev: getDeviceLabel(),
-        scr: window.innerWidth + "x" + window.innerHeight,
-        ref: document.referrer ? new URL(document.referrer).hostname : "Direct"
-      });
+      const ent = ANALYTICS_FORM_CONFIG.entries;
+      const formData = new URLSearchParams();
+      formData.append(ent.sid, _jfflAnalytics.sid);
+      formData.append(ent.ip, _jfflAnalytics.ip || "Unknown");
+      formData.append(ent.loc, _jfflAnalytics.loc || "Unknown");
+      formData.append(ent.dur, _jfflAnalytics.activeSec.toString());
+      formData.append(ent.clicks, _jfflAnalytics.clicks.toString());
+      formData.append(ent.tabs, _jfflAnalytics.tabs.join(" -> "));
+      formData.append(ent.dev, getDeviceLabel());
+      formData.append(ent.scr, window.innerWidth + "x" + window.innerHeight);
+      formData.append(ent.ref, document.referrer ? (function(){ try { return new URL(document.referrer).hostname; } catch(e){ return "Direct"; } })() : "Direct");
 
-      const pingUrl = ANALYTICS_WEB_APP_URL + (ANALYTICS_WEB_APP_URL.includes("?") ? "&" : "?") + params.toString() + "&_t=" + Date.now();
-      try {
-        fetch(pingUrl, { mode: "no-cors", keepalive: true, credentials: "omit" }).catch(() => {
-          const img = new Image();
-          img.src = pingUrl;
-        });
-      } catch (e) {
+      if (isUnload && navigator.sendBeacon) {
         try {
-          const img = new Image();
-          img.src = pingUrl;
-        } catch (err) {}
+          navigator.sendBeacon(ANALYTICS_FORM_CONFIG.url, formData);
+          return;
+        } catch (e) {}
       }
+
+      try {
+        fetch(ANALYTICS_FORM_CONFIG.url, {
+          method: "POST",
+          mode: "no-cors",
+          keepalive: true,
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: formData.toString()
+        }).catch(() => {});
+      } catch (e) {}
     }
 
     function recordAnalyticsTabClick(tabId) {
@@ -10049,51 +10091,66 @@
       if (_jfflAnalytics.tabs[_jfflAnalytics.tabs.length - 1] !== friendly) {
         _jfflAnalytics.tabs.push(friendly);
       }
-      sendAnalyticsPing();
+      sendAnalyticsPing(false);
     }
 
     async function initPrivateAnalytics() {
       if (_jfflAnalytics.initialized) return;
       _jfflAnalytics.initialized = true;
 
-      // Auto-discover ANALYTICS_WEB_APP_URL from Google Sheet `Site_Config` tab if updated
+      // 1. Start IP & Location lookup in parallel with Site_Config fetch
+      const geoPromise = fetchVisitorGeoInfo();
+
       if (GOOGLE_SHEET_ID) {
         try {
           const urlCfg = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/gviz/tq?tqx=out:json&sheet=Site_Config&_t=" + Date.now();
           const resCfg = await fetch(urlCfg);
           if (resCfg.ok) {
             const rawCfg = await resCfg.text();
-            const mUrl = rawCfg.match(/https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec/);
-            if (mUrl && mUrl[0]) {
-              ANALYTICS_WEB_APP_URL = mUrl[0];
+            const jStart = rawCfg.indexOf("{");
+            const jEnd = rawCfg.lastIndexOf("}");
+            if (jStart !== -1 && jEnd !== -1) {
+              const dataCfg = JSON.parse(rawCfg.substring(jStart, jEnd + 1));
+              const rowsCfg = (dataCfg.table && dataCfg.table.rows) || [];
+              rowsCfg.forEach(r => {
+                const k = (r.c && r.c[0] && r.c[0].v ? r.c[0].v : "").toString().trim();
+                const v = (r.c && r.c[1] && r.c[1].v ? r.c[1].v : "").toString().trim();
+                if (k === "ANALYTICS_FORM_CONFIG" && v.startsWith("{")) {
+                  try {
+                    ANALYTICS_FORM_CONFIG = JSON.parse(v);
+                  } catch (e) {}
+                }
+              });
             }
           }
         } catch (e) {}
       }
 
-      if (!ANALYTICS_WEB_APP_URL) return;
+      await geoPromise;
 
-      // 1. Send initial visit ping after 2 seconds
-      setTimeout(sendAnalyticsPing, 2000);
+      if (!ANALYTICS_FORM_CONFIG) return;
 
-      // 2. Heartbeat timer: update active time every 15 seconds while tab is visible
+      // 2. Send initial visit ping immediately once Geo + Form config are ready
+      sendAnalyticsPing(false);
+
+      // 3. Heartbeat timer: update active time every 30 seconds while tab is visible
       setInterval(() => {
         if (document.visibilityState !== "hidden") {
-          sendAnalyticsPing();
+          sendAnalyticsPing(false);
         } else {
           _jfflAnalytics.lastTick = Date.now();
         }
-      }, 15000);
+      }, 30000);
 
-      // 3. Flush latest duration when user switches away or closes tab on mobile/desktop
+      // 4. Flush latest duration when user switches away or closes tab on mobile/desktop
       document.addEventListener("visibilitychange", () => {
         if (document.visibilityState === "hidden") {
-          sendAnalyticsPing();
+          sendAnalyticsPing(true);
         } else {
           _jfflAnalytics.lastTick = Date.now();
         }
       });
-      window.addEventListener("pagehide", sendAnalyticsPing);
+      window.addEventListener("pagehide", () => sendAnalyticsPing(true));
     }
 
   </script>
