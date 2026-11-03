@@ -1268,17 +1268,137 @@
     // 1. REALISTIC 10-TEAM JFFL DATASET (0.5 PPR, Superflex, 6 Weeks Played)
     // =========================================================================
     const OWNERS = [
-      { id: "T3", owner: "Jonathan Paull", team: "Jonny Woo Jew", wins: 5, losses: 2, pfLive: 980.26, paLive: 908.14, streak: "Win 4", waiver: 9, faabLeft: 89, h2hTiebreak: 18 },
-      { id: "T1", owner: "Lee Singer", team: "The Slithering Eels", wins: 5, losses: 2, pfLive: 921.02, paLive: 840.16, streak: "Loss 1", waiver: 7, faabLeft: 88, h2hTiebreak: 17 },
-      { id: "T2", owner: "Brandon Pevnick", team: "Brandon's Dynasty", wins: 4, losses: 3, pfLive: 987.64, paLive: 885.98, streak: "Loss 2", waiver: 6, faabLeft: 83, h2hTiebreak: 15 },
-      { id: "T6", owner: "Adam Paull", team: "Stan Kroenke's Toupee", wins: 4, losses: 3, pfLive: 916.58, paLive: 804.62, streak: "Win 2", waiver: 3, faabLeft: 54, h2hTiebreak: 14 },
-      { id: "T4", owner: "Scott Rosen", team: "Badgerers", wins: 4, losses: 3, pfLive: 904.60, paLive: 862.54, streak: "Loss 1", waiver: 1, faabLeft: 100, h2hTiebreak: 13 },
-      { id: "T5", owner: "Chad Persky", team: "Jahmyracle Workers", wins: 3, losses: 4, pfLive: 911.26, paLive: 983.46, streak: "Loss 4", waiver: 8, faabLeft: 84, h2hTiebreak: 11 },
-      { id: "T7", owner: "Reuben Posner", team: "The Poe-rental Units", wins: 3, losses: 4, pfLive: 890.44, paLive: 890.52, streak: "Win 2", waiver: 2, faabLeft: 79, h2hTiebreak: 10 },
-      { id: "T8", owner: "Jonah Goldfinger", team: "MartiniShot", wins: 3, losses: 4, pfLive: 843.60, paLive: 933.46, streak: "Win 1", waiver: 10, faabLeft: 65, h2hTiebreak: 9 },
-      { id: "T10", owner: "Keith Green", team: "The Machine", wins: 2, losses: 5, pfLive: 831.10, paLive: 898.22, streak: "Win 1", waiver: 4, faabLeft: 16, h2hTiebreak: 7 },
-      { id: "T9", owner: "Andy Babitz", team: "Babby's Bashers", wins: 2, losses: 5, pfLive: 763.92, paLive: 943.32, streak: "Loss 2", waiver: 5, faabLeft: 85, h2hTiebreak: 6 }
-    ];
+      {
+            "id": "T2",
+            "owner": "Brandon Pevnick",
+            "team": "Brandon's Dynasty",
+            "wins": 5,
+            "losses": 3,
+            "pfLive": 1135.28,
+            "paLive": 1004.06,
+            "streak": "Win 1",
+            "waiver": 6,
+            "faabLeft": 83,
+            "h2hTiebreak": 20
+      },
+      {
+            "id": "T3",
+            "owner": "Jonathan Paull",
+            "team": "Jonny Woo Jew",
+            "wins": 5,
+            "losses": 3,
+            "pfLive": 1098.34,
+            "paLive": 1055.78,
+            "streak": "Loss 1",
+            "waiver": 9,
+            "faabLeft": 89,
+            "h2hTiebreak": 19
+      },
+      {
+            "id": "T6",
+            "owner": "Adam Paull",
+            "team": "Stan Kroenke's Toupee",
+            "wins": 5,
+            "losses": 3,
+            "pfLive": 1085.52,
+            "paLive": 972.92,
+            "streak": "Win 3",
+            "waiver": 3,
+            "faabLeft": 54,
+            "h2hTiebreak": 18
+      },
+      {
+            "id": "T1",
+            "owner": "Lee Singer",
+            "team": "The Slithering Eels",
+            "wins": 5,
+            "losses": 3,
+            "pfLive": 1023.84,
+            "paLive": 1010.44,
+            "streak": "Loss 2",
+            "waiver": 7,
+            "faabLeft": 88,
+            "h2hTiebreak": 17
+      },
+      {
+            "id": "T5",
+            "owner": "Chad Persky",
+            "team": "Jahmyracle Workers",
+            "wins": 4,
+            "losses": 4,
+            "pfLive": 1048.16,
+            "paLive": 1070.84,
+            "streak": "Win 1",
+            "waiver": 8,
+            "faabLeft": 82,
+            "h2hTiebreak": 15
+      },
+      {
+            "id": "T4",
+            "owner": "Scott Rosen",
+            "team": "Badgerers",
+            "wins": 4,
+            "losses": 4,
+            "pfLive": 1002.88,
+            "paLive": 992.78,
+            "streak": "Loss 2",
+            "waiver": 1,
+            "faabLeft": 100,
+            "h2hTiebreak": 14
+      },
+      {
+            "id": "T8",
+            "owner": "Jonah Goldfinger",
+            "team": "MartiniShot",
+            "wins": 4,
+            "losses": 4,
+            "pfLive": 973.84,
+            "paLive": 1031.74,
+            "streak": "Win 2",
+            "waiver": 10,
+            "faabLeft": 65,
+            "h2hTiebreak": 13
+      },
+      {
+            "id": "T7",
+            "owner": "Reuben Posner",
+            "team": "The Poe-rental Units",
+            "wins": 3,
+            "losses": 5,
+            "pfLive": 1058.74,
+            "paLive": 1059.46,
+            "streak": "Loss 1",
+            "waiver": 2,
+            "faabLeft": 79,
+            "h2hTiebreak": 11
+      },
+      {
+            "id": "T10",
+            "owner": "Keith Green",
+            "team": "The Machine",
+            "wins": 3,
+            "losses": 5,
+            "pfLive": 1001.38,
+            "paLive": 1001.04,
+            "streak": "Win 2",
+            "waiver": 4,
+            "faabLeft": 16,
+            "h2hTiebreak": 10
+      },
+      {
+            "id": "T9",
+            "owner": "Andy Babitz",
+            "team": "Babby's Bashers",
+            "wins": 2,
+            "losses": 6,
+            "pfLive": 851.3,
+            "paLive": 1080.22,
+            "streak": "Loss 3",
+            "waiver": 5,
+            "faabLeft": 85,
+            "h2hTiebreak": 8
+      }
+];
 
     // Weekly schedule (Weeks 1 to 15; Weeks 1-6 have actual scores, 7-15 are upcoming for Monte Carlo)
     const SCHEDULE_PAIRINGS = {
@@ -1771,6 +1891,28 @@
                 "DST": 0.0
             },
             "ir": 0.0
+        },
+        {
+            "wk": 8,
+            "tot": 102.82,
+            "opp": "T10",
+            "proj": 130.0,
+            "maxPot": 105.22,
+            "starters": {
+                "QB": 25.42,
+                "RB": 31.3,
+                "WR": 27.8,
+                "TE": 14.3,
+                "DST": 4.0
+            },
+            "bench": {
+                "QB": 0.0,
+                "RB": 0.0,
+                "WR": 5.5,
+                "TE": 0.0,
+                "DST": 0.0
+            },
+            "ir": 0.0
         }
     ],
     "T2": [
@@ -1925,6 +2067,28 @@
                 "WR": 0.0,
                 "TE": 0.0,
                 "DST": 8.0
+            },
+            "ir": 0.0
+        },
+        {
+            "wk": 8,
+            "tot": 147.64,
+            "opp": "T3",
+            "proj": 131.0,
+            "maxPot": 147.64,
+            "starters": {
+                "QB": 41.54,
+                "RB": 70.8,
+                "WR": 11.3,
+                "TE": 5.0,
+                "DST": 19.0
+            },
+            "bench": {
+                "QB": 16.62,
+                "RB": 0.0,
+                "WR": 0.0,
+                "TE": 0.0,
+                "DST": 0.0
             },
             "ir": 0.0
         }
@@ -2083,6 +2247,28 @@
                 "DST": 0.0
             },
             "ir": 0.0
+        },
+        {
+            "wk": 8,
+            "tot": 118.08,
+            "opp": "T2",
+            "proj": 139.53,
+            "maxPot": 129.68,
+            "starters": {
+                "QB": 35.38,
+                "RB": 28.7,
+                "WR": 46.8,
+                "TE": 5.2,
+                "DST": 2.0
+            },
+            "bench": {
+                "QB": 11.36,
+                "RB": 4.9,
+                "WR": 17.3,
+                "TE": 3.8,
+                "DST": 0.0
+            },
+            "ir": 0.0
         }
     ],
     "T4": [
@@ -2235,6 +2421,28 @@
                 "QB": 14.98,
                 "RB": 11.6,
                 "WR": 3.8,
+                "TE": 0.0,
+                "DST": 0.0
+            },
+            "ir": 0.0
+        },
+        {
+            "wk": 8,
+            "tot": 98.28,
+            "opp": "T8",
+            "proj": 118.43,
+            "maxPot": 120.96,
+            "starters": {
+                "QB": 35.48,
+                "RB": 20.4,
+                "WR": 31.4,
+                "TE": 9.0,
+                "DST": 2.0
+            },
+            "bench": {
+                "QB": 18.52,
+                "RB": 3.8,
+                "WR": 15.1,
                 "TE": 0.0,
                 "DST": 0.0
             },
@@ -2395,6 +2603,28 @@
                 "DST": 0.0
             },
             "ir": 0.0
+        },
+        {
+            "wk": 8,
+            "tot": 136.9,
+            "opp": "T9",
+            "proj": 142.31,
+            "maxPot": 152.6,
+            "starters": {
+                "QB": 38.8,
+                "RB": 35.7,
+                "WR": 41.7,
+                "TE": 16.7,
+                "DST": 4.0
+            },
+            "bench": {
+                "QB": 0.0,
+                "RB": 5.1,
+                "WR": 0.0,
+                "TE": 16.6,
+                "DST": 0.0
+            },
+            "ir": 4.7
         }
     ],
     "T6": [
@@ -2551,6 +2781,28 @@
                 "DST": 3.0
             },
             "ir": 5.0
+        },
+        {
+            "wk": 8,
+            "tot": 168.94,
+            "opp": "T7",
+            "proj": 133.47,
+            "maxPot": 171.64,
+            "starters": {
+                "QB": 64.94,
+                "RB": 51.8,
+                "WR": 35.0,
+                "TE": 9.2,
+                "DST": 8.0
+            },
+            "bench": {
+                "QB": 2.1,
+                "RB": 0.0,
+                "WR": 7.9,
+                "TE": 0.0,
+                "DST": 0.0
+            },
+            "ir": 0.0
         }
     ],
     "T7": [
@@ -2703,6 +2955,28 @@
                 "QB": 6.66,
                 "RB": 4.8,
                 "WR": 20.3,
+                "TE": 0.0,
+                "DST": 0.0
+            },
+            "ir": 0.0
+        },
+        {
+            "wk": 8,
+            "tot": 168.3,
+            "opp": "T6",
+            "proj": 141.41,
+            "maxPot": 174.3,
+            "starters": {
+                "QB": 31.8,
+                "RB": 40.0,
+                "WR": 51.8,
+                "TE": 24.7,
+                "DST": 20.0
+            },
+            "bench": {
+                "QB": 1.4,
+                "RB": 4.4,
+                "WR": 22.8,
                 "TE": 0.0,
                 "DST": 0.0
             },
@@ -2863,6 +3137,28 @@
                 "DST": 0.0
             },
             "ir": 0.0
+        },
+        {
+            "wk": 8,
+            "tot": 130.24,
+            "opp": "T4",
+            "proj": 120.97,
+            "maxPot": 153.44,
+            "starters": {
+                "QB": 55.44,
+                "RB": 44.1,
+                "WR": 22.1,
+                "TE": 1.6,
+                "DST": 7.0
+            },
+            "bench": {
+                "QB": 0.0,
+                "RB": 16.9,
+                "WR": 11.3,
+                "TE": 0.0,
+                "DST": 0.0
+            },
+            "ir": 0.0
         }
     ],
     "T9": [
@@ -3019,6 +3315,28 @@
                 "DST": 0.0
             },
             "ir": 0.0
+        },
+        {
+            "wk": 8,
+            "tot": 87.38,
+            "opp": "T5",
+            "proj": 75.85,
+            "maxPot": 104.18,
+            "starters": {
+                "QB": 5.88,
+                "RB": 5.0,
+                "WR": 49.7,
+                "TE": 13.8,
+                "DST": 13.0
+            },
+            "bench": {
+                "QB": 0.0,
+                "RB": 14.0,
+                "WR": 2.8,
+                "TE": 0.0,
+                "DST": 0.0
+            },
+            "ir": 0.0
         }
     ],
     "T10": [
@@ -3171,6 +3489,28 @@
                 "QB": 11.54,
                 "RB": 9.7,
                 "WR": 4.7,
+                "TE": 0.0,
+                "DST": 0.0
+            },
+            "ir": 0.0
+        },
+        {
+            "wk": 8,
+            "tot": 170.28,
+            "opp": "T1",
+            "proj": 141.51,
+            "maxPot": 170.28,
+            "starters": {
+                "QB": 40.18,
+                "RB": 69.4,
+                "WR": 31.3,
+                "TE": 19.4,
+                "DST": 10.0
+            },
+            "bench": {
+                "QB": 8.98,
+                "RB": 4.3,
+                "WR": 0.0,
                 "TE": 0.0,
                 "DST": 0.0
             },
@@ -7876,8 +8216,8 @@
     // =========================================================================
     // 2. FILTER STATE & HELPER FUNCTIONS
     // =========================================================================
-    let COMPLETED_WEEKS_COUNT = 7;
-    let selectedWeeks = new Set([1, 2, 3, 4, 5, 6, 7]);
+    let COMPLETED_WEEKS_COUNT = 8;
+    let selectedWeeks = new Set([1, 2, 3, 4, 5, 6, 7, 8]);
     let selectedPositions = new Set(["QB", "RB", "WR", "TE", "DST"]);
 
     function updateCompletedWeeksUI(maxWk) {
@@ -8370,7 +8710,7 @@
 
         const standings = Object.values(simTeams).sort((a, b) => {
           if (b.wins !== a.wins) return b.wins - a.wins;
-          return tiebreaker === "pf" ? (b.pf - a.pf) : (b.h2hMetric - a.h2hMetric);
+          return b.pf - a.pf;
         });
 
         standings.forEach((t, idx) => {
@@ -8380,10 +8720,10 @@
         });
       }
 
-      // 4. Pre-compute seed rank and simulation metrics for each team
+      // 4. Pre-compute seed rank and simulation metrics for each team (Sorted by Best Record, then Points For to match Yahoo)
       const baseSorted = Object.values(statsMap).sort((a, b) => {
         if (b.wins !== a.wins) return b.wins - a.wins;
-        return tiebreaker === "pf" ? (b.pf - a.pf) : (b.h2hTiebreak - a.h2hTiebreak);
+        return b.pf - a.pf;
       });
 
       baseSorted.forEach((r, idx) => {
@@ -9102,6 +9442,7 @@
     // Initialize all 8 tabs on load
     window.addEventListener("DOMContentLoaded", () => {
       initDropdowns();
+      updateCompletedWeeksUI(COMPLETED_WEEKS_COUNT);
       refreshScoringViews();
       initPrivateAnalytics();
       fetchLiveGoogleSheetData();
@@ -9170,7 +9511,7 @@
       }
 
       // 2. Fetch Live Weekly Matchup Scores if Yahoo_2026_Weekly_Scores tab exists in Google Sheet
-      let maxCompletedWk = 7;
+      let maxCompletedWk = 8;
       try {
         const urlWeekly = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/gviz/tq?tqx=out:json&sheet=Yahoo_2026_Weekly_Scores&_t=" + Date.now();
         const resWeekly = await fetch(urlWeekly);
@@ -9374,6 +9715,69 @@
         }
       } catch (e) {
         console.warn("Player weekly box scores feed notice:", e);
+      }
+
+      // Dynamically update WEEKLY_DATA positional breakdowns and Superflex optimal lineups (maxPot) from live player box scores
+      if (playerWeeklyList.length > 0) {
+        const byTeamWk = new Map();
+        playerWeeklyList.forEach(rec => {
+          if (rec.wk > maxCompletedWk) return;
+          const target = OWNERS.find(o =>
+            normKey(o.team) === normKey(rec.teamName) ||
+            normKey(o.owner).includes(normKey(rec.mgrName)) ||
+            normKey(rec.teamName).includes(normKey(o.team))
+          );
+          if (!target) return;
+          const k = target.id + "_" + rec.wk;
+          if (!byTeamWk.has(k)) byTeamWk.set(k, { tid: target.id, wk: rec.wk, list: [] });
+          byTeamWk.get(k).list.push(rec);
+        });
+
+        byTeamWk.forEach(group => {
+          const wkArr = WEEKLY_DATA[group.tid];
+          if (!wkArr) return;
+          const wkObj = wkArr.find(w => w.wk === group.wk);
+          if (!wkObj) return;
+
+          const st = { QB: 0, RB: 0, WR: 0, TE: 0, DST: 0 };
+          const bn = { QB: 0, RB: 0, WR: 0, TE: 0, DST: 0 };
+          let irPts = 0;
+
+          const eligible = [];
+          group.list.forEach(p => {
+            const pNorm = (p.pos === "DEF" || p.pos === "DST") ? "DST" : (st[p.pos] !== undefined ? p.pos : "WR");
+            if (p.isStarter) {
+              st[pNorm] = round1(st[pNorm] + p.pts);
+            } else if (p.slot === "IR") {
+              irPts = round1(irPts + p.pts);
+            } else {
+              bn[pNorm] = round1(bn[pNorm] + p.pts);
+            }
+            if (p.slot !== "IR") {
+              eligible.push({ pos: pNorm, pts: p.pts });
+            }
+          });
+
+          const qbs = eligible.filter(x => x.pos === "QB").map(x => x.pts).sort((a,b) => b - a);
+          const rbs = eligible.filter(x => x.pos === "RB").map(x => x.pts).sort((a,b) => b - a);
+          const wrs = eligible.filter(x => x.pos === "WR").map(x => x.pts).sort((a,b) => b - a);
+          const tes = eligible.filter(x => x.pos === "TE").map(x => x.pts).sort((a,b) => b - a);
+          const dsts = eligible.filter(x => x.pos === "DST").map(x => x.pts).sort((a,b) => b - a);
+
+          let opt = (qbs[0] || 0) + (rbs[0] || 0) + (rbs[1] || 0) + (wrs[0] || 0) + (wrs[1] || 0) + (tes[0] || 0) + (dsts[0] || 0);
+          const remFlex = [...rbs.slice(2), ...wrs.slice(2), ...tes.slice(1)].sort((a,b) => b - a);
+          opt += (remFlex[0] || 0) + (remFlex[1] || 0);
+          const remSflx = [...qbs.slice(1), ...remFlex.slice(2)].sort((a,b) => b - a);
+          opt += (remSflx[0] || 0);
+
+          const stSum = round1(st.QB + st.RB + st.WR + st.TE + st.DST);
+          if (stSum > 0) {
+            wkObj.starters = st;
+            wkObj.bench = bn;
+            wkObj.ir = irPts;
+            wkObj.maxPot = Math.max(round1(opt), stSum);
+          }
+        });
       }
 
       // Expose globally for both current pickups calculations and the upcoming Player Scoring tab
